@@ -1,15 +1,20 @@
 import React, { useState } from 'react'
 import { Button, Grid, TextField } from '@mui/material'
-import { createUserFb } from '../store/slices/auth'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../firebase'
+import { startLogin, finishLogin } from '../store/slices/auth';
 
 const FormRegister = () => {
 
     const dispath = useDispatch()
+    const navigate = useNavigate()
     
     /* ************************************************************** */
     /* Refactor futuro hacer validacion con redux forms */
     const [userLog, setUserLog] = useState({email : '', password : ''})
+    const [error, setError] = useState('')
 
     const onChangeHandler = e => {
         setUserLog({...userLog, [e.target.name] : e.target.value})
@@ -18,13 +23,27 @@ const FormRegister = () => {
 
     const onSubmitHandler = e => {
         e.preventDefault()
-        dispath(createUserFb(userLog))
+        dispath(startLogin())
+        createUserWithEmailAndPassword(auth, userLog.email, userLog.password)
+            .then(resp => {
+                setError('')
+                const { uid, email } = resp.user
+                dispath(finishLogin({ userId: uid, email }))
+                navigate('/home')
+            })
+            .catch(e => { 
+                setError(e.message)
+                console.log(e)
+            })
     }
 
 
     return (
         <form onSubmit={onSubmitHandler}>
             <Grid container direction='column' justifyContent='center' alignContent='center'>
+                {
+                    error && <Grid item><p>{error}</p></Grid>
+                }
                 <Grid item>
                     <TextField 
                         type='email' 

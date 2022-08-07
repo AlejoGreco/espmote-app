@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Button, Grid, TextField } from '@mui/material'
-import { logUserFb } from '../store/slices/auth'
 import { useDispatch } from 'react-redux'
 
 const FormLogin = () => {
@@ -18,7 +17,7 @@ const FormLogin = () => {
 
     const onSubmitHandler = e => {
         e.preventDefault()
-        dispath(logUserFb(userLog))
+        dispath()
     }
 
 
