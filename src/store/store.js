@@ -3,6 +3,6 @@ import { authSlice } from './slices/auth'
 
 export const store = configureStore({
     reducer : {
-        userCredentials : authSlice.reducer
+        userAuth : authSlice.reducer
     }
 })

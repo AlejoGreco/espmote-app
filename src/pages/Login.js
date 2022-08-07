@@ -1,10 +1,10 @@
 import React from 'react'
-import Form from '../components/Form'
+import FormLogin from '../components/FormLogin'
 
 const Login = () => {
   return (
     <div>
-      <Form formType='login'/>
+      <FormLogin />
     </div>
   )
 }

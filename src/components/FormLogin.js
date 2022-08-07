@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import { Button, Grid, TextField } from '@mui/material'
+import { logUserFb } from '../store/slices/auth'
+import { useDispatch } from 'react-redux'
 
-const Form = ({formType}) => {
+const FormLogin = () => {
 
+    const dispath = useDispatch()
+    
     /* ************************************************************** */
     /* Refactor futuro hacer validacion con redux forms */
     const [userLog, setUserLog] = useState({email : '', password : ''})
@@ -14,7 +18,7 @@ const Form = ({formType}) => {
 
     const onSubmitHandler = e => {
         e.preventDefault()
-        
+        dispath(logUserFb(userLog))
     }
 
 
@@ -44,11 +48,11 @@ const Form = ({formType}) => {
                     />
                 </Grid>
                 <Grid item>
-                    <Button variant='outlined' type='submit'>{formType === 'login' ? 'Login' : 'Register'}</Button>
+                    <Button variant='outlined' type='submit'>Login</Button>
                 </Grid>
             </Grid>
         </form>
     )
 }
 
-export default Form
+export default FormLogin
