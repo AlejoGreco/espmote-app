@@ -9,8 +9,8 @@ export const authSlice = createSlice({
         loading : false
     },
     reducers : {
-        startLogin : state => { state = state.loading = true },
-        finishLogin : (state, action) => {
+        startLoad : state => { state = state.loading = true },
+        setLogin : (state, action) => {
             const { userId, email } = action.payload
             return (
                 {
@@ -20,8 +20,14 @@ export const authSlice = createSlice({
                     loading : false
                 }
             )
+        },
+        setLogout : state => {
+            state.id = ''
+            state.email = ''
+            state.login = false 
+            state.loading = false
         }
     }
 }) 
 
-export const { startLogin, finishLogin } = authSlice.actions
+export const { startLoad, setLogin, setLogout } = authSlice.actions

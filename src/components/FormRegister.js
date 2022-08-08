@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../firebase'
-import { startLogin, finishLogin } from '../store/slices/auth';
+import { startLoad, setLogin } from '../store/slices/auth';
 
 const FormRegister = () => {
 
@@ -23,12 +23,12 @@ const FormRegister = () => {
 
     const onSubmitHandler = e => {
         e.preventDefault()
-        dispath(startLogin())
+        dispath(startLoad())
         createUserWithEmailAndPassword(auth, userLog.email, userLog.password)
             .then(resp => {
                 setError('')
                 const { uid, email } = resp.user
-                dispath(finishLogin({ userId: uid, email }))
+                dispath(setLogin({ userId: uid, email }))
                 navigate('/home')
             })
             .catch(e => { 
