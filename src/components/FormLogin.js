@@ -1,77 +1,88 @@
-import React, { useState } from 'react'
-import { Button, Grid, TextField } from '@mui/material'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../firebase'
-import { startLoad, setLogin } from '../store/slices/auth';
-
+import React from 'react'
+import { Avatar, Checkbox, Box, Button, Container, FormControlLabel, Grid, Link, TextField, Typography } from '@mui/material'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const FormLogin = () => {
 
-    const dispath = useDispatch()
-    const navigate = useNavigate()
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        console.log({
+            email: data.get('email'),
+            password: data.get('password'),
+        });
+    };
     
-    /* ************************************************************** */
-    /* Refactor futuro hacer validacion con redux forms */
-    const [userLog, setUserLog] = useState({email : '', password : ''})
-    const [error, setError] = useState('')
-
-    const onChangeHandler = e => {
-        setUserLog({...userLog, [e.target.name] : e.target.value})
-    }
-    /* ************************************************************** */
-
-    const onSubmitHandler = e => {
-        e.preventDefault()
-        dispath(startLoad())
-        signInWithEmailAndPassword(auth, userLog.email, userLog.password)
-            .then(resp => {
-                setError('')
-                const { uid, email } = resp.user
-                dispath(setLogin({ userId: uid, email }))
-                navigate('/home')
-            })
-            .catch(e => { 
-                setError(e.message)
-                console.log(e)
-            })
-    }
+    const theme = createTheme()
 
     return (
-        <form onSubmit={onSubmitHandler}>
-            <Grid container direction='column' justifyContent='center' alignContent='center'>
-                {
-                    error && <Grid item><p>{error}</p></Grid>
-                }
-                <Grid item>
-                    <TextField 
-                        type='email' 
-                        label='Email' 
-                        variant='outlined'
-                        name='email'
-                        id='email'
-                        value={userLog.email} 
-                        onChange={onChangeHandler}
-                    />
-                </Grid>
-                <Grid item>
-                    <TextField 
-                        type='password' 
-                        label='Password' 
-                        variant='outlined' 
-                        name='password'
-                        id='password'
-                        value={userLog.password}
-                        onChange={onChangeHandler}
-                    />
-                </Grid>
-                <Grid item>
-                    <Button variant='outlined' type='submit'>Login</Button>
-                </Grid>
-            </Grid>
-        </form>
-    )
+        <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs">
+                <Box
+                    sx={{
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    }}
+                >
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign in
+                    </Typography>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                        />
+                        <FormControlLabel
+                            control={<Checkbox value="remember" color="primary" />}
+                            label="Remember me"
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Sign In
+                        </Button>
+                        <Grid container>
+                            <Grid item xs>
+                            <Link href="#" variant="body2">
+                                Forgot password?
+                            </Link>
+                            </Grid>
+                            <Grid item>
+                            <Link href="#" variant="body2">
+                                {"Don't have an account? Sign Up"}
+                            </Link>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Box>
+            </Container>
+        </ThemeProvider>
+    );
 }
 
 export default FormLogin
