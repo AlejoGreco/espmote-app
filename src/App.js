@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase';
-import { setLogin, setLogout, startLoad } from './store/slices/auth';
+//import { onAuthStateChanged } from 'firebase/auth';
+//import { auth } from './firebase';
+//import { setLogin, setLogout, startLoad } from './store/slices/auth';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
@@ -15,13 +15,13 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(startLoad())
+    /*dispatch(startLoad())
     onAuthStateChanged(auth, user => {
       if(user)
         dispatch(setLogin({userId : user.uid, email : user.email}))
       else
         dispatch(setLogout())
-    })
+    })*/
   
   }, [dispatch])
   
