@@ -1,20 +1,34 @@
 import React from 'react'
-import { Avatar, Checkbox, Box, Button, Container, FormControlLabel, Grid, Link, TextField, Typography } from '@mui/material'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Avatar, Checkbox, Box, Button, Container, FormControlLabel, Grid, Link, Typography } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { fetchLoginUser } from '../store/slices/auth/thunks';
+import { useDispatch } from 'react-redux';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup'
+import WpTextField from './WpTextField';
+
 
 const FormLogin = () => {
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
-    
+    const dispatch = useDispatch()
+
     const theme = createTheme()
+
+    const initialValues = {
+        email : '',
+        password : ''
+    }
+
+    const schema = Yup.object().shape({
+        email : Yup.string().email('Ingrese un email valido').required('El email es un campo obligatorio'),
+        password : Yup.string().min(6, 'La clave debe tener al menos 6 caracteres').required('La clave es un campo obligatorio')
+    })
+
+    const handleSubmit = (values, { resetForm }) => {
+        dispatch(fetchLoginUser(values))
+        resetForm()
+    }
 
     return (
         <ThemeProvider theme={theme}>
@@ -31,54 +45,57 @@ const FormLogin = () => {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Iniciar sesion
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Sign In
-                        </Button>
-                        <Grid container>
-                            <Grid item xs>
-                            <Link href="#" variant="body2">
-                                Forgot password?
-                            </Link>
-                            </Grid>
-                            <Grid item>
-                            <Link href="#" variant="body2">
-                                {"Don't have an account? Sign Up"}
-                            </Link>
-                            </Grid>
-                        </Grid>
-                    </Box>
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={schema}
+                        onSubmit={handleSubmit}
+                    >
+                        <Form>
+                            <Box sx={{ mt: 1 }}>
+                                <WpTextField
+                                    id="email"
+                                    name="email"
+                                    label="Email"
+                                    placeholder='miCorreo@correo.com'
+                                    margin="normal"
+                                    autoFocus
+                                />
+                                <WpTextField
+                                    id="password"
+                                    name="password"
+                                    label="Clave"
+                                    type="password"
+                                    margin="normal"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox value="remember" color="primary" />}
+                                    label="Remember me"
+                                />
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                >
+                                    Ingresar
+                                </Button>
+                                <Grid container>
+                                    <Grid item xs>
+                                        <Link href="#" variant="body2">
+                                            Olvido su clave?
+                                        </Link>
+                                    </Grid>
+                                    <Grid item>
+                                        <Link href="#" variant="body2">
+                                            {"No tienes una cuenta? Registrate!"}
+                                        </Link>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        </Form> 
+                    </Formik>
                 </Box>
             </Container>
         </ThemeProvider>

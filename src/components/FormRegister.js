@@ -1,12 +1,12 @@
 import React from 'react'
 import { Avatar, Checkbox, Box, Button, Container, FormControlLabel, Grid, Link, Typography } from '@mui/material'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { fetchRegisterUser } from '../store/slices/auth/thunks';
+import { useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
 import WpTextField from './WpTextField';
-import { fetchRegisterUser } from '../store/slices/auth/thunks';
-import { useDispatch } from 'react-redux';
 
 const FormRegister = () => {
 
@@ -28,7 +28,6 @@ const FormRegister = () => {
     })
 
     const handleSubmit = (values, {resetForm}) => {
-        console.log(values)
         dispatch(fetchRegisterUser(values))
         resetForm()
     }
