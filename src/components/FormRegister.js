@@ -3,7 +3,7 @@ import { Avatar, Checkbox, Box, Button, Container, FormControlLabel, Grid, Link,
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { fetchRegisterUser } from '../store/slices/auth/thunks';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
@@ -12,6 +12,7 @@ import WpTextField from './WpTextField';
 const FormRegister = () => {
 
     const dispatch = useDispatch()
+    const error = useSelector(state => state.userAuth.error)
     const navigate = useNavigate()
     const theme = createTheme()
 
@@ -32,7 +33,7 @@ const FormRegister = () => {
     const handleSubmit = (values, {resetForm}) => {
         dispatch(fetchRegisterUser(values))
         resetForm()
-        navigate('/home')
+        //navigate('/home')
     }
 
 return (
@@ -116,6 +117,24 @@ return (
                         </Link>
                     </Grid>
                 </Grid>  
+                {
+                    error && 
+                    (
+                        <Container sx={{
+                            textAlign : 'center',
+                            border : 2,
+                            borderColor : 'error.main',
+                            borderRadius : 2,
+                            bgcolor : '#ffcdd2',
+                            my: 4, 
+                            py:2
+                        }}
+                        >
+                            <Typography sx={{ color : 'error.main' }}>{`Ha ocurrido un error`}</Typography>
+                            <Typography sx={{ color : 'error.main' }}>{`${error.code}`}</Typography>
+                        </Container>
+                    )
+                }
             </Box>
         </Container>
     </ThemeProvider>
