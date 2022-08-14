@@ -7,10 +7,26 @@ export const authSlice = createSlice({
         id : '', 
         email : '', 
         login : false, 
-        loading : false,
+        loading : true,
         error : null
     },
-    reducers : { },
+    reducers : {
+        setLogin : (state, action) => {
+            const {userId, email}= action.payload
+            state.id = userId
+            state.email = email
+            state.login = true
+            state.loading = false
+            state.error = null
+        },
+        setLogout : () => ({
+            id : '', 
+            email : '', 
+            login : false, 
+            loading : false,
+            error : null
+        })
+    },
     extraReducers : builder => {
 
         // Refucers for register users
@@ -73,4 +89,6 @@ export const authSlice = createSlice({
 
     }
 })
+
+export const { setLogin, setLogout } = authSlice.actions
 
