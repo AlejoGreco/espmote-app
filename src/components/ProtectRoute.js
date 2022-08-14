@@ -10,9 +10,7 @@ const ProtectRoute = ({children}) => {
     if(login)
         return <>{children}</>
         
-    return (
-        <Navigate to='/login' />
-    )
+    return <Navigate to='/login' />
 }
 
 export default ProtectRoute

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
@@ -13,29 +13,30 @@ import ProtectRoute from './components/ProtectRoute';
 
 function App() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     
     onAuthStateChanged(auth, user => {
-      if(user)
+      if(user){
         dispatch(setLogin({userId : user.uid, email : user.email}))
+        navigate('/home')
+      }
       else
         dispatch(setLogout())
     })
   
-  }, [dispatch])
+  }, [dispatch, navigate])
   
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Welcome />}/>
-        <Route path='/home' element={<ProtectRoute><Home /></ProtectRoute>}/>
-        <Route path='/login' element={<Login />}/>
-        <Route path='/register' element={<Register />}/>
-        <Route path='/subscript' element={<NotFound />}/>
-        <Route path='*' element={<NotFound />}/>
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path='/' element={<Welcome />}/>
+      <Route path='/home' element={<ProtectRoute><Home /></ProtectRoute>}/>
+      <Route path='/login' element={<Login />}/>
+      <Route path='/register' element={<Register />}/>
+      <Route path='/subscript' element={<NotFound />}/>
+      <Route path='*' element={<NotFound />}/>
+    </Routes>
   );
 }
 

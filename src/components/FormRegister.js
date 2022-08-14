@@ -2,18 +2,17 @@ import React from 'react'
 import { Avatar, Checkbox, Box, Button, Container, FormControlLabel, Grid, Link, Typography } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { fetchRegisterUser } from '../store/slices/auth/thunks';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { registerUser } from '../store/slices/auth/thunks';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
 import WpTextField from './WpTextField';
+
 
 const FormRegister = () => {
 
     const dispatch = useDispatch()
     const error = useSelector(state => state.userAuth.error)
-    const navigate = useNavigate()
     const theme = createTheme()
 
     const initialValues = {
@@ -30,10 +29,8 @@ const FormRegister = () => {
         password : Yup.string().min(6, 'La clave debe tener al menos 6 caracteres').required('La clave es un campo obligatorio')
     })
 
-    const handleSubmit = (values, {resetForm}) => {
-        dispatch(fetchRegisterUser(values))
-        resetForm()
-        //navigate('/home')
+    const handleSubmit = (values) => {
+        dispatch(registerUser(values))
     }
 
 return (

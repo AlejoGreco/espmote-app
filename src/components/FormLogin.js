@@ -2,9 +2,8 @@ import React from 'react'
 import { Avatar, Checkbox, Box, Button, Container, FormControlLabel, Grid, Link, Typography } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { fetchLoginUser } from '../store/slices/auth/thunks';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../store/slices/auth/thunks';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
 import WpTextField from './WpTextField';
@@ -13,7 +12,7 @@ import WpTextField from './WpTextField';
 const FormLogin = () => {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
+    const error = useSelector(state => state.userAuth.error)
 
     const theme = createTheme()
 
@@ -27,10 +26,8 @@ const FormLogin = () => {
         password : Yup.string().min(6, 'La clave debe tener al menos 6 caracteres').required('La clave es un campo obligatorio')
     })
 
-    const handleSubmit = (values, { resetForm }) => {
-        dispatch(fetchLoginUser(values))
-        resetForm()
-        navigate('/home')
+    const handleSubmit = values => {
+        dispatch(loginUser(values))
     }
 
     return (
@@ -99,6 +96,24 @@ const FormLogin = () => {
                             </Box>
                         </Form> 
                     </Formik>
+                    {
+                        error && 
+                        (
+                            <Container sx={{
+                                textAlign : 'center',
+                                border : 2,
+                                borderColor : 'error.main',
+                                borderRadius : 2,
+                                bgcolor : '#ffcdd2',
+                                my: 4, 
+                                py:2
+                            }}
+                            >
+                                <Typography sx={{ color : 'error.main' }}>{`Ha ocurrido un error`}</Typography>
+                                <Typography sx={{ color : 'error.main' }}>{`${error.code}`}</Typography>
+                            </Container>
+                        )
+                    }
                 </Box>
             </Container>
         </ThemeProvider>

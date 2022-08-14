@@ -1,13 +1,13 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Button } from '@mui/material'
-import { fetchLogoutUser } from '../store/slices/auth/thunks'
+import { logoutUser } from '../store/slices/auth/thunks'
 
 const Home = () => {
   const dispatch = useDispatch()
 
   const handleClick = () => {
-    dispatch(fetchLogoutUser())
+    dispatch(logoutUser())
   }
 
   return (
