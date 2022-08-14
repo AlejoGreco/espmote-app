@@ -2,7 +2,7 @@ import React from 'react'
 import { Avatar, Checkbox, Box, Button, Container, FormControlLabel, Grid, Link, Typography } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { loginUser } from '../store/slices/auth/thunks';
+import { loginUser, loginWithGoogle } from '../store/slices/auth/thunks';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
@@ -28,6 +28,10 @@ const FormLogin = () => {
 
     const handleSubmit = values => {
         dispatch(loginUser(values))
+    }
+
+    const handleClickGoogle = () => {
+        dispatch(loginWithGoogle())
     }
 
     return (
@@ -60,7 +64,6 @@ const FormLogin = () => {
                                     label="Email"
                                     placeholder='miCorreo@correo.com'
                                     margin="normal"
-                                    autoFocus
                                 />
                                 <WpTextField
                                     id="password"
@@ -80,6 +83,15 @@ const FormLogin = () => {
                                     sx={{ mt: 3, mb: 2 }}
                                 >
                                     Ingresar
+                                </Button>
+                                <Button
+                                    fullWidth
+                                    variant="outlined"
+                                    onClick={handleClickGoogle}
+                                    color='error'
+                                    sx={{ mt: 1, mb: 3 }}
+                                >
+                                    Ingresar con Google
                                 </Button>
                                 <Grid container>
                                     <Grid item xs>

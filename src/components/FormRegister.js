@@ -63,7 +63,6 @@ return (
                                     name="firstName"
                                     label="Nombre"
                                     placeholder='Guillermo'
-                                    autoFocus
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>

@@ -1,4 +1,9 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth"
+import { createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword, 
+    signInWithPopup, 
+    signOut,
+    GoogleAuthProvider
+} from "firebase/auth"
 import { auth } from "../../../firebase"
 import { setAuthError, setLoading } from "./authSlice"
 
@@ -29,6 +34,19 @@ export const loginUser = payload => {
         try{
             dispatch(setLoading())
             await signInWithEmailAndPassword(auth, email, password)
+        }
+        catch (e){
+            dispatch(setAuthError({code : e.code, message : e.message}))
+        }
+    }
+}
+
+export const loginWithGoogle = () => {
+    return async dispatch => {
+        try{
+            dispatch(setLoading())
+            const googleProvider = new GoogleAuthProvider() 
+            await signInWithPopup(auth, googleProvider)
         }
         catch (e){
             dispatch(setAuthError({code : e.code, message : e.message}))
