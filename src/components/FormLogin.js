@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { fetchLoginUser } from '../store/slices/auth/thunks';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
 import WpTextField from './WpTextField';
@@ -12,6 +13,7 @@ import WpTextField from './WpTextField';
 const FormLogin = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const theme = createTheme()
 
@@ -28,6 +30,7 @@ const FormLogin = () => {
     const handleSubmit = (values, { resetForm }) => {
         dispatch(fetchLoginUser(values))
         resetForm()
+        navigate('/home')
     }
 
     return (

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchRegisterUser, fetchLoginUser } from "./thunks";
+import { fetchRegisterUser, fetchLoginUser, fetchLogoutUser } from "./thunks";
 
 export const authSlice = createSlice({
     name : "auth",
@@ -57,6 +57,18 @@ export const authSlice = createSlice({
             state.login = false
             state.loading = false
             state.error = {code : error.code, messaje : error.message}
+        })
+
+        // Reducer for logout users
+
+        builder.addCase(fetchLogoutUser.fulfilled, () => {
+            return {
+                id : '', 
+                email : '', 
+                login : false, 
+                loading : false,
+                error : null
+            }
         })
 
     }
