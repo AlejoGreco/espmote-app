@@ -2,7 +2,8 @@ import { createUserWithEmailAndPassword,
     signInWithEmailAndPassword, 
     signInWithPopup, 
     signOut,
-    GoogleAuthProvider
+    GoogleAuthProvider,
+    sendPasswordResetEmail
 } from "firebase/auth"
 import { auth } from "../../../firebase"
 import { setAuthError, setLoading } from "./authSlice"
@@ -52,6 +53,18 @@ export const loginWithGoogle = () => {
             dispatch(setAuthError({code : e.code, message : e.message}))
         }
     }
+}
+
+export const resetPass = payload => async dispatch => {
+    const { email } = payload
+    try{
+        dispatch(setLoading())
+        await sendPasswordResetEmail(auth, email)
+    }
+    catch (e){
+        dispatch(setAuthError({code : e.code, message : e.message}))
+    }
+    
 }
 
 export const logoutUser = () => async dispatch => {

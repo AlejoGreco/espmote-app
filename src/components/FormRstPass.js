@@ -1,38 +1,30 @@
 import React from 'react'
-import { Avatar, Checkbox, Box, Button, Container, FormControlLabel, Grid, Link, Typography, Alert, AlertTitle } from '@mui/material'
+import { Avatar, Box, Button, Container, FormControlLabel, Grid, Link, Typography, Alert, AlertTitle } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link as RouterLink } from 'react-router-dom';
-import { loginUser, loginWithGoogle } from '../store/slices/auth/thunks';
+import { resetPass } from '../store/slices/auth/thunks';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
 import WpTextField from './WpTextField';
 
-
-const FormLogin = () => {
-
+const FormRstPass = () => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.userAuth.error)
 
     const theme = createTheme()
 
     const initialValues = {
-        email : '',
-        password : ''
+        email : ''
     }
 
     const schema = Yup.object().shape({
         email : Yup.string().email('Ingrese un email valido').required('El email es un campo obligatorio'),
-        password : Yup.string().min(6, 'La clave debe tener al menos 6 caracteres').required('La clave es un campo obligatorio')
     })
 
     const handleSubmit = values => {
-        dispatch(loginUser(values))
-    }
-
-    const handleClickGoogle = () => {
-        dispatch(loginWithGoogle())
+        dispatch(resetPass(values))
     }
 
     return (
@@ -50,7 +42,7 @@ const FormLogin = () => {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Iniciar sesion
+                        Restablecer contraseña
                     </Typography>
                     <Formik
                         initialValues={initialValues}
@@ -66,46 +58,14 @@ const FormLogin = () => {
                                     placeholder='miCorreo@correo.com'
                                     margin="normal"
                                 />
-                                <WpTextField
-                                    id="password"
-                                    name="password"
-                                    label="Clave"
-                                    type="password"
-                                    margin="normal"
-                                />
-                                <FormControlLabel
-                                    control={<Checkbox value="remember" color="primary" />}
-                                    label="Remember me"
-                                />
                                 <Button
                                     type="submit"
                                     fullWidth
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
                                 >
-                                    Ingresar
+                                    Enviar correo
                                 </Button>
-                                <Button
-                                    fullWidth
-                                    variant="outlined"
-                                    onClick={handleClickGoogle}
-                                    color='error'
-                                    sx={{ mt: 1, mb: 3 }}
-                                >
-                                    Ingresar con Google
-                                </Button>
-                                <Grid container>
-                                    <Grid item xs>
-                                        <Link component={RouterLink} to='/resetpass' variant="body2">
-                                            Olvido su clave?
-                                        </Link>
-                                    </Grid>
-                                    <Grid item>
-                                        <Link component={RouterLink} to='/register'  variant="body2">
-                                            No tienes una cuenta? Registrate!
-                                        </Link>
-                                    </Grid>
-                                </Grid>
                             </Box>
                         </Form> 
                     </Formik>
@@ -117,7 +77,7 @@ const FormLogin = () => {
                                     <AlertTitle>{`${error.code}`}</AlertTitle>
                                     {`${error.message}`}
                                 </Alert>
-                        </Container>
+                            </Container>
                         )
                     }
                 </Box>
@@ -126,4 +86,4 @@ const FormLogin = () => {
     );
 }
 
-export default FormLogin
+export default FormRstPass

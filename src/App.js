@@ -12,6 +12,7 @@ import Welcome from './pages/Welcome';
 import ProtectRoute from './components/ProtectRoute';
 import Membresy from './pages/Membresy';
 import Profile from './pages/Profile';
+import ResetPass from './pages/ResetPass';
 
 function App() {
   const dispatch = useDispatch()
@@ -41,6 +42,7 @@ function App() {
       <Route path='/membresy' element={<ProtectRoute><Membresy /></ProtectRoute>}/>
       <Route path='/profile' element={<ProtectRoute><Profile /></ProtectRoute>}/>
       <Route path='/login' element={<Login />}/>
+      <Route path='/resetpass' element={<ResetPass />}/>
       <Route path='/register' element={<Register />}/>
       <Route path='*' element={<NotFound />}/>
     </Routes>
