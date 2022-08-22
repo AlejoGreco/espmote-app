@@ -2,6 +2,7 @@ import React from 'react'
 import { Avatar, Checkbox, Box, Button, Container, FormControlLabel, Grid, Link, Typography, Alert, AlertTitle } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Link as RouterLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../store/slices/auth/thunks';
 import { Formik, Form } from 'formik';
@@ -108,7 +109,7 @@ return (
                 </Formik>
                 <Grid container justifyContent="flex-end">
                     <Grid item>
-                        <Link href="#" variant="body2">
+                        <Link component={RouterLink} to='/login' variant="body2">
                             Ya tiene una cuenta? Ingrese
                         </Link>
                     </Grid>

@@ -2,6 +2,7 @@ import React from 'react'
 import { Avatar, Checkbox, Box, Button, Container, FormControlLabel, Grid, Link, Typography, Alert, AlertTitle } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Link as RouterLink } from 'react-router-dom';
 import { loginUser, loginWithGoogle } from '../store/slices/auth/thunks';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
@@ -100,8 +101,8 @@ const FormLogin = () => {
                                         </Link>
                                     </Grid>
                                     <Grid item>
-                                        <Link href="#" variant="body2">
-                                            {"No tienes una cuenta? Registrate!"}
+                                        <Link component={RouterLink} to='/register'  variant="body2">
+                                            No tienes una cuenta? Registrate!
                                         </Link>
                                     </Grid>
                                 </Grid>
