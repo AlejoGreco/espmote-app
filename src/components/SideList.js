@@ -4,61 +4,60 @@ import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PaidIcon from '@mui/icons-material/Paid';
 import PersonIcon from '@mui/icons-material/Person';
+import CustomLink from './CustomLink';
 
 const SideList = () => {
 
     const listItemsOne = [
         {
           Icon: <HomeIcon />,
-          text: "Home"
+          text: "Home",
+          path: 'home'
         },
         {
           Icon: <PaidIcon />,
-          text: "Mebresia"
+          text: "Mebresia",
+          path: '/membresy'
         },
         {
           Icon: <PersonIcon />,
-          text: "Mi perfil"
-        }
-    ]
-
-    const listItemsTwo = [
-        {
-          Icon: <LogoutIcon />,
-          text: "LogOut"
+          text: "Mi perfil",
+          path: '/profile'
         }
     ]
 
     return (
-        <div>
-        <Toolbar />
-        <Divider />
-        <List>
-            {listItemsOne.map(item => (
-            <ListItem key={item.text} disablePadding>
-                <ListItemButton>
-                <ListItemIcon>
-                    {item.Icon}
-                </ListItemIcon>
-                <ListItemText primary={item.text} />
-                </ListItemButton>
-            </ListItem>
-            ))}
-        </List>
-        <Divider />
-        <List>
-            {listItemsTwo.map(item => (
-            <ListItem key={item.text} disablePadding>
-                <ListItemButton>
-                <ListItemIcon>
-                    {item.Icon}
-                </ListItemIcon>
-                <ListItemText primary={item.text} />
-                </ListItemButton>
-            </ListItem>
-            ))}
-        </List>
-        </div>
+        <>
+            <Toolbar />
+            <Divider />
+            <List>
+                {
+                    listItemsOne.map(item => (
+                        <ListItem key={item.text} disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    {item.Icon}
+                                </ListItemIcon>
+                                <ListItemText primary={item.text} />
+                            </ListItemButton>
+                        </ListItem>
+                    ))
+                }
+            </List>
+            <Divider />
+            <List>
+                {/*<ListItem disablePadding>
+                    <ListItemButton>
+                        <ListItemIcon>
+                            <LogoutIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={'Logout'} />
+                    </ListItemButton>
+                </ListItem>*/}
+                <CustomLink to='/membresy' primary='Logout' icon={<LogoutIcon />}/>
+            </List>
+        
+        </>
     )
 }
 
