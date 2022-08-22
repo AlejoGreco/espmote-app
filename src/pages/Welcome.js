@@ -5,7 +5,7 @@ import { Button } from '@mui/material'
 const Welcome = () => {
   return (
     <Button variant='contained'>
-      <Link to='/home'>GET STARTED</Link>
+      <Link to='/home'>GET STARTED!</Link>
     </Button>
   )
 }
