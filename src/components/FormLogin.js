@@ -113,11 +113,11 @@ const FormLogin = () => {
                         error && 
                         (
                             <Container disableGutters={true} sx={{my: 4}}>
-                                <Alert severity="error" sx={{ }}>
+                                <Alert severity="error">
                                     <AlertTitle>{`${error.code}`}</AlertTitle>
                                     {`${error.message}`}
                                 </Alert>
-                        </Container>
+                            </Container>
                         )
                     }
                 </Box>

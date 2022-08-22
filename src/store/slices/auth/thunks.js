@@ -6,7 +6,7 @@ import { createUserWithEmailAndPassword,
     sendPasswordResetEmail
 } from "firebase/auth"
 import { auth } from "../../../firebase"
-import { setAuthError, setLoading } from "./authSlice"
+import { setAuthError, setFeedbackMsg, setLoading } from "./authSlice"
 
 
 /* Ejemplo de uso de createAsyncThunk
@@ -60,6 +60,7 @@ export const resetPass = payload => async dispatch => {
     try{
         dispatch(setLoading())
         await sendPasswordResetEmail(auth, email)
+        dispatch(setFeedbackMsg({message : 'Correo de cambio de clave enviado'}))
     }
     catch (e){
         dispatch(setAuthError({code : e.code, message : e.message}))

@@ -7,12 +7,14 @@ export const authSlice = createSlice({
         email : '', 
         login : false, 
         loading : true,
-        error : null
+        error : null,
+        feedback : null
     },
     reducers : {
         setLoading : (state) => {
             state.loading = true
             state.error = null
+            state.feedback = null
         },
         setLogin : (state, action) => {
             const {userId, email} = action.payload
@@ -25,6 +27,12 @@ export const authSlice = createSlice({
         setAuthError : (state, action) => {
             const error = action.payload
             state.error = {code : error.code, message : error.message}
+            state.feedback = null
+            state.loading = false
+        },
+        setFeedbackMsg : (state, action) => {
+            state.error = null
+            state.feedback = { message : action.payload.message }
             state.loading = false
         },
         setLogout : state => {
@@ -32,9 +40,11 @@ export const authSlice = createSlice({
             state.email = ''
             state.login = false
             state.loading = false
+            state.error = null
+            state.feedback = null
         }
     }
 })
 
-export const { setLogin, setLogout, setAuthError, setLoading } = authSlice.actions
+export const { setLogin, setLogout, setAuthError, setLoading, setFeedbackMsg } = authSlice.actions
 

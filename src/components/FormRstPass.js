@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Box, Button, Container, FormControlLabel, Grid, Link, Typography, Alert, AlertTitle } from '@mui/material'
+import { Avatar, Box, Button, Container, Link, Typography, Alert, AlertTitle } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link as RouterLink } from 'react-router-dom';
@@ -11,7 +11,7 @@ import WpTextField from './WpTextField';
 
 const FormRstPass = () => {
     const dispatch = useDispatch()
-    const error = useSelector(state => state.userAuth.error)
+    const {error, feedback} = useSelector(state => state.userAuth)
 
     const theme = createTheme()
 
@@ -73,9 +73,23 @@ const FormRstPass = () => {
                         error && 
                         (
                             <Container disableGutters={true} sx={{my: 4}}>
-                                <Alert severity="error" sx={{ }}>
+                                <Alert severity="error">
                                     <AlertTitle>{`${error.code}`}</AlertTitle>
                                     {`${error.message}`}
+                                </Alert>
+                            </Container>
+                        )
+                    }
+                    {
+                        feedback && 
+                        (
+                            <Container disableGutters={true} sx={{my: 4}}>
+                                <Alert severity="info">
+                                    <AlertTitle>{`${feedback.message}`}</AlertTitle>
+                                    <Typography>
+                                        Una vez haya cambiado su clave<br/>
+                                        <Link component={RouterLink} to='/login'><strong>Ingrese aqui!</strong></Link>
+                                    </Typography>
                                 </Alert>
                             </Container>
                         )
