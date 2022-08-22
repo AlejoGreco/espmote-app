@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Checkbox, Box, Button, Container, FormControlLabel, Grid, Link, Typography } from '@mui/material'
+import { Avatar, Checkbox, Box, Button, Container, FormControlLabel, Grid, Link, Typography, Alert, AlertTitle } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useDispatch, useSelector } from 'react-redux';
@@ -116,18 +116,12 @@ return (
                 {
                     error && 
                     (
-                        <Container sx={{
-                            textAlign : 'center',
-                            border : 2,
-                            borderColor : 'error.main',
-                            borderRadius : 2,
-                            bgcolor : '#ffcdd2',
-                            my: 4, 
-                            py:2
-                        }}
+                        <Container disableGutters={true} sx={{my: 4}}
                         >
-                            <Typography sx={{ color : 'error.main' }}>{`Ha ocurrido un error`}</Typography>
-                            <Typography sx={{ color : 'error.main' }}>{`${error.code}`}</Typography>
+                            <Alert severity="error" sx={{ }}>
+                                <AlertTitle>{`${error.code}`}</AlertTitle>
+                                {`${error.message}`}
+                            </Alert>
                         </Container>
                     )
                 }
