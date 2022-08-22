@@ -1,39 +1,65 @@
 import React from 'react'
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider, Toolbar } from '@mui/material'
-import { Inbox, Mail,  } from '@mui/icons-material'
+import HomeIcon from '@mui/icons-material/Home';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PaidIcon from '@mui/icons-material/Paid';
+import PersonIcon from '@mui/icons-material/Person';
 
 const SideList = () => {
-  return (
-    <div>
-      <Toolbar />
-      <Divider />
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <Inbox /> : <Mail />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <Inbox /> : <Mail />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  )
+
+    const listItemsOne = [
+        {
+          Icon: <HomeIcon />,
+          text: "Home"
+        },
+        {
+          Icon: <PaidIcon />,
+          text: "Mebresia"
+        },
+        {
+          Icon: <PersonIcon />,
+          text: "Mi perfil"
+        }
+    ]
+
+    const listItemsTwo = [
+        {
+          Icon: <LogoutIcon />,
+          text: "LogOut"
+        }
+    ]
+
+    return (
+        <div>
+        <Toolbar />
+        <Divider />
+        <List>
+            {listItemsOne.map(item => (
+            <ListItem key={item.text} disablePadding>
+                <ListItemButton>
+                <ListItemIcon>
+                    {item.Icon}
+                </ListItemIcon>
+                <ListItemText primary={item.text} />
+                </ListItemButton>
+            </ListItem>
+            ))}
+        </List>
+        <Divider />
+        <List>
+            {listItemsTwo.map(item => (
+            <ListItem key={item.text} disablePadding>
+                <ListItemButton>
+                <ListItemIcon>
+                    {item.Icon}
+                </ListItemIcon>
+                <ListItemText primary={item.text} />
+                </ListItemButton>
+            </ListItem>
+            ))}
+        </List>
+        </div>
+    )
 }
 
 export default SideList
