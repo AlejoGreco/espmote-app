@@ -4,7 +4,7 @@ import PageFrame from '../components/PageFrame'
 const Profile = () => {
   return (
     <PageFrame>
-        Mi Perfil
+        <h2>Mi Perfil</h2>
     </PageFrame>
   )
 }
