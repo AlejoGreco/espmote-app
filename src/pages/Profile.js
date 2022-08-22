@@ -1,10 +1,11 @@
 import React from 'react'
+import PageFrame from '../components/PageFrame'
 
 const Profile = () => {
   return (
-    <Profile>
+    <PageFrame>
         Mi Perfil
-    </Profile>
+    </PageFrame>
   )
 }
 

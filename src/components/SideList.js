@@ -1,4 +1,6 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../store/slices/auth/thunks';
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider, Toolbar } from '@mui/material'
 import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -8,11 +10,17 @@ import CustomLink from './CustomLink';
 
 const SideList = () => {
 
+    const dispatch = useDispatch()
+
+    const handleClick = () => {
+        dispatch(logoutUser())
+    }
+
     const listItemsOne = [
         {
           Icon: <HomeIcon />,
           text: "Home",
-          path: 'home'
+          path: '/home'
         },
         {
           Icon: <PaidIcon />,
@@ -33,28 +41,20 @@ const SideList = () => {
             <List>
                 {
                     listItemsOne.map(item => (
-                        <ListItem key={item.text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    {item.Icon}
-                                </ListItemIcon>
-                                <ListItemText primary={item.text} />
-                            </ListItemButton>
-                        </ListItem>
+                        <CustomLink to={item.path} key={item.text} primary={item.text} icon={item.Icon}/>
                     ))
                 }
             </List>
             <Divider />
             <List>
-                {/*<ListItem disablePadding>
-                    <ListItemButton>
+                <ListItem disablePadding>
+                    <ListItemButton onClick={handleClick}>
                         <ListItemIcon>
                             <LogoutIcon />
                         </ListItemIcon>
                         <ListItemText primary={'Logout'} />
                     </ListItemButton>
-                </ListItem>*/}
-                <CustomLink to='/membresy' primary='Logout' icon={<LogoutIcon />}/>
+                </ListItem>
             </List>
         
         </>
