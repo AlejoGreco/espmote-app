@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 import { setLogin, setLogout } from './store/slices/auth';
@@ -16,19 +16,22 @@ import Profile from './pages/Profile';
 function App() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const userId = useSelector(state => state.userAuth.id)
 
   useEffect(() => {
     
     onAuthStateChanged(auth, user => {
       if(user){
-        dispatch(setLogin({userId : user.uid, email : user.email}))
-        //navigate('/home')
+        if(user.uid !== userId){
+          dispatch(setLogin({userId : user.uid, email : user.email}))
+          navigate('/home')
+        }
       }
       else
         dispatch(setLogout())
     })
   
-  }, [dispatch, navigate])
+  }, [dispatch, navigate, userId])
 
   
   return (
