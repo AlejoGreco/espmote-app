@@ -4,13 +4,15 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 //import { Link as RouterLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { createNewNode } from '../store/slices/nodes';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
 import WpTextField from './WpTextField';
 
 const FormNode = () => {
     const dispatch = useDispatch()
-    const {error, feedback} = useSelector(state => state.userAuth)
+    const id = useSelector(state => state.userAuth.id)
+    const { error, feedback } = useSelector(state => state.nodes)
 
     const theme = createTheme()
 
@@ -23,8 +25,7 @@ const FormNode = () => {
     })
 
     const handleSubmit = values => {
-        dispatch({})
-        console.log(values)
+        dispatch(createNewNode({nodeId : values.nodeId, userId : id}))
     }
 
     return (
@@ -84,7 +85,7 @@ const FormNode = () => {
                         feedback && 
                         (
                             <Container disableGutters={true} sx={{my: 4}}>
-                                <Alert severity="info">
+                                <Alert severity="success">
                                     <AlertTitle>{`${feedback.message}`}</AlertTitle>
                                     <Typography>
                                         El nodo ha sido creado con exito!<br/>
