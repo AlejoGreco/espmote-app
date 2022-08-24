@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { createNewNode } from "./thunks"
+import { addNewNode } from "./thunks"
 
 export const nodesSlice = createSlice({
     name: 'nodes',
@@ -12,26 +12,27 @@ export const nodesSlice = createSlice({
     reducers: {},
     extraReducers : builder => {
 
-        // Reducers de creacion de nuevos nodos
-        builder.addCase(createNewNode.pending, state => {
+        // Reducers de nuevos nodos
+        builder.addCase(addNewNode.pending, state => {
             state.loading = true
             state.error = null
             state.feedback = null
         })
 
-        builder.addCase(createNewNode.fulfilled, (state, action) => {
+        builder.addCase(addNewNode.fulfilled, (state, action) => {
+            console.log(action)
             state.loading = false
             state.nodes.push(action.payload)
-            state.feedback = { message : 'Nodo creado con exito'}
+            state.feedback = { message : 'El nodo ha sido creado'}
         })
 
-        builder.addCase(createNewNode.rejected, (state, action) => {
+        builder.addCase(addNewNode.rejected, (state, action) => {
             const { error } = action
             state.loading = false
             state.error = {code : error.code, message : error.message}
         })
 
-        
+
     }
 })
 
