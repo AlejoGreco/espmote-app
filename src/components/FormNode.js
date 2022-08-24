@@ -1,8 +1,8 @@
 import React from 'react'
-import { Avatar, Box, Button, Container, Link, Typography, Alert, AlertTitle } from '@mui/material'
+import { Avatar, Box, Button, Container, Typography, Alert, AlertTitle } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { Link as RouterLink } from 'react-router-dom';
+//import { Link as RouterLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
@@ -88,7 +88,7 @@ const FormNode = () => {
                                     <AlertTitle>{`${feedback.message}`}</AlertTitle>
                                     <Typography>
                                         El nodo ha sido creado con exito!<br/>
-                                        <Link component={RouterLink} to='/home'><strong>Regresar al home</strong></Link>
+                                        {/*<Link component={RouterLink} to='/home'><strong>Regresar al home</strong></Link>*/}
                                     </Typography>
                                 </Alert>
                             </Container>
