@@ -5,7 +5,8 @@ export const nodesSlice = createSlice({
     name: 'nodes',
     initialState: {
         loading : true,
-        nodes : [],
+        nodesId : [],
+        nodeData : [],
         error : null,
         feedback : null
     },
@@ -22,7 +23,7 @@ export const nodesSlice = createSlice({
         builder.addCase(addNewNode.fulfilled, (state, action) => {
             console.log(action)
             state.loading = false
-            state.nodes.push(action.payload)
+            state.nodesId.push(action.meta.arg.node.nodeId)
             state.feedback = { message : 'El nodo ha sido creado'}
         })
 

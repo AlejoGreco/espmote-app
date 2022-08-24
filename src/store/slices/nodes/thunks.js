@@ -6,12 +6,10 @@ export const addNewNode = createAsyncThunk(
     'nodes/addNewNode',
     async ({node, index, userId}) => {
         const obj = {
-            [index] : {
                 nodeId : node.nodeId,
                 name : node.name
-            }
         }
         
-        return await set(ref(database, `users/${userId}/nodes`), obj)
+        return await set(ref(database, `users/${userId}/nodes/${index}`), obj)
     }
 )
