@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { addNewNode } from "./thunks"
+import { addNewNode, getUserNodeIds } from "./thunks"
 
 export const nodesSlice = createSlice({
     name: 'nodes',
@@ -33,6 +33,28 @@ export const nodesSlice = createSlice({
             state.error = {code : error.code, message : error.message}
         })
 
+        //////////////////////////////////////////////////////////////////////
+
+        // Reducers obtencion de nodos del usuario
+        builder.addCase(getUserNodeIds.pending, state => {
+            state.loading = true
+            state.error = null
+            state.feedback = null
+        })
+
+        builder.addCase(getUserNodeIds.fulfilled, (state, action) => {
+            console.log(action)
+            const respose = action.payload.val()
+            console.log(respose)
+            state.loading = false
+            state.nodesId = respose
+        })
+
+        builder.addCase(getUserNodeIds.rejected, (state, action) => {
+            const { error } = action
+            state.loading = false
+            state.error = {code : error.message, message : error.stack}
+        })
 
     }
 })
