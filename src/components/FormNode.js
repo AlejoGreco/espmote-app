@@ -12,7 +12,7 @@ import WpTextField from './WpTextField';
 const FormNode = () => {
     const dispatch = useDispatch()
     const id = useSelector(state => state.userAuth.id)
-    const { error, feedback, nodesId } = useSelector(state => state.nodes)
+    const { error, feedback } = useSelector(state => state.nodes)
 
     const theme = createTheme()
 
@@ -27,7 +27,7 @@ const FormNode = () => {
     })
 
     const handleSubmit = values => {
-        dispatch(addNewNode({node : { nodeId : values.nodeId, name : values.name }, userId : id, index : nodesId.length}))
+        dispatch(addNewNode({node : { nodeId : values.nodeId, name : values.name }, userId : id}))
     }
 
     return (
