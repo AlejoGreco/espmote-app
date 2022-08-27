@@ -22,7 +22,7 @@ const ListNodeContainer = () => {
         <div>
             <h3>Nodos</h3>
             {
-                nodesId.map(n => <p>{`Id: ${n}`}</p>)
+                nodesId.map(n => <p>{`Nombre: ${n.name} Id: ${n.nodeId}`}</p>)
             }
         </div>
     )

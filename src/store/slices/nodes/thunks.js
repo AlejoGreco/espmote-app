@@ -16,5 +16,11 @@ export const addNewNode = createAsyncThunk(
 
 export const getUserNodeIds = createAsyncThunk(
     'nodes/getUserNodeIds',
-    async userId => await get(child(ref(database), `users/${userId}/nodes`))
+    async userId => {
+        const snapshot = await get(child(ref(database), `users/${userId}/nodes`))
+        if(snapshot.exists()){
+            return snapshot.val()
+        }
+        return []
+    }
 )

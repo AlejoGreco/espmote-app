@@ -21,7 +21,6 @@ export const nodesSlice = createSlice({
         })
 
         builder.addCase(addNewNode.fulfilled, (state, action) => {
-            console.log(action)
             state.loading = false
             state.nodesId.push(action.meta.arg.node.nodeId)
             state.feedback = { message : 'El nodo ha sido creado'}
@@ -43,9 +42,7 @@ export const nodesSlice = createSlice({
         })
 
         builder.addCase(getUserNodeIds.fulfilled, (state, action) => {
-            console.log(action)
-            const respose = action.payload.val()
-            console.log(respose)
+            const respose = action.payload
             state.loading = false
             state.nodesId = respose
         })
