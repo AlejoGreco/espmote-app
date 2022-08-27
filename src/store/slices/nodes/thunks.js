@@ -19,7 +19,8 @@ export const getUserNodeIds = createAsyncThunk(
     async userId => {
         const snapshot = await get(child(ref(database), `users/${userId}/nodes`))
         if(snapshot.exists()){
-            return Object.values(snapshot.val())
+            const keys = Object.keys(snapshot.val())
+            return Object.values(snapshot.val()).map( (item, i) => ({...item, keydb : keys[i]}))
         }
         return []
     }

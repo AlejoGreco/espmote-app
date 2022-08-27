@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserNodeIds } from '../store/slices/nodes'
+import NodesTable from './NodesTable'
 
 const ListNodeContainer = () => {
 
@@ -21,9 +22,7 @@ const ListNodeContainer = () => {
     return (
         <div>
             <h3>Nodos</h3>
-            {
-                nodesId.map(n => <p>{`Nombre: ${n.name} Id: ${n.nodeId}`}</p>)
-            }
+            <NodesTable nodos={nodesId}/>
         </div>
     )
 }
