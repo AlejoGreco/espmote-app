@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import NodesTable from './NodesTable'
+import NodeItemList from './NodeItemList'
+
 
 const ListNodeContainer = () => {
     
@@ -15,7 +16,9 @@ const ListNodeContainer = () => {
     return (
         <div>
             <h3>Nodos</h3>
-            <NodesTable nodos={nodesData}/>
+            {
+                nodesData.map(node => <NodeItemList node={node}/>)
+            }
         </div>
     )
 }
