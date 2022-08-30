@@ -11,13 +11,6 @@ export const nodesSlice = createSlice({
         feedback : null
     },
     reducers: {
-        setLoaded : state => {
-            state.loading = false
-        },
-        setListener : state => {
-            state.loading = true
-            state.error = null
-        },
         setNodeData : (state, action) => {
             console.log(action.payload)
             const index = state.nodesData.findIndex(n => n.id === action.payload.id )
@@ -27,6 +20,9 @@ export const nodesSlice = createSlice({
             else{ 
                 state.nodesData[index] = action.payload 
             }
+
+            if(state.nodesData.length === state.nodesId.length)
+                state.loading = false
         }
     },
     extraReducers : builder => {
@@ -61,7 +57,6 @@ export const nodesSlice = createSlice({
 
         builder.addCase(getUserNodeIds.fulfilled, (state, action) => {
             const respose = action.payload
-            state.loading = false
             state.nodesId = respose
         })
 
@@ -75,4 +70,4 @@ export const nodesSlice = createSlice({
 })
 
 
-export const { setListener, setNodeData, setLoaded } = nodesSlice.actions
+export const { setNodeData } = nodesSlice.actions
