@@ -23,6 +23,10 @@ export const nodesSlice = createSlice({
 
             if(state.nodesData.length === state.nodesId.length)
                 state.loading = false
+        },
+        setErrorNodes : (state, action) => {
+            state.error = action.payload
+            state.feedback = null
         }
     },
     extraReducers : builder => {
@@ -70,4 +74,4 @@ export const nodesSlice = createSlice({
 })
 
 
-export const { setNodeData } = nodesSlice.actions
+export const { setNodeData, setErrorNodes } = nodesSlice.actions
