@@ -80,6 +80,9 @@ const NodesTable = ({ nodos, ...rest }) => {
                   Nombre
                 </TableCell>
                 <TableCell>
+                  Node Id
+                </TableCell>
+                <TableCell>
                   Humedad
                 </TableCell>
                 <TableCell>
@@ -110,10 +113,13 @@ const NodesTable = ({ nodos, ...rest }) => {
                       </Typography>
                   </TableCell>
                   <TableCell>
-                    {'50%'}
+                    {nodo.id}
                   </TableCell>
                   <TableCell>
-                    {`17 C`}
+                    {nodo.hum}
+                  </TableCell>
+                  <TableCell>
+                    {nodo.temp}
                   </TableCell>
                 </TableRow>
               ))}

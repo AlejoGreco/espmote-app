@@ -6,11 +6,29 @@ export const nodesSlice = createSlice({
     initialState: {
         loading : true,
         nodesId : [],
-        nodeData : [],
+        nodesData : [],
         error : null,
         feedback : null
     },
-    reducers: {},
+    reducers: {
+        setLoaded : state => {
+            state.loading = false
+        },
+        setListener : state => {
+            state.loading = true
+            state.error = null
+        },
+        setNodeData : (state, action) => {
+            console.log(action.payload)
+            const index = state.nodesData.findIndex(n => n.id === action.payload.id )
+            if(index === -1){ 
+                state.nodesData.push(action.payload) 
+            }
+            else{ 
+                state.nodesData[index] = action.payload 
+            }
+        }
+    },
     extraReducers : builder => {
 
         // Reducers de nuevos nodos
@@ -57,4 +75,4 @@ export const nodesSlice = createSlice({
 })
 
 
-//export const { } = nodesSlice.actions
+export const { setListener, setNodeData, setLoaded } = nodesSlice.actions

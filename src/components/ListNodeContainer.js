@@ -1,17 +1,37 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserNodeIds } from '../store/slices/nodes'
+import { getUserNodeIds, setListener, setNodeData, setLoaded } from '../store/slices/nodes'
 import NodesTable from './NodesTable'
+import { onValue, ref } from 'firebase/database'
+import { database } from '../firebase'
 
 const ListNodeContainer = () => {
 
     const dispatch = useDispatch()
-    const { nodesId, loading } = useSelector(state => state.nodes)
+    const { nodesId, loading, nodesData } = useSelector(state => state.nodes)
     const { id } = useSelector(state => state.userAuth)
 
     useEffect(() => {
         dispatch(getUserNodeIds(id))
     }, [dispatch, id])
+
+    useEffect(() => {
+        if(nodesId.length){
+            dispatch(setListener())
+
+            nodesId.forEach(node => {
+                const starCountRef = ref(database, `nodos/${node.nodeId}`)
+                onValue(starCountRef, async snapshot => {
+                    const data = await snapshot.val()
+                    console.log(data)
+                    dispatch(setNodeData({...data, id : node.nodeId}))
+                })
+            })
+
+            dispatch(setLoaded())
+        }
+        
+    },[dispatch, nodesId])
 
     if(loading)
         return <h2>Cargando ... </h2>
@@ -22,7 +42,7 @@ const ListNodeContainer = () => {
     return (
         <div>
             <h3>Nodos</h3>
-            <NodesTable nodos={nodesId}/>
+            <NodesTable nodos={nodesData}/>
         </div>
     )
 }
