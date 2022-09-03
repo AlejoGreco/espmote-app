@@ -13,6 +13,8 @@ import ProtectRoute from './components/ProtectRoute';
 import Membresy from './pages/Membresy';
 import Profile from './pages/Profile';
 import ResetPass from './pages/ResetPass';
+import { ThemeProvider } from '@mui/system';
+import theme from './themes/berry'
 
 function App() {
   const dispatch = useDispatch()
@@ -36,16 +38,18 @@ function App() {
 
   
   return (
-    <Routes>
-      <Route path='/' element={<Welcome />}/>
-      <Route path='/home' element={<ProtectRoute><Home /></ProtectRoute>}/>
-      <Route path='/membresy' element={<ProtectRoute><Membresy /></ProtectRoute>}/>
-      <Route path='/profile' element={<ProtectRoute><Profile /></ProtectRoute>}/>
-      <Route path='/login' element={<Login />}/>
-      <Route path='/resetpass' element={<ResetPass />}/>
-      <Route path='/register' element={<Register />}/>
-      <Route path='*' element={<NotFound />}/>
-    </Routes>
+    <ThemeProvider theme={theme({})}>
+      <Routes>
+        <Route path='/' element={<Welcome />}/>
+        <Route path='/home' element={<ProtectRoute><Home /></ProtectRoute>}/>
+        <Route path='/membresy' element={<ProtectRoute><Membresy /></ProtectRoute>}/>
+        <Route path='/profile' element={<ProtectRoute><Profile /></ProtectRoute>}/>
+        <Route path='/login' element={<Login />}/>
+        <Route path='/resetpass' element={<ResetPass />}/>
+        <Route path='/register' element={<Register />}/>
+        <Route path='*' element={<NotFound />}/>
+      </Routes>
+    </ThemeProvider>
   );
 }
 
