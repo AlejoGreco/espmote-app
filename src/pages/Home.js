@@ -6,7 +6,6 @@ import { database } from '../firebase'
 import PageFrame from '../components/PageFrame'
 import FormNode from '../components/FormNode'
 import ListNodeContainer from '../components/ListNodeContainer'
-import EarningCard from '../components/cards/EarningCard'
 
 const Home = () => {
     const dispatch = useDispatch()
@@ -22,9 +21,8 @@ const Home = () => {
             nodesId.forEach(node => {
                 const starCountRef = ref(database, `nodos/${node.nodeId}`)
                 onValue(starCountRef, async snapshot => {
-                    let data = await snapshot.val()
-                    console.log(data)
-                    dispatch(setNodeData({...data, id : node.nodeId, name : node.name}))
+                    const {type, ...data} = await snapshot.val()
+                    dispatch(setNodeData({id : node.nodeId, type, name : node.name, data}))
                 })
             })
         }
@@ -34,7 +32,6 @@ return (
     <PageFrame>
     <h2>Home</h2>
     <ListNodeContainer />
-    <EarningCard />
     <FormNode />
     </PageFrame>
 )

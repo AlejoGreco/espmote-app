@@ -11,11 +11,8 @@ import SkeletonEarningCard from '../skeletons/EarningCard'
 // assets
 import EarningIcon from '../../assets/images/icons/earning.svg'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 import GetAppTwoToneIcon from '@mui/icons-material/GetAppOutlined'
 import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined'
-import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined'
-import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined'
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.dark,
@@ -55,7 +52,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
-const EarningCard = ({ isLoading }) => {
+const NodeCard = ({ isLoading, node }) => {
     const theme = useTheme();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -68,28 +65,48 @@ const EarningCard = ({ isLoading }) => {
         setAnchorEl(null);
     };
 
+    const renderData = nodeData => {
+        const nodeDataArray = Object.entries(nodeData)
+        const uiNodeData = nodeDataArray.map(item => (
+                <Grid item flexGrow={1}>
+                    <Typography sx={{ fontSize: '1.8rem', fontWeight: 500, mt: 1.75 }}>
+                        {`${item[0]}`}
+                    </Typography>
+                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mb: 0.75 }}>
+                        {`${item[1]}`}
+                    </Typography>
+                </Grid>
+            )
+        )
+        return uiNodeData
+    }
+
     return (
         <>
             {isLoading ? (
                 <SkeletonEarningCard />
             ) : (
                 <CardWrapper border={false} content={false}>
-                    <Box sx={{ p: 2.25 }}>
+                    <Box p={2.25}>
                         <Grid container direction="column">
                             <Grid item>
                                 <Grid container justifyContent="space-between">
-                                    <Grid item>
+                                    <Grid item display='flex' alignItems='center'>
                                         <Avatar
                                             variant="rounded"
                                             sx={{
                                                 ...theme.typography.commonAvatar,
                                                 ...theme.typography.largeAvatar,
                                                 backgroundColor: theme.palette.secondary[800],
-                                                mt: 1
+                                                mt: 1,
+                                                mr: 2
                                             }}
                                         >
                                             <img src={EarningIcon} alt="Notification" />
                                         </Avatar>
+                                        <Typography sx={{ fontSize: '2rem', fontWeight: 500, mt: 1}} display='inline-block'>
+                                            {`Nodo ${node.name}`}
+                                        </Typography>
                                     </Grid>
                                     <Grid item>
                                         <Avatar
@@ -124,40 +141,20 @@ const EarningCard = ({ isLoading }) => {
                                             }}
                                         >
                                             <MenuItem onClick={handleClose}>
-                                                <GetAppTwoToneIcon sx={{ mr: 1.75 }} /> Import Card
+                                                <GetAppTwoToneIcon sx={{ mr: 1.75 }} /> Editar Nodo
                                             </MenuItem>
                                             <MenuItem onClick={handleClose}>
-                                                <FileCopyTwoToneIcon sx={{ mr: 1.75 }} /> Copy Data
-                                            </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <PictureAsPdfTwoToneIcon sx={{ mr: 1.75 }} /> Export
-                                            </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <ArchiveTwoToneIcon sx={{ mr: 1.75 }} /> Archive File
+                                                <FileCopyTwoToneIcon sx={{ mr: 1.75 }} /> Borrar Nodo
                                             </MenuItem>
                                         </Menu>
                                     </Grid>
                                 </Grid>
                             </Grid>
                             <Grid item>
-                                <Grid container alignItems="center">
-                                    <Grid item>
-                                        <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            $500.00
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Avatar
-                                            sx={{
-                                                cursor: 'pointer',
-                                                ...theme.typography.smallAvatar,
-                                                backgroundColor: theme.palette.secondary[200],
-                                                color: theme.palette.secondary.dark
-                                            }}
-                                        >
-                                            <ArrowUpwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
-                                        </Avatar>
-                                    </Grid>
+                                <Grid container alignItems="center" columnSpacing={2}>
+                                    {
+                                        renderData(node.data)
+                                    }
                                 </Grid>
                             </Grid>
                             <Grid item sx={{ mb: 1.25 }}>
@@ -168,7 +165,7 @@ const EarningCard = ({ isLoading }) => {
                                         color: theme.palette.secondary[200]
                                     }}
                                 >
-                                    Total Earning
+                                    {`Id ${node.id}`}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -179,4 +176,4 @@ const EarningCard = ({ isLoading }) => {
     )
 }
 
-export default EarningCard
+export default NodeCard
