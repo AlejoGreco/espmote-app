@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles'
-import { Avatar, Box, Grid, Menu, MenuItem, Typography } from '@mui/material'
+import { Avatar, Box, Grid, Typography } from '@mui/material'
 
 // project imports
 import MainCard from './MainCard'
@@ -10,8 +10,8 @@ import SkeletonEarningCard from '../skeletons/EarningCard'
 
 // assets
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import GetAppTwoToneIcon from '@mui/icons-material/GetAppOutlined'
-import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined'
+import NodeMenuCard from './NodeMenuCard'
+import NodeCardContent from './NodeCardContent'
 
 const CardWrapper = styled(MainCard)(({ theme, bg }) => ({
     backgroundColor: bg[600],
@@ -52,33 +52,21 @@ const CardWrapper = styled(MainCard)(({ theme, bg }) => ({
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
 const NodeCard = ({ isLoading, node, custom }) => {
-    const theme = useTheme();
-    const Icon = custom.Icon
+    const theme = useTheme()
 
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorEl, setAnchorEl] = useState(null)
 
     const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
+        setAnchorEl(event.currentTarget)
     };
 
     const handleClose = () => {
-        setAnchorEl(null);
+        setAnchorEl(null)
     };
 
     const renderData = nodeData => {
         const nodeDataArray = Object.entries(nodeData)
-        const uiNodeData = nodeDataArray.map(item => (
-                <Grid item flexGrow={1}>
-                    <Typography sx={{ fontSize: '1.8rem', fontWeight: 500, mt: 1.75 }}>
-                        {`${item[0]}`}
-                    </Typography>
-                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mb: 0.75 }}>
-                        {`${item[1]}`}
-                    </Typography>
-                </Grid>
-            )
-        )
-        return uiNodeData
+        return nodeDataArray.map(item => <NodeCardContent item={item} /> )
     }
 
     return (
@@ -103,7 +91,7 @@ const NodeCard = ({ isLoading, node, custom }) => {
                                                 mr: 2
                                             }}
                                         >
-                                            <Icon />
+                                            <custom.Icon />
                                         </Avatar>
                                         <Typography sx={{ fontSize: '2rem', fontWeight: 500, mt: 1}} display='inline-block'>
                                             {`Nodo ${node.name}`}
@@ -125,29 +113,7 @@ const NodeCard = ({ isLoading, node, custom }) => {
                                         >
                                             <MoreHorizIcon fontSize="inherit" />
                                         </Avatar>
-                                        <Menu
-                                            id="menu-earning-card"
-                                            anchorEl={anchorEl}
-                                            keepMounted
-                                            open={Boolean(anchorEl)}
-                                            onClose={handleClose}
-                                            variant="selectedMenu"
-                                            anchorOrigin={{
-                                                vertical: 'bottom',
-                                                horizontal: 'right'
-                                            }}
-                                            transformOrigin={{
-                                                vertical: 'top',
-                                                horizontal: 'right'
-                                            }}
-                                        >
-                                            <MenuItem onClick={handleClose}>
-                                                <GetAppTwoToneIcon sx={{ mr: 1.75 }} /> Editar Nodo
-                                            </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <FileCopyTwoToneIcon sx={{ mr: 1.75 }} /> Borrar Nodo
-                                            </MenuItem>
-                                        </Menu>
+                                        <NodeMenuCard handleClose={handleClose} anchorEl={anchorEl} />
                                     </Grid>
                                 </Grid>
                             </Grid>
