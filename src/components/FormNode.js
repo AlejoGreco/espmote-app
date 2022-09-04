@@ -40,7 +40,7 @@ const FormNode = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
+            <Container fullWidth maxWidth="xs">
                 <Box
                     sx={{
                     marginTop: 8,

@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUserNodeIds, setNodeData } from '../store/slices/nodes'
 import { onValue, ref } from 'firebase/database'
 import { database } from '../firebase'
+import { Grid } from '@mui/material'
 import PageFrame from '../components/PageFrame'
 import FormNode from '../components/FormNode'
 import ListNodeContainer from '../components/ListNodeContainer'
+import PopularCard from '../components/cards/PopularCard'
 
 const Home = () => {
     const dispatch = useDispatch()
@@ -30,9 +32,25 @@ const Home = () => {
 
 return (
     <PageFrame>
-    <h2>Home</h2>
-    <ListNodeContainer />
-    <FormNode />
+        <Grid container spacing={3}>
+            <Grid item xs={12}>
+                <Grid container spacing={3}>
+                    <Grid item xl={8} lg={8} md={12} sm={12} xs={12}>
+                        <ListNodeContainer />
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid item xs={12}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={12} md={6} lg={8}>
+                        <PopularCard />{/* Lista de alarmas */}
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={6} lg={4}>
+                    <FormNode />{/* Crear nodo */}
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
     </PageFrame>
 )
 }
