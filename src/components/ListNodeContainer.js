@@ -1,7 +1,8 @@
 import { Grid } from '@mui/material'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import NodeItemList from './NodeItemList'
+import NodeCard from './cards/NodeCard'
+
 
 
 const ListNodeContainer = () => {
@@ -19,7 +20,7 @@ const ListNodeContainer = () => {
             <h3>Nodos</h3>
             <Grid container spacing={2}>
                 {
-                    nodesData.map(node => <NodeItemList node={node}/>)
+                    nodesData.map(node => <NodeCard key={node.id} node={node}/>)
                 }
             </Grid>
         </div>

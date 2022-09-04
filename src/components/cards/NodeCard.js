@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles'
@@ -6,12 +6,13 @@ import { Avatar, Box, Grid, Typography } from '@mui/material'
 
 // project imports
 import MainCard from './MainCard'
+import NodeMenuCard from './NodeMenuCard'
+import NodeCardContent from './NodeCardContent'
 import SkeletonEarningCard from '../skeletons/EarningCard'
+import { cardTypeCustom } from './cardHelpers'
 
 // assets
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import NodeMenuCard from './NodeMenuCard'
-import NodeCardContent from './NodeCardContent'
 
 const CardWrapper = styled(MainCard)(({ theme, bg }) => ({
     backgroundColor: bg[600],
@@ -51,10 +52,11 @@ const CardWrapper = styled(MainCard)(({ theme, bg }) => ({
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
-const NodeCard = ({ isLoading, node, custom }) => {
+const NodeCard = ({ isLoading, node }) => {
     const theme = useTheme()
 
     const [anchorEl, setAnchorEl] = useState(null)
+    const custom = useMemo(() => cardTypeCustom(node.type), [node])
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
@@ -66,11 +68,11 @@ const NodeCard = ({ isLoading, node, custom }) => {
 
     const renderData = nodeData => {
         const nodeDataArray = Object.entries(nodeData)
-        return nodeDataArray.map(item => <NodeCardContent item={item} /> )
+        return nodeDataArray.map((item, i) => <NodeCardContent key={i} item={item} /> )
     }
 
     return (
-        <>
+        <Grid item xs={12} md={6} xl={4}>
             {isLoading ? (
                 <SkeletonEarningCard />
             ) : (
@@ -139,7 +141,7 @@ const NodeCard = ({ isLoading, node, custom }) => {
                     </Box>
                 </CardWrapper>
             )}
-        </>
+        </Grid>
     )
 }
 
