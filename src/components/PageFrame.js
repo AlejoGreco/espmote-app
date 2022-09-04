@@ -3,16 +3,15 @@ import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import SideList from './SideList';
+import { useTheme } from '@emotion/react';
+import Header from './header'
 
 const PageFrame = ({window, children}) => {
-
     const drawerWidth = 240;
 
+    const theme = useTheme()
     const [mobileOpen, setMobileOpen] = useState(false);
 
     const handleDrawerToggle = () => {
@@ -25,25 +24,18 @@ const PageFrame = ({window, children}) => {
     return (
         <Box sx={{ display: 'flex' }}>
             <AppBar
+                enableColorOnDark
                 position="fixed"
+                color="inherit"
+                elevation={0}
                 sx={{
-                width: { sm: `calc(100% - ${drawerWidth}px)` },
-                ml: { sm: `${drawerWidth}px` },
+                    bgcolor: theme.palette.background.default,
+                    //transition: theme.transitions.create('width')
+                    /*transition: leftDrawerOpened ? theme.transitions.create('width') : 'none'*/
                 }}
             >
                 <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Espmote App
-                    </Typography>
+                    <Header handleLeftDrawerToggle={() => {}}/>
                 </Toolbar>
             </AppBar>
             <Box
