@@ -80,12 +80,10 @@ const PageFrame = ({window, children}) => {
             */}
 
             {/* main content */}
-            {/*
-            <Main theme={theme} open={leftDrawerOpened}>
-                <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
-                <Outlet />
+            <Main theme={theme} open={true}>
+            {/*<Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />*/}
+            Contenido
             </Main>
-            */}
         </Box>
     )
 }
