@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import { useTheme } from '@emotion/react';
 import Header from './header'
+import Sidebar from './Sidebar';
 import { CssBaseline } from '@mui/material';
 
 const PageFrame = ({window, children}) => {
@@ -75,10 +76,8 @@ const PageFrame = ({window, children}) => {
             </AppBar>
 
             {/* drawer */}
-            {/*
-            <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
-            */}
-
+            <Sidebar drawerOpen={true} drawerToggle={() => {}} />
+            
             {/* main content */}
             <Main theme={theme} open={true}>
             {/*<Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />*/}
