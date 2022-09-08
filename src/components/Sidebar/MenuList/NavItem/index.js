@@ -1,15 +1,14 @@
-import PropTypes from 'prop-types';
-import { forwardRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { forwardRef } from 'react'
+import { Link } from 'react-router-dom'
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
-import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles'
+import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
 
 
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 
-const NavItem = ({ item, level }) => {
+const NavItem = ({ item, level, handlerActive, active}) => {
     const theme = useTheme();
 
     const Icon = item.icon;
@@ -22,26 +21,11 @@ const NavItem = ({ item, level }) => {
 
     let listItemProps = {
         component: forwardRef((props, ref) => <Link ref={ref} {...props} to={item.url} target={itemTarget} />)
-    };
+    }
+
     if (item?.external) {
         listItemProps = { component: 'a', href: item.url, target: itemTarget };
     }
-
-    const itemHandler = (id) => {
-        
-    }
-
-    // active menu item on page load
-    useEffect(() => {
-        const currentIndex = document.location.pathname
-            .toString()
-            .split('/')
-            .findIndex((id) => id === item.id)
-        if (currentIndex > -1) {
-            
-        }
-        // eslint-disable-next-line
-    }, []);
 
     return (
         <ListItemButton
@@ -55,8 +39,8 @@ const NavItem = ({ item, level }) => {
                 py: level > 1 ? 1 : 1.25,
                 pl: `${level * 24}px`
             }}
-            selected
-            onClick={() => itemHandler(item.id)}
+            onClick={() => handlerActive(item.id)}
+            selected = {active === item.id}
         >
             <ListItemIcon sx={{ my: 'auto', minWidth: !item?.icon ? 18 : 36 }}>{itemIcon}</ListItemIcon>
             <ListItemText
@@ -83,12 +67,7 @@ const NavItem = ({ item, level }) => {
                 />
             )}
         </ListItemButton>
-    );
-};
-
-NavItem.propTypes = {
-    item: PropTypes.object,
-    level: PropTypes.number
-};
+    )
+}
 
 export default NavItem;

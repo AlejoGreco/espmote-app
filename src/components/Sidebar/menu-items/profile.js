@@ -10,7 +10,7 @@ const profile = {
     type: 'group',
     children: [
         {
-            id: 'default',
+            id: 'profile',
             title: 'Mi perfil',
             type: 'item',
             url: '/profile',
