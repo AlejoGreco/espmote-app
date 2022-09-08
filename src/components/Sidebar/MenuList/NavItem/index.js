@@ -1,5 +1,5 @@
-import { forwardRef } from 'react'
-import { Link } from 'react-router-dom'
+import { forwardRef, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setMenuItem } from './../../../../store/slices/ui'
 
@@ -14,6 +14,7 @@ const NavItem = ({ item, level }) => {
     const theme = useTheme();
     const selected = useSelector(state => state.ui.menuItemSelected)
     const dispatch = useDispatch()
+    const { pathname } = useLocation()
 
     const Icon = item.icon;
     const itemIcon = item.icon && <Icon stroke={1.5} size="1.3rem" />
@@ -30,6 +31,17 @@ const NavItem = ({ item, level }) => {
     if (item?.external) {
         listItemProps = { component: 'a', href: item.url, target: itemTarget };
     }
+
+    useEffect(() => {
+        const res = pathname.endsWith(item.id)
+        if(res){
+            dispatch(setMenuItem(item.id))            
+        }
+        else if(pathname === '/home'){
+            dispatch(setMenuItem('dashboard'))
+        }
+
+    }, [dispatch, pathname, item])
 
     return (
         <ListItemButton
