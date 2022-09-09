@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -6,14 +6,20 @@ import Toolbar from '@mui/material/Toolbar';
 import { useTheme } from '@emotion/react';
 import Header from './header'
 import Sidebar from './Sidebar';
-import { CssBaseline } from '@mui/material';
+import { CssBaseline, useMediaQuery } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDrawerVisibility } from '../store/slices/ui';
 
 const PageFrame = ({window, children}) => {
     const theme = useTheme()
-    const drawerOpen = useSelector(state => state.ui.drawerOpened)
+    const matchDownMd = useMediaQuery(theme.breakpoints.down('lg'))
+
     const dispatch = useDispatch()
+    const drawerOpen = useSelector(state => state.ui.drawerOpened)
+    
+    useEffect(() => {
+        dispatch(setDrawerVisibility(!matchDownMd))
+    }, [matchDownMd, dispatch]);
 
     const drawerWidth = 260
 
@@ -76,12 +82,12 @@ const PageFrame = ({window, children}) => {
                 }}
             >
                 <Toolbar>
-                    <Header handleLeftDrawerToggle={() => { dispatch(setDrawerVisibility()) }} />
+                    <Header handleLeftDrawerToggle={() => { dispatch(setDrawerVisibility(!drawerOpen)) }} />
                 </Toolbar>
             </AppBar>
 
             {/* drawer */}
-            <Sidebar drawerOpen={drawerOpen} drawerToggle={() => { dispatch(setDrawerVisibility()) }} />
+            <Sidebar drawerOpen={drawerOpen} drawerToggle={() => { dispatch(setDrawerVisibility(!drawerOpen)) }} />
             
             {/* main content */}
             <Main theme={theme} open={drawerOpen}>

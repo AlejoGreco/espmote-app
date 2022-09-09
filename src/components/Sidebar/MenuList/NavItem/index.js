@@ -42,7 +42,7 @@ const NavItem = ({ item, level }) => {
             dispatch(setMenuItem('dashboard'))
         }
         if(matchesSM){
-            dispatch(setDrawerVisibility())
+            dispatch(setDrawerVisibility(false))
         }
 
     }, [dispatch, pathname, item, matchesSM])

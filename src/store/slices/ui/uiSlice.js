@@ -10,8 +10,8 @@ export const uiSlice = createSlice({
         setMenuItem : (state, action) => {
             state.menuItemSelected = action.payload
         },
-        setDrawerVisibility : (state) => {
-            state.drawerOpened = !state.drawerOpened 
+        setDrawerVisibility : (state, action) => {
+            state.drawerOpened = action.payload 
         }
 
     }
