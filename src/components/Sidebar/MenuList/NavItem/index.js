@@ -1,17 +1,18 @@
 import { forwardRef, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { setMenuItem } from './../../../../store/slices/ui'
+import { setDrawerVisibility, setMenuItem } from './../../../../store/slices/ui'
 
 // material-ui
 import { useTheme } from '@mui/material/styles'
-import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
+import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material'
 
 
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 
 const NavItem = ({ item, level }) => {
     const theme = useTheme();
+    const matchesSM = useMediaQuery(theme.breakpoints.down('lg')) 
     const selected = useSelector(state => state.ui.menuItemSelected)
     const dispatch = useDispatch()
     const { pathname } = useLocation()
@@ -40,8 +41,11 @@ const NavItem = ({ item, level }) => {
         else if(pathname === '/home'){
             dispatch(setMenuItem('dashboard'))
         }
+        if(matchesSM){
+            dispatch(setDrawerVisibility())
+        }
 
-    }, [dispatch, pathname, item])
+    }, [dispatch, pathname, item, matchesSM])
 
     return (
         <ListItemButton

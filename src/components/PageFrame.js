@@ -7,9 +7,14 @@ import { useTheme } from '@emotion/react';
 import Header from './header'
 import Sidebar from './Sidebar';
 import { CssBaseline } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDrawerVisibility } from '../store/slices/ui';
 
 const PageFrame = ({window, children}) => {
     const theme = useTheme()
+    const drawerOpen = useSelector(state => state.ui.drawerOpened)
+    const dispatch = useDispatch()
+
     const drawerWidth = 260
 
     // styles
@@ -71,15 +76,15 @@ const PageFrame = ({window, children}) => {
                 }}
             >
                 <Toolbar>
-                    <Header handleLeftDrawerToggle={() => {}} />
+                    <Header handleLeftDrawerToggle={() => { dispatch(setDrawerVisibility()) }} />
                 </Toolbar>
             </AppBar>
 
             {/* drawer */}
-            <Sidebar drawerOpen={true} drawerToggle={() => {}} />
+            <Sidebar drawerOpen={drawerOpen} drawerToggle={() => { dispatch(setDrawerVisibility()) }} />
             
             {/* main content */}
-            <Main theme={theme} open={true}>
+            <Main theme={theme} open={drawerOpen}>
             {/*<Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />*/}
             Contenido
             </Main>
