@@ -8,6 +8,7 @@ import NotificationDummy from './NotificationDummy';
 
 // assets
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
+import Logout from './Logout';
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
 const Header = ({ handleLeftDrawerToggle }) => {
@@ -52,6 +53,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ flexGrow: 1 }} />
             <NotificationDummy />
+            <Logout />
         </>
     );
 };

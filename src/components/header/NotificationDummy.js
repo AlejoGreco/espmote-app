@@ -14,11 +14,11 @@ const NotificationDummy = () => {
   return (
     <Box
         sx={{
-            /*ml: 2,
+            ml: 2,
             mr: 3,
             [theme.breakpoints.down('md')]: {
                 mr: 2
-            }*/
+            }
         }}
     >
         <ButtonBase sx={{ borderRadius: '12px' }}>
