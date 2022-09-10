@@ -1,4 +1,6 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { logoutUser } from '../../store/slices/auth/thunks'
 import { useTheme } from '@mui/material/styles'
 import {
     Avatar,
@@ -8,8 +10,14 @@ import {
 
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 
+
 const Logout = () => {
     const theme = useTheme()
+    const dispatch = useDispatch()
+
+    const handleClick  = () => {
+        dispatch(logoutUser())
+    }
 
     return (
         <Chip
@@ -46,7 +54,7 @@ const Logout = () => {
             label={<Typography>Logout</Typography>}
             variant="outlined"
             color="primary"
-            onClick={() => console.log('Saliendo ando')}
+            onClick={handleClick}
         />
     )
 }
