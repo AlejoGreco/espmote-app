@@ -26,7 +26,8 @@ const Logout = () => {
                     color: theme.palette.primary.light
                 },
                 '& .MuiChip-label': {
-                    lineHeight: 0
+                    lineHeight: 0,
+                    paddingLeft: 0
                 }
             }}
             icon={
@@ -42,7 +43,7 @@ const Logout = () => {
                     <LogoutRoundedIcon stroke={1.5}/>
                 </Avatar>
             }
-            label={<Typography sx={{paddingLeft: 0}}>Logout</Typography>}
+            label={<Typography>Logout</Typography>}
             variant="outlined"
             color="primary"
             onClick={() => console.log('Saliendo ando')}
