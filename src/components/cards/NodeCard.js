@@ -67,9 +67,20 @@ const NodeCard = ({ isLoading, node }) => {
     };
 
     const renderData = nodeData => {
-        const nodeDataArray = Object.entries(nodeData)
-        return nodeDataArray.map((item, i) => <NodeCardContent key={i} item={item} /> )
+        if(nodeData){
+            const nodeDataArray = Object.entries(nodeData)
+            return nodeDataArray.map((item, i) => <NodeCardContent key={i} item={item} /> )
+        }
+        return (
+            <Grid item flexGrow={1}>
+                <Typography sx={{ fontSize: '2rem', fontWeight: 500, mt: 1.75 }}>
+                    No hay datos
+                </Typography>
+            </Grid>
+        )
+        
     }
+
 
     return (
         <Grid item xs={12} md={6} xl={4}>
@@ -95,8 +106,8 @@ const NodeCard = ({ isLoading, node }) => {
                                         >
                                             <custom.Icon />
                                         </Avatar>
-                                        <Typography sx={{ fontSize: '2rem', fontWeight: 500, mt: 1}} display='inline-block'>
-                                            {`Nodo ${node.name}`}
+                                        <Typography sx={{ fontSize: '1.6rem', fontWeight: 500, mt: 1}} display='inline-block'>
+                                            {`${node.name}`}
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -122,7 +133,7 @@ const NodeCard = ({ isLoading, node }) => {
                             <Grid item>
                                 <Grid container alignItems="center" columnSpacing={2}>
                                     {
-                                        renderData(node.data)
+                                        renderData(node.data) 
                                     }
                                 </Grid>
                             </Grid>

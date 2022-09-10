@@ -23,8 +23,15 @@ const Home = () => {
             nodesId.forEach(node => {
                 const starCountRef = ref(database, `nodos/${node.nodeId}`)
                 onValue(starCountRef, async snapshot => {
-                    const {type, ...data} = await snapshot.val()
-                    dispatch(setNodeData({id : node.nodeId, type, name : node.name, data}))
+                    const values = await snapshot.val()
+                    if(values)
+                    {
+                        const {type, ...data} = values
+                        dispatch(setNodeData({id : node.nodeId, type, name : node.name, data}))
+                    }
+                    else{
+                        dispatch(setNodeData({id : node.nodeId, type: undefined, name : node.name, data: undefined}))
+                    }
                 })
             })
         }

@@ -5,6 +5,7 @@ import WaterOutlinedIcon from '@mui/icons-material/WaterOutlined'
 import ForestOutlinedIcon from '@mui/icons-material/ForestOutlined'
 
 export const cardTypeCustom = nType => {
+
     const customCard = {}
     switch (nType){
         case '1':
