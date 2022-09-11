@@ -1,12 +1,13 @@
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
-import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
+import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Typography, Link } from '@mui/material'
 
 // project imports
 import MainCard from './MainCard';
-import TotalIncomeCard from './../skeletons/TotalIncomeCard';
+import TotalIncomeCard from './../skeletons/TotalIncomeCard'
 
 import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded'
+import { Link as LinkRouter } from 'react-router-dom';
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
@@ -32,12 +33,41 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
         top: -160,
         right: -130
     }
-}));
+}))
 
 // ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
 const AlarmNoteCard = ({ isLoading }) => {
-    const theme = useTheme();
+    const theme = useTheme()
+    const alarm = 'Error ->'
+
+    const renderContent = alarm => {
+        if(alarm){
+            return (
+                <Link
+                    to='/alarms'
+                    component={LinkRouter} 
+                    variant='subtitle1'
+                    underline='hover'
+                    color={theme.palette.error.main}
+                >
+                    {alarm}
+                </Link>
+            )
+        }
+
+        return (
+            <Typography
+                variant="subtitle2"
+                sx={{
+                    color: theme.palette.grey[500],
+                    mt: 0.5
+                }}
+            >
+                No tiene alarmas pendientes
+            </Typography>
+        )
+    }
 
     return (
         <>
@@ -68,17 +98,7 @@ const AlarmNoteCard = ({ isLoading }) => {
                                         mb: 0.45
                                     }}
                                     primary={<Typography variant="h4">Alarmas</Typography>}
-                                    secondary={
-                                        <Typography
-                                            variant="subtitle2"
-                                            sx={{
-                                                color: theme.palette.grey[500],
-                                                mt: 0.5
-                                            }}
-                                        >
-                                            {true ? 'Tiene alarmas sin revisar!' : 'No hay nuevas alarmas'}
-                                        </Typography>
-                                    }
+                                    secondary={ renderContent(alarm) }
                                 />
                             </ListItem>
                         </List>
