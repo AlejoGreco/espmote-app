@@ -83,7 +83,7 @@ const NodeCard = ({ isLoading, node }) => {
 
 
     return (
-        <Grid item xs={12} md={6} xl={4}>
+        <div>
             {isLoading ? (
                 <SkeletonEarningCard />
             ) : (
@@ -152,7 +152,7 @@ const NodeCard = ({ isLoading, node }) => {
                     </Box>
                 </CardWrapper>
             )}
-        </Grid>
+        </div>
     )
 }
 

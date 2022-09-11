@@ -16,14 +16,15 @@ const ListNodeContainer = () => {
         return <h2>No hay nodos dados de alta</h2>
     
     return (
-        <div>
-            <h3>Nodos</h3>
-            <Grid container spacing={2}>
-                {
-                    nodesData.map(node => <NodeCard key={node.id} node={node}/>)
-                }
-            </Grid>
-        </div>
+        <Grid container justifyContent={{sm: 'center', md: 'flex-start'}} spacing={3}>
+            {
+                nodesData.map(node => (
+                    <Grid item xs={12} sm={8} md={6} lg={6} xl={4}>
+                        <NodeCard key={node.id} node={node}/>
+                    </Grid>
+                ))
+            }
+        </Grid>
     )
 }
 

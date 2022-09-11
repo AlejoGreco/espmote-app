@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUserNodeIds, setNodeData } from '../store/slices/nodes'
 import { onValue, ref } from 'firebase/database'
 import { database } from '../firebase'
-import { Grid } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import PageFrame from '../components/PageFrame'
 import FormNode from '../components/FormNode'
 import ListNodeContainer from '../components/ListNodeContainer'
-import PopularCard from '../components/cards/PopularCard'
 
 const Home = () => {
     const dispatch = useDispatch()
@@ -40,20 +39,16 @@ const Home = () => {
 return (
     <PageFrame>
         <Grid container spacing={3}>
-            <Grid item xs={12}>
-                <Grid container spacing={3}>
-                    <Grid item xl={8} lg={8} md={12} sm={12} xs={12}>
-                        <ListNodeContainer />
-                    </Grid>
-                </Grid>
+            <Grid item xs={12} sm={12} md={12} lg={8} xl={8}>
+                <ListNodeContainer />
             </Grid>
-            <Grid item xs={12}>
-                <Grid container spacing={3}>
-                    <Grid item xs={12} sm={12} md={6} lg={8}>
-                        <PopularCard />{/* Lista de alarmas */}
+            <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
+                <Grid container justifyContent='center' spacing={3}>
+                    <Grid item xs={12} sm={8} md={5} lg={12} xl={12}>
+                        <Typography>Aviso alarmas nuevas</Typography>
                     </Grid>
-                    <Grid item xs={12} sm={12} md={6} lg={4}>
-                    <FormNode />{/* Crear nodo */}
+                    <Grid item xs={12} sm={8} md={5} lg={12} xl={12}>
+                        <FormNode />
                     </Grid>
                 </Grid>
             </Grid>
