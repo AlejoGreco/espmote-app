@@ -15,6 +15,7 @@ import Profile from './pages/Profile';
 import ResetPass from './pages/ResetPass';
 import { ThemeProvider } from '@mui/system';
 import theme from './themes/berry'
+import Alarms from './pages/Alarms';
 
 function App() {
   const dispatch = useDispatch()
@@ -42,6 +43,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Welcome />}/>
         <Route path='/home' element={<ProtectRoute><Home /></ProtectRoute>}/>
+        <Route path='/alarms' element={<ProtectRoute><Alarms /></ProtectRoute>}/>
         <Route path='/membresy' element={<ProtectRoute><Membresy /></ProtectRoute>}/>
         <Route path='/profile' element={<ProtectRoute><Profile /></ProtectRoute>}/>
         <Route path='/login' element={<Login />}/>

@@ -1,10 +1,13 @@
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
-import CurrencyExchangeRoundedIcon from '@mui/icons-material/CurrencyExchangeRounded';
+import CurrencyExchangeRoundedIcon from '@mui/icons-material/CurrencyExchangeRounded'
+import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded'
+
 
 // constant
 const icons = {
     IconDash: GridViewRoundedIcon,
-    IconMember: CurrencyExchangeRoundedIcon
+    IconMember: CurrencyExchangeRoundedIcon,
+    IconAlarm : WarningAmberRoundedIcon
 }
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
@@ -20,6 +23,14 @@ const dashboard = {
             type: 'item',
             url: '/home',
             icon: icons.IconDash,
+            breadcrumbs: false
+        },
+        {
+            id: 'alarms',
+            title: 'Alarmas',
+            type: 'item',
+            url: '/alarms',
+            icon: icons.IconAlarm,
             breadcrumbs: false
         },
         {
