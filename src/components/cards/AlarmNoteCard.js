@@ -1,13 +1,11 @@
-// material-ui
-import { useTheme, styled } from '@mui/material/styles';
+//import { useSelector } from 'react-redux'
+import { Link as LinkRouter } from 'react-router-dom'
+import { useTheme, styled } from '@mui/material/styles'
 import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Typography, Link } from '@mui/material'
-
-// project imports
+import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded'
 import MainCard from './MainCard';
 import TotalIncomeCard from './../skeletons/TotalIncomeCard'
 
-import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded'
-import { Link as LinkRouter } from 'react-router-dom';
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
@@ -39,7 +37,8 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 const AlarmNoteCard = ({ isLoading }) => {
     const theme = useTheme()
-    const alarm = 'Error ->'
+    //const alarm = useSelector(state => state.alarms.activeAlarm)
+    const alarmDummy = {type: 'Nivel', node: 124313}
 
     const renderContent = alarm => {
         if(alarm){
@@ -51,7 +50,7 @@ const AlarmNoteCard = ({ isLoading }) => {
                     underline='hover'
                     color={theme.palette.error.main}
                 >
-                    {alarm}
+                    {`Alarma tipo ${alarm.type} - Nodo ${alarm.node}`}
                 </Link>
             )
         }
@@ -98,7 +97,7 @@ const AlarmNoteCard = ({ isLoading }) => {
                                         mb: 0.45
                                     }}
                                     primary={<Typography variant="h4">Alarmas</Typography>}
-                                    secondary={ renderContent(alarm) }
+                                    secondary={ renderContent(alarmDummy) }
                                 />
                             </ListItem>
                         </List>
