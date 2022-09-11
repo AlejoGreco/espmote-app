@@ -44,7 +44,7 @@ return (
                 <ListNodeContainer />
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-                <Grid container justifyContent='center' spacing={3}>
+                <Grid container justifyContent='space-around' spacing={3}>
                     <Grid item xs={12} sm={8} md={5} lg={12} xl={12}>
                         <AlarmNoteCard />
                     </Grid>
