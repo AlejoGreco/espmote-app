@@ -1,9 +1,16 @@
 import React from 'react'
 import { Menu, MenuItem } from '@mui/material'
-import EditIcon from '@mui/icons-material/Edit'
+import TimelineIcon from '@mui/icons-material/Timeline'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { deleteModal } from '../../assets/modals/modals'
 
 const NodeMenuCard = ({handleClose, anchorEl}) => {
+
+    const handleItemClick = callback => {
+        handleClose()
+        return callback
+    }
+
   return (
     <Menu
         id="menu-earning-card"
@@ -21,10 +28,10 @@ const NodeMenuCard = ({handleClose, anchorEl}) => {
             horizontal: 'right'
         }}
     >
-        <MenuItem onClick={handleClose}>
-            <EditIcon sx={{ mr: 1.75 }} /> Editar Nodo
+        <MenuItem onClick={() => handleItemClick()}>
+            <TimelineIcon sx={{ mr: 1.75 }} /> Detalle
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => handleItemClick(deleteModal)('Hola', 'mundo')}>
             <DeleteIcon sx={{ mr: 1.75 }} /> Borrar Nodo
         </MenuItem>
     </Menu>
