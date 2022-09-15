@@ -7,15 +7,20 @@ import Swal from 'sweetalert2'
     backgroundColor: theme.palette.background.default,
 })) */
 
-export const deleteModal = (title, text) => {
+export const deleteModal = ({title, text, theme}) => {
     Swal.fire({
         title: `${title}`,
         text: `${text}`,
         icon: 'warning',
+        iconColor: `${theme.palette.warning.dark}`,
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Eliminar'
+        confirmButtonColor: `${theme.palette.secondary.main}`,
+        cancelButtonColor: `${theme.palette.error.main}`,
+        confirmButtonText: 'Eliminar',
+        customClass: {
+            confirmButton: '',
+            cancelButton: '',
+          }
     })/* .then((result) => {
         if (result.isConfirmed) {
             Swal.fire(
