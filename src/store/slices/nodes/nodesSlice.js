@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { addNewNode, getUserNodeIds } from "./thunks"
+import { addNewNode, getUserNodeIds, deleteNode } from "./thunks"
 
 export const nodesSlice = createSlice({
     name: 'nodes',
@@ -48,6 +48,30 @@ export const nodesSlice = createSlice({
             const { error } = action
             state.loading = false
             state.error = {code : error.code, message : error.message}
+        })
+
+        //////////////////////////////////////////////////////////////////////
+
+        // Reducers de borrado de nodos
+        builder.addCase(deleteNode.pending, state => {
+            state.loading = true
+            state.error = null
+            state.feedback = null
+        })
+
+        builder.addCase(deleteNode.fulfilled, (state, action) => {
+            const { nodeId } = state.nodesId.filter(n => n.keydb === action.meta.arg.keydb)
+
+            state.loading = false
+            state.nodesId = state.nodesId.filter(n => n.keydb !== action.meta.arg.keydb)
+            state.nodesData = state.nodesData.filter(n => n.id !== nodeId)
+            state.feedback = { message : 'El nodo ha sido eliminado', target: 'snack'}
+        })
+
+        builder.addCase(deleteNode.rejected, (state, action) => {
+            const { error } = action
+            state.loading = false
+            state.error = {code : error.code, message : error.message, target: 'snack'}
         })
 
         //////////////////////////////////////////////////////////////////////

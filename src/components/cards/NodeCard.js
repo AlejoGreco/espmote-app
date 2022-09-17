@@ -126,7 +126,7 @@ const NodeCard = ({ isLoading, node }) => {
                                         >
                                             <MoreHorizIcon fontSize="inherit" />
                                         </Avatar>
-                                        <NodeMenuCard handleClose={handleClose} anchorEl={anchorEl} />
+                                        <NodeMenuCard handleClose={handleClose} anchorEl={anchorEl} nodeId={node.id}/>
                                     </Grid>
                                 </Grid>
                             </Grid>

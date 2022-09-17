@@ -1,4 +1,6 @@
 import Swal from 'sweetalert2'
+import { deleteNode } from '../../store/slices/nodes/thunks'
+
 
 /* const ModalWapper = styled(Container)(({theme}) => ({
     borderRadius: '8px',
@@ -7,7 +9,8 @@ import Swal from 'sweetalert2'
     backgroundColor: theme.palette.background.default,
 })) */
 
-export const deleteModal = ({title, text, theme}) => {
+export const deleteModal = ({title, text, theme, dispatch, userId, nodeId}) => {
+
     Swal.fire({
         title: `${title}`,
         text: `${text}`,
@@ -17,6 +20,7 @@ export const deleteModal = ({title, text, theme}) => {
         confirmButtonColor: `${theme.palette.secondary.main}`,
         cancelButtonColor: `${theme.palette.error.main}`,
         confirmButtonText: 'Eliminar',
+        preConfirm: () => dispatch(deleteNode({nodeId, userId})),
         customClass: {
             confirmButton: '',
             cancelButton: '',
