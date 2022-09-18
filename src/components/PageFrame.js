@@ -6,6 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import { useTheme } from '@emotion/react';
 import Header from './header'
 import Sidebar from './Sidebar';
+import SnackBarWrapper from './SnackBarWrapper';
 import { CssBaseline, useMediaQuery } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDrawerVisibility } from '../store/slices/ui';
@@ -94,9 +95,9 @@ const PageFrame = ({ children }) => {
             
             {/* main content */}
             <Main theme={theme} open={drawerOpen}>
-            {/*<Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />*/}
-            {children}
+                {children}
             </Main>
+            <SnackBarWrapper />
         </Box>
     )
 }

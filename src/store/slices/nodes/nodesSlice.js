@@ -12,7 +12,6 @@ export const nodesSlice = createSlice({
     },
     reducers: {
         setNodeData : (state, action) => {
-            console.log(action.payload)
             const index = state.nodesData.findIndex(n => n.id === action.payload.id )
             if(index === -1){ 
                 state.nodesData.push(action.payload) 
@@ -40,7 +39,6 @@ export const nodesSlice = createSlice({
 
         builder.addCase(addNewNode.fulfilled, (state, action) => {
             state.loading = false
-            console.log(action)
             state.nodesId.push(action.meta.arg.node)
             state.feedback = { message : 'El nodo ha sido creado',  target: 'createNodeForm'}
         })
@@ -61,8 +59,6 @@ export const nodesSlice = createSlice({
         })
 
         builder.addCase(deleteNode.fulfilled, (state, action) => {
-            console.log(action)
-
             state.loading = false
             state.nodesId = state.nodesId.filter(n => n.nodeId !== action.meta.arg.nodeId)
             state.nodesData = state.nodesData.filter(n => n.id !== action.meta.arg.nodeId)
