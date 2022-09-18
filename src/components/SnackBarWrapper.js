@@ -1,33 +1,37 @@
 import React, { useEffect, useState } from 'react'
-import { Snackbar } from '@mui/material'
+import { Snackbar, Alert } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { setErrorNodes } from '../store/slices/nodes'
 
 const SnackBarWrapper = () => {
     const { feedback, error } = useSelector(state => state.nodes)
     const dispatch = useDispatch()
-    const [open, setOpen] = useState(false)
+    const [snack, setSnack] = useState({open: false, msg: '', severity: ''})
 
     useEffect(() => {
         if(feedback && feedback.target === 'snack')
-            setOpen(true)
+            setSnack({open: true, msg: feedback.message, severity: 'success'})
         if(error && error.target === 'snack')
-            setOpen(true)
+            setSnack({open: true, msg: error.code, severity: 'error'})
     }, [error, feedback])
 
     const handleClose = () => {
         dispatch(setErrorNodes(null))
-        setOpen(false)
+        setSnack({open: false, msg: '', severity: ''})
     }
 
     return (
         <Snackbar
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            open={open}
+            open={snack.open}
+            autoHideDuration={10000}
             onClose={handleClose}
-            message={(feedback && `${feedback.message}`) || (error && `${error.message}`)}
             sx={{mx : '16px'}}
-        />
+        >
+            <Alert onClose={handleClose} severity={snack.severity} sx={{ width: '100%' }} variant='filled'>
+                {snack.msg}
+            </Alert>
+        </Snackbar>
     )
 }
 
