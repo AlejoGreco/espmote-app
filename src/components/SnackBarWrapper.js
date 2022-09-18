@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setErrorNodes } from '../store/slices/nodes'
 
 const SnackBarWrapper = () => {
-    const { feedback, error } = useSelector(state => state.nodes)
     const dispatch = useDispatch()
+    const { feedback, error } = useSelector(state => state.nodes)
     const [snack, setSnack] = useState({open: false, msg: '', severity: ''})
 
     useEffect(() => {

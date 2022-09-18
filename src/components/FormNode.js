@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Box, Button, Container, Typography, Alert, AlertTitle } from '@mui/material'
+import { Avatar, Box, Button, Container, Typography, Alert, AlertTitle, ClickAwayListener } from '@mui/material'
 import BackupIcon from '@mui/icons-material/Backup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewNode, setErrorNodes } from '../store/slices/nodes';
@@ -26,10 +26,10 @@ const FormNode = () => {
 
     const handleSubmit = (values, {resetForm}) => {
         if(nodesId.findIndex(n => n.nodeId === values.nodeId) !== -1){
-            dispatch(setErrorNodes({code : 'Node creation error', message : 'This node id already exists'}))
+            dispatch(setErrorNodes({code : 'Node creation error', message : 'This node id already exists', target : 'createNodeForm'}))
         }
         else if(nodesId.findIndex(n => n.name === values.name) !== -1){
-            dispatch(setErrorNodes({code : 'Node creation error', message : 'This node name already exists'}))
+            dispatch(setErrorNodes({code : 'Node creation error', message : 'This node name already exists', target : 'createNodeForm'}))
         }
         else{
             dispatch(addNewNode({node : { nodeId : values.nodeId, name : values.name }, userId : id}))
@@ -37,7 +37,17 @@ const FormNode = () => {
         resetForm()
     }
 
+    const handleClickAway = () => {
+        if(feedback && feedback.target === 'createNodeForm')
+            dispatch(setErrorNodes(null))
+        if(error && error.target === 'createNodeForm')
+            dispatch(setErrorNodes(null))
+    }
+
     return (
+        <ClickAwayListener
+            onClickAway={handleClickAway}
+        >
             <Box
                 p={3}
                 sx={{
@@ -102,7 +112,7 @@ const FormNode = () => {
                 {
                     error && error.target === 'createNodeForm' &&
                     (
-                        <Container disableGutters={true} sx={{my: 4}}>
+                        <Container disableGutters={true} sx={{mt: 3}}>
                             <Alert severity="error">
                                 <AlertTitle>{`${error.code}`}</AlertTitle>
                                 {`${error.message}`}
@@ -113,18 +123,18 @@ const FormNode = () => {
                 {
                     feedback && feedback.target === 'createNodeForm' &&
                     (
-                        <Container disableGutters={true} sx={{my: 4}}>
+                        <Container disableGutters={true} sx={{mt: 3}}>
                             <Alert severity="success">
                                 <AlertTitle>Operacion exitosa!</AlertTitle>
                                 <Typography>
-                                    {`${feedback.message}`}<br/>
-                                    {/*<Link component={RouterLink} to='/home'><strong>Regresar al home</strong></Link>*/}
+                                    {`${feedback.message}`}
                                 </Typography>
                             </Alert>
                         </Container>
                     )
                 }
             </Box>
+        </ClickAwayListener>
     )
 }
 

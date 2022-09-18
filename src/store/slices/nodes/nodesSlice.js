@@ -88,7 +88,7 @@ export const nodesSlice = createSlice({
         builder.addCase(getUserNodeIds.rejected, (state, action) => {
             const { error } = action
             state.loading = false
-            state.error = {code : error.message, message : error.stack}
+            state.error = {code : error.message, message : error.stack, target: 'main'}
         })
 
     }
