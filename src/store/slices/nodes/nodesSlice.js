@@ -40,14 +40,15 @@ export const nodesSlice = createSlice({
 
         builder.addCase(addNewNode.fulfilled, (state, action) => {
             state.loading = false
+            console.log(action)
             state.nodesId.push(action.meta.arg.node)
-            state.feedback = { message : 'El nodo ha sido creado'}
+            state.feedback = { message : 'El nodo ha sido creado',  target: 'createNodeForm'}
         })
 
         builder.addCase(addNewNode.rejected, (state, action) => {
             const { error } = action
             state.loading = false
-            state.error = {code : error.code, message : error.message}
+            state.error = {code : error.code, message : error.message, target: 'createNodeForm'}
         })
 
         //////////////////////////////////////////////////////////////////////
@@ -60,11 +61,11 @@ export const nodesSlice = createSlice({
         })
 
         builder.addCase(deleteNode.fulfilled, (state, action) => {
-            const { nodeId } = state.nodesId.filter(n => n.keydb === action.meta.arg.keydb)
+            console.log(action)
 
             state.loading = false
-            state.nodesId = state.nodesId.filter(n => n.keydb !== action.meta.arg.keydb)
-            state.nodesData = state.nodesData.filter(n => n.id !== nodeId)
+            state.nodesId = state.nodesId.filter(n => n.nodeId !== action.meta.arg.nodeId)
+            state.nodesData = state.nodesData.filter(n => n.id !== action.meta.arg.nodeId)
             state.feedback = { message : 'El nodo ha sido eliminado', target: 'snack'}
         })
 

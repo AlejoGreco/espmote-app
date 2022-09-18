@@ -100,7 +100,7 @@ const FormNode = () => {
                     </Form> 
                 </Formik>
                 {
-                    error && 
+                    error && error.target === 'createNodeForm' &&
                     (
                         <Container disableGutters={true} sx={{my: 4}}>
                             <Alert severity="error">
@@ -111,7 +111,7 @@ const FormNode = () => {
                     )
                 }
                 {
-                    feedback && 
+                    feedback && feedback.target === 'createNodeForm' &&
                     (
                         <Container disableGutters={true} sx={{my: 4}}>
                             <Alert severity="success">
