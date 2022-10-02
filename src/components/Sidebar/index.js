@@ -1,4 +1,7 @@
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setDrawerVisibility } from '../../store/slices/ui';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -18,8 +21,17 @@ import MenuCard from './MenuCard';
 const drawerWidth = 260
 
 const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
-    const theme = useTheme();
-    const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
+    const theme = useTheme()
+    const dispatch = useDispatch()
+    const matchUpMd = useMediaQuery(theme.breakpoints.up('md'))
+    const matchesSM = useMediaQuery(theme.breakpoints.down('lg')) 
+
+    useEffect(() => {        
+        if(matchesSM){
+            dispatch(setDrawerVisibility(false))
+        }
+
+    }, [dispatch, matchesSM])
 
     const drawer = (
         <>
