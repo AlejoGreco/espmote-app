@@ -11,7 +11,9 @@ import { CssBaseline, useMediaQuery } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDrawerVisibility } from '../store/slices/ui';
 
-const drawerWidth = 260
+// project constants
+import { DRAWER_WIDTH } from '../constants';
+
 
 // styles
 const Main = styled('main', { shouldForwardProp: prop => prop !== 'open' })(({ theme, open }) => ({
@@ -25,17 +27,17 @@ const Main = styled('main', { shouldForwardProp: prop => prop !== 'open' })(({ t
             duration: theme.transitions.duration.leavingScreen
         }),
         [theme.breakpoints.up('md')]: {
-            marginLeft: -(drawerWidth - 20),
-            width: `calc(100% - ${drawerWidth}px)`
+            marginLeft: -(DRAWER_WIDTH - 20),
+            width: `calc(100% - ${DRAWER_WIDTH}px)`
         },
         [theme.breakpoints.down('md')]: {
             marginLeft: '20px',
-            width: `calc(100% - ${drawerWidth}px)`,
+            width: `calc(100% - ${DRAWER_WIDTH}px)`,
             padding: '16px'
         },
         [theme.breakpoints.down('sm')]: {
             marginLeft: '10px',
-            width: `calc(100% - ${drawerWidth}px)`,
+            width: `calc(100% - ${DRAWER_WIDTH}px)`,
             padding: '16px',
             marginRight: '10px'
         }
@@ -49,7 +51,7 @@ const Main = styled('main', { shouldForwardProp: prop => prop !== 'open' })(({ t
         borderRadius: 12,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
-        width: `calc(100% - ${drawerWidth}px)`,
+        width: `calc(100% - ${DRAWER_WIDTH}px)`,
         [theme.breakpoints.down('md')]: {
             marginLeft: '20px'
         },

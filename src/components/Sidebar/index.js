@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setDrawerVisibility } from '../../store/slices/ui';
+import { useMemo } from 'react';
+import { useDrawer } from '../../hooks/useDrawer';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
-import { Box, Drawer, useMediaQuery } from '@mui/material';
+import { Box, Drawer } from '@mui/material';
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -16,24 +14,15 @@ import MenuList from './MenuList';
 import LogoSection from '../header/LogoSection';
 import MenuCard from './MenuCard';
 
+// project constants
+import { DRAWER_WIDTH } from '../../constants';
+
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
-const drawerWidth = 260
-
 const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
-    const theme = useTheme()
-    const dispatch = useDispatch()
-    const matchUpMd = useMediaQuery(theme.breakpoints.up('md'))
-    const matchesSM = useMediaQuery(theme.breakpoints.down('lg')) 
-
-    useEffect(() => {        
-        if(matchesSM){
-            dispatch(setDrawerVisibility(false))
-        }
-
-    }, [dispatch, matchesSM])
-
-    const drawer = (
+    const { matchUpMd, theme } = useDrawer()
+    
+    const drawer = useMemo(() => (
         <>
             <Box sx={{ display: { xs: 'block', md: 'none' } }}>
                 <Box sx={{ display: 'flex', p: 2, mx: 'auto' }}>
@@ -60,12 +49,12 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
                 </Box>
             </MobileView>
         </>
-    );
+    ), [matchUpMd])
 
     const container = window !== undefined ? () => window.document.body : undefined;
 
     return (
-        <Box component="nav" sx={{ flexShrink: { md: 0 }, width: matchUpMd ? drawerWidth : 'auto' }} aria-label="mailbox folders">
+        <Box component="nav" sx={{ flexShrink: { md: 0 }, width: matchUpMd ? DRAWER_WIDTH : 'auto' }} aria-label="mailbox folders">
             <Drawer
                 container={container}
                 variant={matchUpMd ? 'persistent' : 'temporary'}
@@ -74,7 +63,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
                 onClose={drawerToggle}
                 sx={{
                     '& .MuiDrawer-paper': {
-                        width: drawerWidth,
+                        width: DRAWER_WIDTH,
                         background: theme.palette.background.default,
                         color: theme.palette.text.primary,
                         borderRight: 'none',
