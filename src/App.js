@@ -34,6 +34,10 @@ function App() {
       else
         dispatch(setLogout())
     })
+
+    return () => {
+      // Cerrar socket con servicio dde auth
+    }
   
   }, [dispatch, navigate, userId])
 

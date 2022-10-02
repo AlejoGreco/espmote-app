@@ -38,9 +38,7 @@ const NavItem = ({ item, level }) => {
         if(res){
             dispatch(setMenuItem(item.id))            
         }
-        else if(pathname === '/home'){
-            dispatch(setMenuItem('dashboard'))
-        }
+        
         if(matchesSM){
             dispatch(setDrawerVisibility(false))
         }
