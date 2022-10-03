@@ -1,21 +1,18 @@
-import { forwardRef, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { forwardRef } from 'react'
+import { Link } from 'react-router-dom'
 import { setMenuItem } from './../../../../store/slices/ui'
+import { useNav } from '../../../../hooks/useNav'
 
 // material-ui
-import { useTheme } from '@mui/material/styles'
 import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
 
 
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 
 const NavItem = ({ item, level }) => {
-    const theme = useTheme();
-    const selected = useSelector(state => state.ui.menuItemSelected)
-    const dispatch = useDispatch()
-    const { pathname } = useLocation()
-
+    
+    const { selected, dispatch, theme} = useNav(item)
+    
     const Icon = item.icon;
     const itemIcon = item.icon && <Icon stroke={1.5} size="1.3rem" />
 
@@ -31,13 +28,6 @@ const NavItem = ({ item, level }) => {
     if (item?.external) {
         listItemProps = { component: 'a', href: item.url, target: itemTarget };
     }
-
-    useEffect(() => {
-        const res = pathname.endsWith(item.id)
-        if(res){
-            dispatch(setMenuItem(item.id))            
-        }
-    }, [dispatch, pathname, item])
 
     return (
         <ListItemButton
