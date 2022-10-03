@@ -1,9 +1,5 @@
-import { useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase';
-import { setLogin, setLogout } from './store/slices/auth';
+import { Routes, Route } from 'react-router-dom'
+import { useUserAuth } from './hooks/useUserAuth';
 import { useNodeIds } from './hooks/useNodeIds';
 import { useNodeData } from './hooks/useNodeData';
 import Home from './pages/Home';
@@ -19,32 +15,10 @@ import { ThemeProvider } from '@mui/system';
 import theme from './themes/berry'
 import Alarms from './pages/Alarms';
 
-function App() {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const userId = useSelector(state => state.userAuth.id)
-
-    useEffect(() => {
-        
-        onAuthStateChanged(auth, user => {
-        if(user){
-            if(user.uid !== userId){
-            dispatch(setLogin({userId : user.uid, email : user.email}))
-            navigate('/home')
-            }
-        }
-        else
-            dispatch(setLogout())
-        })
-
-        return () => {
-        // Cerrar socket con servicio dde auth
-        }
-
-    }, [dispatch, navigate, userId])
-        
-    useNodeIds(dispatch)
-    useNodeData(dispatch)
+function App() {     
+    useUserAuth()
+    useNodeIds()
+    useNodeData()
 
     return (
         <ThemeProvider theme={theme({})}>

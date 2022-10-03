@@ -1,10 +1,11 @@
 import { useEffect }from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setNodeData } from '../store/slices/nodes'
 import { onValue, ref } from 'firebase/database'
 import { database } from '../firebase'
 
-export const useNodeData = dispatch => {
+export const useNodeData = () => {
+    const dispatch = useDispatch()
     const { nodesId } = useSelector(state => state.nodes)
 
     useEffect(() => {
