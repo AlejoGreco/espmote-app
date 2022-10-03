@@ -1,8 +1,7 @@
-import React, { useEffect }from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getUserNodeIds, setNodeData } from '../store/slices/nodes'
-import { onValue, ref } from 'firebase/database'
-import { database } from '../firebase'
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import { useNodeIds } from '../hooks/useNodeIds'
+import { useNodeData } from '../hooks/useNodeData'
 import { Grid } from '@mui/material'
 import PageFrame from '../components/PageFrame'
 import FormNode from '../components/FormNode'
@@ -11,31 +10,9 @@ import AlarmNoteCard from '../components/cards/AlarmNoteCard'
 
 const Home = () => {
     const dispatch = useDispatch()
-    const { id } = useSelector(state => state.userAuth)
-    const { nodesId } = useSelector(state => state.nodes)
-
-    useEffect(() => {
-        dispatch(getUserNodeIds(id))
-    }, [dispatch, id])
-
-    useEffect(() => {
-        if(nodesId.length){
-            nodesId.forEach(node => {
-                const starCountRef = ref(database, `nodos/${node.nodeId}`)
-                onValue(starCountRef, async snapshot => {
-                    const values = await snapshot.val()
-                    if(values)
-                    {
-                        const {type, ...data} = values
-                        dispatch(setNodeData({id : node.nodeId, type, name : node.name, data}))
-                    }
-                    else{
-                        dispatch(setNodeData({id : node.nodeId, type: undefined, name : node.name, data: undefined}))
-                    }
-                })
-            })
-        }
-    },[dispatch, nodesId])
+    
+    useNodeIds(dispatch)
+    useNodeData(dispatch)
 
     return (
         <PageFrame>
