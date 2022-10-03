@@ -6,6 +6,7 @@ export const useNodeIds = dispatch => {
     const { id } = useSelector(state => state.userAuth)
 
     useEffect(() => {
-        dispatch(getUserNodeIds(id))
+        if(id !== '')
+            dispatch(getUserNodeIds(id))
     }, [dispatch, id])
 }

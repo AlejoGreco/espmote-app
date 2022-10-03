@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 import { setLogin, setLogout } from './store/slices/auth';
+import { useNodeIds } from './hooks/useNodeIds';
+import { useNodeData } from './hooks/useNodeData';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
@@ -18,45 +20,47 @@ import theme from './themes/berry'
 import Alarms from './pages/Alarms';
 
 function App() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const userId = useSelector(state => state.userAuth.id)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const userId = useSelector(state => state.userAuth.id)
 
-  useEffect(() => {
-    
-    onAuthStateChanged(auth, user => {
-      if(user){
-        if(user.uid !== userId){
-          dispatch(setLogin({userId : user.uid, email : user.email}))
-          navigate('/home')
+    useEffect(() => {
+        
+        onAuthStateChanged(auth, user => {
+        if(user){
+            if(user.uid !== userId){
+            dispatch(setLogin({userId : user.uid, email : user.email}))
+            navigate('/home')
+            }
         }
-      }
-      else
-        dispatch(setLogout())
-    })
+        else
+            dispatch(setLogout())
+        })
 
-    return () => {
-      // Cerrar socket con servicio dde auth
+        return () => {
+        // Cerrar socket con servicio dde auth
+        }
+
+    }, [dispatch, navigate, userId])
+        
+    useNodeIds(dispatch)
+    useNodeData(dispatch)
+
+    return (
+        <ThemeProvider theme={theme({})}>
+        <Routes>
+            <Route path='/' element={<Welcome />}/>
+            <Route path='/home' element={<ProtectRoute><Home /></ProtectRoute>}/>
+            <Route path='/alarms' element={<ProtectRoute><Alarms /></ProtectRoute>}/>
+            <Route path='/membresy' element={<ProtectRoute><Membresy /></ProtectRoute>}/>
+            <Route path='/profile' element={<ProtectRoute><Profile /></ProtectRoute>}/>
+            <Route path='/login' element={<Login />}/>
+            <Route path='/resetpass' element={<ResetPass />}/>
+            <Route path='/register' element={<Register />}/>
+            <Route path='*' element={<NotFound />}/>
+        </Routes>
+        </ThemeProvider>
+    );
     }
-  
-  }, [dispatch, navigate, userId])
 
-  
-  return (
-    <ThemeProvider theme={theme({})}>
-      <Routes>
-        <Route path='/' element={<Welcome />}/>
-        <Route path='/home' element={<ProtectRoute><Home /></ProtectRoute>}/>
-        <Route path='/alarms' element={<ProtectRoute><Alarms /></ProtectRoute>}/>
-        <Route path='/membresy' element={<ProtectRoute><Membresy /></ProtectRoute>}/>
-        <Route path='/profile' element={<ProtectRoute><Profile /></ProtectRoute>}/>
-        <Route path='/login' element={<Login />}/>
-        <Route path='/resetpass' element={<ResetPass />}/>
-        <Route path='/register' element={<Register />}/>
-        <Route path='*' element={<NotFound />}/>
-      </Routes>
-    </ThemeProvider>
-  );
-}
-
-export default App;
+    export default App;

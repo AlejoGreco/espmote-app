@@ -1,7 +1,4 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { useNodeIds } from '../hooks/useNodeIds'
-import { useNodeData } from '../hooks/useNodeData'
 import { Grid } from '@mui/material'
 import PageFrame from '../components/PageFrame'
 import FormNode from '../components/FormNode'
@@ -9,10 +6,6 @@ import ListNodeContainer from '../components/ListNodeContainer'
 import AlarmNoteCard from '../components/cards/AlarmNoteCard'
 
 const Home = () => {
-    const dispatch = useDispatch()
-    
-    useNodeIds(dispatch)
-    useNodeData(dispatch)
 
     return (
         <PageFrame>
