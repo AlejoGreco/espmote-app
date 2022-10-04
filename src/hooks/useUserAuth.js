@@ -19,9 +19,7 @@ export const useUserAuth = () => {
                 }
             }
             else{
-                if(userId !== ''){
-                    dispatch(setLogout())
-                }
+                dispatch(setLogout())
             }
         })
     }, [dispatch, navigate])
