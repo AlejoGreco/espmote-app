@@ -19,8 +19,8 @@ const ListNodeContainer = () => {
         <Grid container justifyContent={{sm: 'center', md: 'flex-start'}} spacing={3}>
             {
                 nodesData.map(node => (
-                    <Grid item xs={12} sm={8} md={6} lg={6} xl={4}>
-                        <NodeCard key={node.id} node={node}/>
+                    <Grid item key={node.id} xs={12} sm={8} md={6} lg={6} xl={4}>
+                        <NodeCard node={node}/>
                     </Grid>
                 ))
             }

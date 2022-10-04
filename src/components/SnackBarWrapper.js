@@ -6,7 +6,7 @@ import { setErrorNodes } from '../store/slices/nodes'
 const SnackBarWrapper = () => {
     const dispatch = useDispatch()
     const { feedback, error } = useSelector(state => state.nodes)
-    const [snack, setSnack] = useState({open: false, msg: '', severity: ''})
+    const [snack, setSnack] = useState({open: false, msg: '', severity: 'info'})
 
     useEffect(() => {
         if(feedback && feedback.target === 'snack')
@@ -17,7 +17,7 @@ const SnackBarWrapper = () => {
 
     const handleClose = () => {
         dispatch(setErrorNodes(null))
-        setSnack({open: false, msg: '', severity: ''})
+        setSnack({open: false, msg: '', severity: 'info'})
     }
 
     return (

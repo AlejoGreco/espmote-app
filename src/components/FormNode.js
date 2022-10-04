@@ -84,6 +84,7 @@ const FormNode = () => {
                             placeholder='xxxxxxxx'
                             margin="normal"
                             color="secondary"
+                            variant="standard"
                         />
                         <WpTextField
                             id="name"
@@ -92,6 +93,7 @@ const FormNode = () => {
                             placeholder='Nodo sector A'
                             margin="normal"
                             color="secondary"
+                            variant="standard"
                         />
                         <Button
                             type="submit"

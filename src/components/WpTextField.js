@@ -9,8 +9,6 @@ const WpTextField = ({name, ...muiProps}) => {
         ...field,
         ...muiProps,
         fullWidth : true,
-        variant: 'standard',
-        
     }
 
     if(meta && meta.touched && meta.error){
