@@ -12,14 +12,17 @@ export const useUserAuth = () => {
 
     useEffect(() => {
         onAuthStateChanged(auth, user => {
-        if(user){
-            if(user.uid !== userId){
-                dispatch(setLogin({userId : user.uid, email : user.email}))
-                navigate('/home')
+            if(user){
+                if(user.uid !== userId){
+                    dispatch(setLogin({userId : user.uid, email : user.email}))
+                    navigate('/home')
+                }
             }
-        }
-        else
-            dispatch(setLogout())
+            else{
+                if(userId !== ''){
+                    dispatch(setLogout())
+                }
+            }
         })
-    }, [dispatch, navigate, userId])
+    }, [dispatch, navigate])
 }
