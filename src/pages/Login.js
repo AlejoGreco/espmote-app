@@ -46,7 +46,7 @@ const Login = () => {
                                                         fontSize="16px"
                                                         textAlign={matchDownSM ? 'center' : 'inherit'}
                                                     >
-                                                        Ingrese sus credenciales para contunuar
+                                                        Ingrese sus credenciales para continuar
                                                     </Typography>
                                                 </Stack>
                                             </Grid>

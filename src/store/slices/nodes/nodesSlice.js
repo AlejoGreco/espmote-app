@@ -82,6 +82,7 @@ export const nodesSlice = createSlice({
 
         builder.addCase(getUserNodeIds.fulfilled, (state, action) => {
             const respose = action.payload
+            state.loading = false
             state.nodesId = respose
         })
 
