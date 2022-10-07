@@ -8,12 +8,9 @@ import {
     Avatar
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import CloudUploadRoundedIcon from '@mui/icons-material/CloudUploadRounded'
+import { accordionIcons } from '../constants'
 import { useTheme } from '@emotion/react'
 
-const accordionIcons = {
-    nodeForm: CloudUploadRoundedIcon
-}
 
 const AccordionWrap = ({children, title, icon}) => {
     const theme = useTheme()
