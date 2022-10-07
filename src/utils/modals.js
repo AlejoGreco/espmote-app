@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2'
-import { deleteNode } from '../../store/slices/nodes/thunks'
+import { deleteNode } from '../store/slices/nodes/thunks'
 
 export const deleteModal = ({title, text, theme, dispatch, userId, nodeId}) => {
 
