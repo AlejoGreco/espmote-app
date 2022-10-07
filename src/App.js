@@ -14,6 +14,7 @@ import ResetPass from './pages/ResetPass';
 import { ThemeProvider } from '@mui/system';
 import theme from './themes/berry'
 import Alarms from './pages/Alarms';
+import NodeDetails from './pages/NodeDetails';
 
 function App() {     
     useUserAuth()
@@ -28,6 +29,7 @@ function App() {
             <Route path='/alarms' element={<ProtectRoute><Alarms /></ProtectRoute>}/>
             <Route path='/membresy' element={<ProtectRoute><Membresy /></ProtectRoute>}/>
             <Route path='/profile' element={<ProtectRoute><Profile /></ProtectRoute>}/>
+            <Route path='/node/:id' element={<ProtectRoute><NodeDetails /></ProtectRoute>}/>
             <Route path='/login' element={<Login />}/>
             <Route path='/resetpass' element={<ResetPass />}/>
             <Route path='/register' element={<Register />}/>
