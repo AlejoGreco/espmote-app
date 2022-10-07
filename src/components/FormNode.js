@@ -1,6 +1,5 @@
 import React from 'react'
-import { Avatar, Box, Button, Container, Typography, Alert, AlertTitle, ClickAwayListener } from '@mui/material'
-import BackupIcon from '@mui/icons-material/Backup';
+import { Box, Button, Container, Typography, Alert, AlertTitle, ClickAwayListener } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewNode, setErrorNodes } from '../store/slices/nodes';
 import { Formik, Form } from 'formik';
@@ -49,28 +48,13 @@ const FormNode = () => {
             onClickAway={handleClickAway}
         >
             <Box
-                p={3}
                 sx={{
-                borderRadius: '12px',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                border: '1px solid',
-                borderColor: theme.palette.primary[200] + 75,
                 backgroundColor: theme.palette.background.default,
                 }}
             >
-                <Avatar 
-                    sx={{ 
-                        mb: 1, 
-                        background: theme.palette.secondary.dark,
-                        color: theme.palette.secondary.light
-                    }}>
-                        <BackupIcon />
-                </Avatar>
-                <Typography variant="h4">
-                    Agregar nuevo nodo
-                </Typography>
                 <Formik
                     initialValues={initialValues}
                     validationSchema={schema}

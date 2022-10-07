@@ -4,6 +4,7 @@ import PageFrame from '../components/PageFrame'
 import FormNode from '../components/FormNode'
 import ListNodeContainer from '../components/ListNodeContainer'
 import AlarmNoteCard from '../components/cards/AlarmNoteCard'
+import AccordionWrap from '../components/AccordionWrap'
 
 const Home = () => {
 
@@ -19,7 +20,9 @@ const Home = () => {
                             <AlarmNoteCard />
                         </Grid>
                         <Grid item xs={12} sm={8} md={5} lg={12} xl={12}>
-                            <FormNode />
+                            <AccordionWrap title='Agregar nuevo nodo' icon='nodeForm'>
+                                <FormNode />
+                            </AccordionWrap>   
                         </Grid>
                     </Grid>
                 </Grid>
