@@ -56,8 +56,8 @@ const data = {
     ]
 }
 
-const NodeDetailChart = () => {    
+const NodeHistoryChart = ({ nodeId }) => {    
     return <Line options={options} data={data} />
 }
 
-export default NodeDetailChart
+export default NodeHistoryChart
