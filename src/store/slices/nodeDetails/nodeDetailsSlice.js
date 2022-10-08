@@ -17,8 +17,10 @@ export const nodeDetailsSlice = createSlice({
         })
 
         builder.addCase(getNodeHistory.fulfilled, (state, action) => {
-            state.nodeHistoryData = {...state.nodeHistoryData, [action.payload.nodeId]: Object.values(action.payload.hist)}
-            state.nodeHistoryTime = {...state.nodeHistoryTime, [action.payload.nodeId]: Object.keys(action.payload.hist)}
+            if(action.payload.exists){
+                state.nodeHistoryData = {...state.nodeHistoryData, [action.payload.nodeId]: Object.values(action.payload.hist)}
+                state.nodeHistoryTime = {...state.nodeHistoryTime, [action.payload.nodeId]: Object.keys(action.payload.hist)}
+            }
             state.error = null
             state.loading = false
         })

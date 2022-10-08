@@ -6,8 +6,7 @@ import { getNodeHistory } from '../store/slices/nodeDetails/thunks'
 export const useDetails = () => {
     const { id } = useParams()
     const dispatch = useDispatch()
-    //const thereIsdata = useSelector(state => state.nodeDetails.nodeHistoryTime)[id]
-    const { nodeHistoryTime, loading } = useSelector(state => state.nodeDetails)
+    const { nodeHistoryTime } = useSelector(state => state.nodeDetails)
 
     useEffect(() => {
         if(!nodeHistoryTime[id]){
@@ -15,5 +14,5 @@ export const useDetails = () => {
         }
     }, [dispatch, id, nodeHistoryTime])
 
-    return { id, loading }
+    return { id }
 }
