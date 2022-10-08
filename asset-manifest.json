@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/espmote-app/static/css/main.9326487b.css",
-    "main.js": "/espmote-app/static/js/main.a1a954f9.js",
+    "main.js": "/espmote-app/static/js/main.870d9864.js",
     "static/js/787.c33807c9.chunk.js": "/espmote-app/static/js/787.c33807c9.chunk.js",
     "static/media/roboto-all-500-normal.woff": "/espmote-app/static/media/roboto-all-500-normal.0ab669b7a0d19b178f57.woff",
     "static/media/roboto-all-700-normal.woff": "/espmote-app/static/media/roboto-all-700-normal.a457fde362a540fcadff.woff",
@@ -38,11 +38,11 @@
     "static/media/social-google.svg": "/espmote-app/static/media/social-google.9887eb8eb43729cb99f402cfa0de3c44.svg",
     "index.html": "/espmote-app/index.html",
     "main.9326487b.css.map": "/espmote-app/static/css/main.9326487b.css.map",
-    "main.a1a954f9.js.map": "/espmote-app/static/js/main.a1a954f9.js.map",
+    "main.870d9864.js.map": "/espmote-app/static/js/main.870d9864.js.map",
     "787.c33807c9.chunk.js.map": "/espmote-app/static/js/787.c33807c9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9326487b.css",
-    "static/js/main.a1a954f9.js"
+    "static/js/main.870d9864.js"
   ]
 }
