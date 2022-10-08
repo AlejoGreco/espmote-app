@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Grid } from '@mui/material'
 import PageFrame from '../components/PageFrame'
 import NodeHistoryChart from '../components/charts/NodeHistoryChart'
+import { useDispatch } from 'react-redux'
+import { getNodeHistory } from '../store/slices/nodeDetails/thunks'
 
 const NodeDetails = () => {
     const { id } = useParams()
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getNodeHistory(id))
+    }, [dispatch, id])
+
     return (
         <PageFrame>
             <Grid container spacing={3}>

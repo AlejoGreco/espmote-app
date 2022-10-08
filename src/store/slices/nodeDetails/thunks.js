@@ -7,11 +7,9 @@ export const getNodeHistory = createAsyncThunk(
     async nodeId => {
         const snapshot = await get(child(ref(database), `nodos_hist/${nodeId}`))
         if(snapshot.exists()){
-            console.log(snapshot.val())
-            //console.log(Object.values(snapshot.val()))
-            //console.log(Object.entries(snapshot.val()))
-            //return Object.values(snapshot.val())
-            return 1
+            console.log(Object.values(snapshot.val()))
+            console.log(Object.keys(snapshot.val()))
+            return {nodeId, hist: snapshot.val()}
         }
     }
 )
