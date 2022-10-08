@@ -3,13 +3,12 @@ import {
     Chart as ChartJS,
     CategoryScale,
     LinearScale,
-    PointElement,
-    LineElement,
+    BarElement,
     Title,
     Tooltip,
     Legend,
 } from 'chart.js'
-import { Line } from 'react-chartjs-2'
+import { Bar } from 'react-chartjs-2'
 import { useSelector } from 'react-redux'
 import { useMemo } from 'react'
 import { useTheme } from '@emotion/react'
@@ -17,8 +16,7 @@ import { useTheme } from '@emotion/react'
 ChartJS.register(
     CategoryScale,
     LinearScale,
-    PointElement,
-    LineElement,
+    BarElement,
     Title,
     Tooltip,
     Legend
@@ -93,7 +91,7 @@ const NodeHistoryChart = ({ nodeId }) => {
     if(data.datasets === null || data.labels === null)
         return <h2>No hay datos disponibles para el nodo {nodeId}</h2> 
 
-    return <Line options={options} data={data} />
+    return <Bar options={options} data={data} />
 }
 
 export default NodeHistoryChart
