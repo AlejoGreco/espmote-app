@@ -39,6 +39,9 @@ const chartsRender = (nodeType, id, allNodeData, nodeLabels) => {
                 </>
             )
         default:
+            <Grid item xs={12} sm={12} md={11} lg={10} xl={10}>
+                <h2>Error - tipo invalido de nodo - Type: {nodeType}</h2>
+            </Grid>
             return 
     }
 }
@@ -46,7 +49,6 @@ const chartsRender = (nodeType, id, allNodeData, nodeLabels) => {
 const ListChartContainer = ({ nodeId }) => {
     const { nodeHistoryTime, nodeHistoryData, loading } = useSelector(state => state.nodeDetails)
     let { type } = useSelector(state => state.nodes.nodesData).filter(n => n.id === nodeId)[0]
-    console.log(type)
     
     if(loading)
         return loadingChartRender(type)
