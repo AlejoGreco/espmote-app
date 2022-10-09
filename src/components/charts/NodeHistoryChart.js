@@ -3,12 +3,13 @@ import {
     Chart as ChartJS,
     CategoryScale,
     LinearScale,
-    BarElement,
+    PointElement,
+    LineElement,
     Title,
     Tooltip,
     Legend,
 } from 'chart.js'
-import { Bar } from 'react-chartjs-2'
+import { Line } from 'react-chartjs-2'
 import { useSelector } from 'react-redux'
 import { useMemo } from 'react'
 import { useTheme } from '@emotion/react'
@@ -16,7 +17,8 @@ import { useTheme } from '@emotion/react'
 ChartJS.register(
     CategoryScale,
     LinearScale,
-    BarElement,
+    PointElement,
+    LineElement,
     Title,
     Tooltip,
     Legend
@@ -49,6 +51,32 @@ const options = {
             display: true,
             text: 'Chart.js Line Chart'
         }
+    },
+    scales: {
+        y0: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            ticks: {
+                callback: function(value, index, ticks) {
+                    return value + '%';
+                }
+            }
+        },
+        y1: {
+            type: 'linear',
+            display: true,
+            position: 'right',
+            grid: {
+                drawOnChartArea: false,
+            },
+            ticks: {
+                callback: function(value, index, ticks) {
+                    return value + '°C';
+                }
+            }
+
+        }
     }
 }
 
@@ -63,12 +91,13 @@ const getChartDatasets = (dataArray, theme) => {
     if(!dataArray) return null
 
     const dataKeys = Object.keys(dataArray[0]).filter(k => k !== 'type')
-    dataKeys.forEach(k => {
+    dataKeys.forEach((k, ind) => {
         datasets.push({
             label: `${k}`,
-            data: dataArray.map(d => d[k]),
+            data: dataArray.map(data => data[k]),
             borderColor: chartLinesColors(theme)[k].borderColor,
-            backgroundColor: chartLinesColors(theme)[k].backgroundColor
+            backgroundColor: chartLinesColors(theme)[k].backgroundColor,
+            yAxisID: `y${ind}`,
         })
     })
     return datasets
@@ -91,7 +120,7 @@ const NodeHistoryChart = ({ nodeId }) => {
     if(data.datasets === null || data.labels === null)
         return <h2>No hay datos disponibles para el nodo {nodeId}</h2> 
 
-    return <Bar options={options} data={data} />
+    return <Line options={options} data={data} />
 }
 
 export default NodeHistoryChart
