@@ -71,11 +71,14 @@ export const getChartDatasets = (dataArray, theme) => {
     const dataKeys = Object.keys(dataArray[0]).filter(k => k !== 'type')
 
     dataKeys.forEach((key, ind) => {
+        const kaux = key.slice(0, -1)
+
         datasets.push({
-            label: `${variablesNames[key]} ${ind + 1} [${variablesUnits[key]}]`,
+            label: `${variablesNames[kaux]} ${ind + 1} [${variablesUnits[kaux]}]`,
             data: dataArray.map(data => data[key]),
-            borderColor: chartLinesColors(theme, key).borderColor[ind],
-            backgroundColor: chartLinesColors(theme, key).backgroundColor[ind],
+            borderColor: chartLinesColors(theme, kaux).borderColor[ind],
+            backgroundColor: chartLinesColors(theme, kaux).backgroundColor[ind],
+            yAxisID: 'y'
         })
     })
     return datasets
@@ -85,12 +88,14 @@ export const getChartDatasetsWithMulAxis = (dataArray, theme) => {
     const datasets = []
     const dataKeys = Object.keys(dataArray[0]).filter(k => k !== 'type')
 
-    dataKeys.forEach((k, ind) => {
+    dataKeys.forEach((key, ind) => {
+        const kaux = key.slice(0, -1)
+
         datasets.push({
-            label: `${variablesNames[k]} [${variablesUnits[k]}]`,
-            data: dataArray.map(data => data[k]),
-            borderColor: chartLinesColors(theme, k).borderColor[0],
-            backgroundColor: chartLinesColors(theme, k).backgroundColor[0],
+            label: `${variablesNames[kaux]} [${variablesUnits[kaux]}]`,
+            data: dataArray.map(data => data[key]),
+            borderColor: chartLinesColors(theme, kaux).borderColor[0],
+            backgroundColor: chartLinesColors(theme, kaux).backgroundColor[0],
             yAxisID: `y${ind}`
         })
     })
@@ -109,7 +114,7 @@ export const getChartOptions = type => {
 
     const scales = {
         1: {
-                y0: {
+            y: {
                 type: 'linear',
                 display: true,
                 position: 'left',
@@ -121,10 +126,10 @@ export const getChartOptions = type => {
             }
         },
         2: {
-            y0: {
+            y: {
                 type: 'linear',
                 display: true,
-                position: 'right',
+                position: 'left',
                 grid: {
                     drawOnChartArea: false,
                 },
@@ -163,16 +168,16 @@ export const getChartOptions = type => {
             }
         },
         4: {
-            y0: {
+            y: {
                 type: 'linear',
                 display: true,
-                position: 'right',
+                position: 'left',
                 grid: {
                     drawOnChartArea: false,
                 },
                 ticks: {
                     callback: function(value, index, ticks) {
-                        return value + '°C';
+                        return value + 'ppu';
                     }
                 }
     

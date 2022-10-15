@@ -1,6 +1,4 @@
 import React from 'react'
-import { useMemo } from 'react'
-import { getChartOptions } from '../../utils'
 import { Line } from 'react-chartjs-2'
 import {
     Chart as ChartJS,
@@ -23,12 +21,11 @@ ChartJS.register(
     Legend
 )
 
-const Chart = ({type, data}) => {
-    const options = useMemo(() => getChartOptions(type), [type])
+const CustomChart = ({options, data}) => {
     
     return (
         <Line options={options} data={data} />    
     )
 }
 
-export default Chart
+export default CustomChart

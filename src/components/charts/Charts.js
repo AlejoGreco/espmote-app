@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import { useTheme } from '@emotion/react'
-import Chart from './Chart'
-import { getChartLabels, getChartDatasets, getChartDatasetsWithMulAxis } from '../../utils'
+import CustomChart from './CustomChart'
+import { getChartLabels, getChartDatasets, getChartDatasetsWithMulAxis, getChartOptions } from '../../utils'
 
 
 const Charts = ({nodeType, allNodeData, nodeLabels}) => {
@@ -14,8 +14,8 @@ const Charts = ({nodeType, allNodeData, nodeLabels}) => {
         case '2':
             return (
                 <Grid item xs={12} sm={12} md={11} lg={10} xl={10}>
-                    <Chart 
-                        type={nodeType}
+                    <CustomChart 
+                        options={getChartOptions(nodeType)}
                         data={{
                             labels, 
                             datasets: getChartDatasets(allNodeData, theme)
@@ -26,8 +26,8 @@ const Charts = ({nodeType, allNodeData, nodeLabels}) => {
         case '3':
             return (
                 <Grid item xs={12} sm={12} md={11} lg={10} xl={10}>
-                    <Chart 
-                        type={nodeType}
+                    <CustomChart 
+                        options={getChartOptions(nodeType)}
                         data={{
                             labels, 
                             datasets: getChartDatasetsWithMulAxis(allNodeData, theme)
@@ -41,8 +41,8 @@ const Charts = ({nodeType, allNodeData, nodeLabels}) => {
             return (
                 <>
                     <Grid item xs={12} sm={12} md={11} lg={10} xl={10}>
-                        <Chart 
-                            type={nodeType}
+                        <CustomChart 
+                            options={getChartOptions('2')}
                             data={{
                                 labels, 
                                 datasets: getChartDatasetsWithMulAxis(rest, theme)
@@ -50,8 +50,8 @@ const Charts = ({nodeType, allNodeData, nodeLabels}) => {
                         />
                     </Grid>
                     <Grid item xs={12} sm={12} md={11} lg={10} xl={10}>
-                        <Chart 
-                            type={nodeType}
+                        <CustomChart 
+                            options={getChartOptions('4')}
                             data={{
                                 labels, 
                                 datasets: getChartDatasets(co2Data, theme)
@@ -61,10 +61,12 @@ const Charts = ({nodeType, allNodeData, nodeLabels}) => {
                 </>
             )
         default:
-            <Grid item xs={12} sm={12} md={11} lg={10} xl={10}>
-                <h2>Error - tipo invalido de nodo - Type: {nodeType}</h2>
-            </Grid>
-            return 
+            return (
+                <Grid item xs={12} sm={12} md={11} lg={10} xl={10}>
+                    <h2>Error - tipo invalido de nodo - Type: {nodeType}</h2>
+                </Grid>
+            )
+            
     }
 }
 
