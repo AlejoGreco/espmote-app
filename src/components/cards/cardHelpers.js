@@ -3,6 +3,7 @@ import GrassOutlinedIcon from '@mui/icons-material/GrassOutlined'
 import DeviceThermostatOutlinedIcon from '@mui/icons-material/DeviceThermostatOutlined'
 import WaterOutlinedIcon from '@mui/icons-material/WaterOutlined'
 import ForestOutlinedIcon from '@mui/icons-material/ForestOutlined'
+import StormIcon from '@mui/icons-material/Storm'
 
 export const cardTypeCustom = nType => {
 
@@ -17,7 +18,7 @@ export const cardTypeCustom = nType => {
             customCard.bg = deepOrange
             return customCard
         case '3':
-            customCard.Icon = GrassOutlinedIcon
+            customCard.Icon = StormIcon
             customCard.bg = purple
             return customCard
         case '4':
