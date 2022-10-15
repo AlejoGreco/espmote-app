@@ -24,15 +24,15 @@ ChartJS.register(
     Legend
 )
 
-const Chart = ({type, nodeId, data, labels}) => {
+const Chart = ({type, data, labels}) => {
     const theme = useTheme()
 
     const datasets = useMemo(() => {
         return {
-            labels: getChartLabels(labels[nodeId]),
-            datasets: getChartDatasets(data[nodeId], theme)
+            labels: getChartLabels(labels),
+            datasets: getChartDatasets(data, theme)
         }
-    }, [data, labels, nodeId, theme])
+    }, [data, labels, theme])
 
     const options = useMemo(() => getChartOptions(type), [type])
     

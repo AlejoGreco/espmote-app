@@ -42,10 +42,11 @@ export const getChartDatasets = (dataArray, theme) => {
 
 export const getChartOptions = type => {
     const title = {
-        1: 'Nivel vs Tiempo',
-        2: 'Grafica ERROR',
+        1: 'Humedad vs Tiempo',
+        2: 'Temperatura vs Tiempo',
         3: 'Humedad y Temperatura vs Tiempo',
-        4: 'Temperatura vs tiempo'
+        4: 'Consentracion Co2 vs Tiempo',
+        5: 'Varios vs Tiempo'
     }
 
     const scales = {

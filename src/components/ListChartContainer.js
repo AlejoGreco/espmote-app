@@ -9,21 +9,22 @@ const loadingChartRender = type => {
         case '2':
         case '3':
         case '4':
+        case '5':
             return <h2>Cargando... {type}</h2>
         default:
             return <h2>Cargando...</h2>
     }
 }
 
-const chartsRender = (nodeType, id, allNodeData, nodeLabels) => {
-    // Tipos de node 1: nivel - 2: indoor(temp + hum + nivel) - 3: silo(temp + hum) - 4: temperatura
+const chartsRender = (nodeType, allNodeData, nodeLabels) => {
+    // Tipos de node 1: humedad - 2: temperatura - 3: mixto(temp + hum) - 4: silo(temp + hum + co2) - 5: indor()
     switch (nodeType){
         case '1':
         case '2':
         case '3':
             return (
                 <Grid item xs={12} sm={12} md={11} lg={10} xl={10}>
-                    <Chart nodeId={id} data={allNodeData} labels={nodeLabels} type={nodeType}/>
+                    <Chart data={allNodeData} labels={nodeLabels} type={nodeType}/>
                 </Grid>
             )
         case '4':
@@ -31,10 +32,10 @@ const chartsRender = (nodeType, id, allNodeData, nodeLabels) => {
             return (
                 <>
                     <Grid item xs={12} sm={12} md={11} lg={10} xl={10}>
-                        <Chart nodeId={id} data={others} labels={nodeLabels} type='3'/>
+                        <Chart data={others} labels={nodeLabels} type='3'/>
                     </Grid>
                     <Grid item xs={12} sm={12} md={11} lg={10} xl={10}>
-                        <Chart nodeId={id} data={level} labels={nodeLabels} type='1'/>
+                        <Chart data={level} labels={nodeLabels} type='1'/>
                     </Grid>
                 </>
             )
@@ -56,7 +57,7 @@ const ListChartContainer = ({ nodeId }) => {
     if(nodeHistoryTime[nodeId] === undefined || !type)
         return <h2>No hay datos disponibles para el nodo {nodeId}</h2> 
 
-    return chartsRender(type, nodeId, nodeHistoryData, nodeHistoryTime)
+    return chartsRender(type, nodeHistoryData[nodeId], nodeHistoryTime[nodeId])
 }
 
 export default ListChartContainer
