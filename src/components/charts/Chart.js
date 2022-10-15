@@ -1,7 +1,6 @@
 import React from 'react'
 import { useMemo } from 'react'
-import { useTheme } from '@emotion/react'
-import { getChartLabels, getChartDatasets, getChartOptions,} from '../../utils'
+import { getChartOptions } from '../../utils'
 import { Line } from 'react-chartjs-2'
 import {
     Chart as ChartJS,
@@ -24,20 +23,11 @@ ChartJS.register(
     Legend
 )
 
-const Chart = ({type, data, labels}) => {
-    const theme = useTheme()
-
-    const datasets = useMemo(() => {
-        return {
-            labels: getChartLabels(labels),
-            datasets: getChartDatasets(data, theme)
-        }
-    }, [data, labels, theme])
-
+const Chart = ({type, data}) => {
     const options = useMemo(() => getChartOptions(type), [type])
     
     return (
-        <Line options={options} data={datasets} />    
+        <Line options={options} data={data} />    
     )
 }
 

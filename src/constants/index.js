@@ -8,13 +8,7 @@ export const accordionIcons = {
     nodeForm: CloudUploadRoundedIcon
 }
 
-export const legendLabels = {
-    temp: 'Temperatura [°C]',
-    hum: 'Humedad [%]',
-    level: 'Nivel [mm]'
-}
-
-export const cardsVariables = {
+export const variablesNames = {
     temp: 'Temperatura',
     hum: 'Humedad',
     humg: 'Humedad',

@@ -1,21 +1,65 @@
-import { legendLabels } from '../constants'
+import { variablesNames, variablesUnits } from '../constants'
 
-export const chartLinesColors = theme => (
-    {
+export const chartLinesColors = (theme, key) => {
+    const colors = {
         temp: {
-            borderColor: theme.palette.error.main,
-            backgroundColor: theme.palette.error.light
+            borderColor: [
+                theme.palette.error.dark,
+                theme.palette.error.main,
+                theme.palette.orange.dark,
+                theme.palette.orange.main
+            ],
+            backgroundColor: [
+                theme.palette.error.light,
+                theme.palette.error.light,
+                theme.palette.orange.light,
+                theme.palette.orange.light
+            ]
         },
         hum: {
-            borderColor: theme.palette.success.dark,
-            backgroundColor: theme.palette.success.light
+            borderColor: [
+                theme.palette.primary[800],
+                theme.palette.primary.main,
+                theme.palette.secondary[800],
+                theme.palette.secondary.main,
+            ],
+            backgroundColor: [
+                theme.palette.primary.light,
+                theme.palette.primary.light,
+                theme.palette.secondary.light,
+                theme.palette.secondary.light,
+            ]
+        },
+        co2: {
+            borderColor: [
+                theme.palette.success.dark,
+                theme.palette.success.main,
+                theme.palette.warning.dark,
+            ],
+            backgroundColor: [
+                theme.palette.primary.light,
+                theme.palette.primary.light,
+                theme.palette.warning.light,
+            ]
         },
         level: {
-            borderColor: theme.palette.primary.main,
-            backgroundColor: theme.palette.primary.light
+            borderColor: [
+                theme.palette.primary[800],
+                theme.palette.primary.main,
+                theme.palette.secondary[800],
+                theme.palette.secondary.main,
+            ],
+            backgroundColor: [
+                theme.palette.primary.light,
+                theme.palette.primary.light,
+                theme.palette.secondary.light,
+                theme.palette.secondary.light,
+            ]
         }
     }
-)
+
+    return colors[key]
+}
 
 export const getChartLabels = timeArray => {
     if(!timeArray) return null
@@ -24,16 +68,30 @@ export const getChartLabels = timeArray => {
 
 export const getChartDatasets = (dataArray, theme) => {
     const datasets = []
-    if(!dataArray) return null
-
     const dataKeys = Object.keys(dataArray[0]).filter(k => k !== 'type')
+
+    dataKeys.forEach((key, ind) => {
+        datasets.push({
+            label: `${variablesNames[key]} ${ind + 1} [${variablesUnits[key]}]`,
+            data: dataArray.map(data => data[key]),
+            borderColor: chartLinesColors(theme, key).borderColor[ind],
+            backgroundColor: chartLinesColors(theme, key).backgroundColor[ind],
+        })
+    })
+    return datasets
+}
+
+export const getChartDatasetsWithMulAxis = (dataArray, theme) => {
+    const datasets = []
+    const dataKeys = Object.keys(dataArray[0]).filter(k => k !== 'type')
+
     dataKeys.forEach((k, ind) => {
         datasets.push({
-            label: legendLabels[k],
+            label: `${variablesNames[k]} [${variablesUnits[k]}]`,
             data: dataArray.map(data => data[k]),
-            borderColor: chartLinesColors(theme)[k].borderColor,
-            backgroundColor: chartLinesColors(theme)[k].backgroundColor,
-            yAxisID: `y${ind}`,
+            borderColor: chartLinesColors(theme, k).borderColor[0],
+            backgroundColor: chartLinesColors(theme, k).backgroundColor[0],
+            yAxisID: `y${ind}`
         })
     })
     return datasets
@@ -57,12 +115,27 @@ export const getChartOptions = type => {
                 position: 'left',
                 ticks: {
                     callback: function(value, index, ticks) {
-                        return value + 'mm';
+                        return value + '%';
                     }
                 }
             }
         },
-        2: {},
+        2: {
+            y0: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                grid: {
+                    drawOnChartArea: false,
+                },
+                ticks: {
+                    callback: function(value, index, ticks) {
+                        return value + '°C';
+                    }
+                }
+    
+            }
+        },
         3: {
             y0: {
                 type: 'linear',
