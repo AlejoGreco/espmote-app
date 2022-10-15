@@ -13,3 +13,19 @@ export const legendLabels = {
     hum: 'Humedad [%]',
     level: 'Nivel [mm]'
 }
+
+export const cardsVariables = {
+    temp: 'Temperatura',
+    hum: 'Humedad',
+    humg: 'Humedad',
+    level: 'Nivel',
+    co2: 'Co2'
+}
+
+export const variablesUnits = {
+    temp: '°C',
+    hum: '%',
+    humg: '%',
+    level: 'mm',
+    co2: 'ppu'
+}

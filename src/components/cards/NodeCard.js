@@ -7,9 +7,11 @@ import { Avatar, Box, Grid, Typography } from '@mui/material'
 // project imports
 import MainCard from './MainCard'
 import NodeMenuCard from './NodeMenuCard'
-import NodeCardContent from './NodeCardContent'
 import SkeletonEarningCard from '../skeletons/EarningCard'
 import { cardTypeCustom } from './cardHelpers'
+
+// utils
+import { renderNodeData } from '../../utils'
 
 // assets
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
@@ -66,22 +68,6 @@ const NodeCard = ({ isLoading, node }) => {
         setAnchorEl(null)
     };
 
-    const renderData = nodeData => {
-        if(nodeData){
-            const nodeDataArray = Object.entries(nodeData)
-            return nodeDataArray.map((item, i) => <NodeCardContent key={i} item={item} /> )
-        }
-        return (
-            <Grid item flexGrow={1}>
-                <Typography sx={{ fontSize: '2rem', fontWeight: 500, mt: 1.75 }}>
-                    No hay datos
-                </Typography>
-            </Grid>
-        )
-        
-    }
-
-
     return (
         <div>
             {isLoading ? (
@@ -131,9 +117,9 @@ const NodeCard = ({ isLoading, node }) => {
                                 </Grid>
                             </Grid>
                             <Grid item>
-                                <Grid container alignItems="center" columnSpacing={2}>
+                                <Grid container direction='column' my={1} >
                                     {
-                                        renderData(node.data) 
+                                        renderNodeData(node.data) 
                                     }
                                 </Grid>
                             </Grid>

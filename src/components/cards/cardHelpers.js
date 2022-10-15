@@ -1,4 +1,4 @@
-import { purple, green, deepOrange, indigo } from '@mui/material/colors';
+import { purple, green, deepOrange, indigo, amber } from '@mui/material/colors';
 import GrassOutlinedIcon from '@mui/icons-material/GrassOutlined'
 import DeviceThermostatOutlinedIcon from '@mui/icons-material/DeviceThermostatOutlined'
 import WaterOutlinedIcon from '@mui/icons-material/WaterOutlined'
@@ -13,16 +13,20 @@ export const cardTypeCustom = nType => {
             customCard.bg = indigo
             return customCard
         case '2':
-            customCard.Icon = ForestOutlinedIcon
-            customCard.bg = purple
+            customCard.Icon = DeviceThermostatOutlinedIcon
+            customCard.bg = deepOrange
             return customCard
         case '3':
             customCard.Icon = GrassOutlinedIcon
-            customCard.bg = green
+            customCard.bg = purple
             return customCard
         case '4':
-            customCard.Icon = DeviceThermostatOutlinedIcon
-            customCard.bg = deepOrange
+            customCard.Icon = GrassOutlinedIcon
+            customCard.bg = amber
+            return customCard
+        case '5':
+            customCard.Icon = ForestOutlinedIcon
+            customCard.bg = green
             return customCard
         default:
             customCard.Icon = ForestOutlinedIcon
