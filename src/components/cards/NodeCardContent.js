@@ -9,10 +9,10 @@ const NodeCardContent = ({item}) => {
         <Grid item flexGrow={1}>
             <Grid container alignItems='baseline' columnGap={2}>
                 <Typography sx={{ fontSize: '1.4rem', fontWeight: 500 }}>
-                    {variablesNames[item[0]]}
+                    {variablesNames[item[0].slice(0, -1)]}
                 </Typography>
                 <Typography sx={{ fontSize: '1.7rem', fontWeight: 500 }}>
-                    {`${item[1]}${variablesUnits[item[0]]}`}
+                    {`${item[1]}${variablesUnits[item[0].slice(0, -1)]}`}
                 </Typography>
             </Grid>
         </Grid>
