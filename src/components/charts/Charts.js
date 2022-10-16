@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import { useTheme } from '@emotion/react'
 import CustomChart from './CustomChart'
-import { getChartLabels, getChartDatasets, getChartDatasetsWithMulAxis, getChartOptions } from '../../utils'
+import { getChartLabels, getChartDatasets, getChartOptions } from '../../utils'
 
 
 const Charts = ({nodeType, allNodeData, nodeLabels}) => {
@@ -14,6 +14,7 @@ const Charts = ({nodeType, allNodeData, nodeLabels}) => {
     switch (nodeType){
         case '1':
         case '2':
+        case '3':
             return (
                 <Grid item xs={12} sm={12} md={11} lg={10} xl={10}>
                     <CustomChart 
@@ -25,21 +26,9 @@ const Charts = ({nodeType, allNodeData, nodeLabels}) => {
                     />
                 </Grid>
             )
-        case '3':
-            return (
-                <Grid item xs={12} sm={12} md={11} lg={10} xl={10}>
-                    <CustomChart 
-                        options={getChartOptions(nodeType, uniqueKeys)}
-                        data={{
-                            labels, 
-                            datasets: getChartDatasetsWithMulAxis(allNodeData, theme)
-                        }} 
-                    />
-                </Grid>
-            )
         case '4':
-            const co2Data = allNodeData.map(data => data.co2)
-            const rest = allNodeData.map(data => ({hum: data.hum, temp: data.temp}))
+            const co2Data = allNodeData.map(data => data.co20)
+            const rest = allNodeData.map(data => ({hum0: data.hum0, temp0: data.temp0}))
             return (
                 <>
                     <Grid item xs={12} sm={12} md={11} lg={10} xl={10}>
@@ -47,7 +36,7 @@ const Charts = ({nodeType, allNodeData, nodeLabels}) => {
                             options={getChartOptions('2', uniqueKeys)}
                             data={{
                                 labels, 
-                                datasets: getChartDatasetsWithMulAxis(rest, theme)
+                                datasets: getChartDatasets(rest, theme)
                             }} 
                         />
                     </Grid>

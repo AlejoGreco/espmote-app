@@ -68,8 +68,9 @@ export const getChartLabels = timeArray => timeArray.map(t => new Date(parseInt(
 export const getChartDatasets = (dataArray, theme) => {
     const datasets = []
     const dataKeys = Object.keys(dataArray[0]).filter(k => k !== 'type')
+    const uniqueKeys = [...new Set(dataKeys.map(k => k.slice(0, -1)))]
 
-    dataKeys.forEach(key => {
+    dataKeys.forEach((key, ind) => {
         const sNum = key[key.length - 1]
         const kaux = key.slice(0, -1)
 
@@ -78,25 +79,7 @@ export const getChartDatasets = (dataArray, theme) => {
             data: dataArray.map(data => data[key]),
             borderColor: chartLinesColors(theme, kaux).borderColor[sNum],
             backgroundColor: chartLinesColors(theme, kaux).backgroundColor[sNum],
-            yAxisID: 'y'
-        })
-    })
-    return datasets
-}
-
-export const getChartDatasetsWithMulAxis = (dataArray, theme) => {
-    const datasets = []
-    const dataKeys = Object.keys(dataArray[0]).filter(k => k !== 'type')
-
-    dataKeys.forEach((key, ind) => {
-        const kaux = key.slice(0, -1)
-
-        datasets.push({
-            label: `${variablesNames[kaux]} [${variablesUnits[kaux]}]`,
-            data: dataArray.map(data => data[key]),
-            borderColor: chartLinesColors(theme, kaux).borderColor[0],
-            backgroundColor: chartLinesColors(theme, kaux).backgroundColor[0],
-            yAxisID: `y${ind}`
+            yAxisID: uniqueKeys[0] === kaux ? 'y0' : 'y1'
         })
     })
     return datasets
@@ -139,7 +122,7 @@ export const getChartOptions = (type, keys) => {
             }
         } 
         : {
-            y: {
+            y0: {
                 type: 'linear',
                 display: true,
                 position: 'left',
