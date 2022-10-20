@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { registerUser, loginWithGoogle } from '../../store/slices/auth/thunks';
-import { Link as RouterLink } from 'react-router-dom';
 import WpTextField from '../WpTextField';
 
 // material-ui
@@ -18,7 +17,6 @@ import {
     Container,
     Typography,
     useMediaQuery,
-    Link,
     Alert,
     AlertTitle
 } from '@mui/material';
@@ -176,12 +174,6 @@ const AuthRegister = ({ ...others }) => {
                             }
                             label="Remember me"
                         />
-                        <Link component={RouterLink} 
-                            color={theme.palette.secondary.main} 
-                            to='/resetpass' variant="body2"
-                        >
-                            Olvido su clave?
-                        </Link>
                     </Stack>
                     {
                         error && 

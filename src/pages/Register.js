@@ -1,9 +1,8 @@
 import React from 'react'
-import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Divider, Grid, Stack, Typography, Link, useMediaQuery } from '@mui/material';
+import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 
 // project imports
 import AuthWrapper1 from '../components/authForms/AuthWrapper1';
@@ -13,7 +12,7 @@ import AuthRegister from '../components/authForms/AuthRegister';
 
 // ================================|| AUTH3 - LOGIN ||================================ //
 
-const Register = () => {
+const Register = ({handleChangeForm}) => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -60,12 +59,13 @@ const Register = () => {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Grid item container direction="column" alignItems="center" xs={12}>
-                                            <Link component={RouterLink} 
+                                            <Typography 
+                                                onClick={() => handleChangeForm('login')}
                                                 color={theme.palette.secondary.main}
-                                                to='/login'  variant="body2"
+                                                variant="body2"
                                             >
                                                 Ya tienes una cuenta? Ingresa aqui!
-                                            </Link>
+                                            </Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>

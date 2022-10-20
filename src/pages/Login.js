@@ -1,10 +1,9 @@
 import React from 'react'
 import AuthLogin from '../components/authForms/AuthLogin'
-import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Divider, Grid, Stack, Typography, Link, useMediaQuery } from '@mui/material';
+import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 
 // project imports
 import AuthWrapper1 from '../components/authForms/AuthWrapper1';
@@ -13,7 +12,7 @@ import AuthCardWrapper from '../components/authForms/AuthCardWrapper';
 
 // ================================|| AUTH3 - LOGIN ||================================ //
 
-const Login = () => {
+const Login = ({handleChangeForm}) => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -53,19 +52,20 @@ const Login = () => {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <AuthLogin />
+                                        <AuthLogin handleChangeForm={handleChangeForm}/>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Divider />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Grid item container direction="column" alignItems="center" xs={12}>
-                                            <Link component={RouterLink} 
+                                            <Typography 
+                                                onClick={() => handleChangeForm('register')}
                                                 color={theme.palette.secondary.main}
-                                                to='/register'  variant="body2"
+                                                variant="body2"
                                             >
                                                 No tienes una cuenta? Registrate!
-                                            </Link>
+                                            </Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>

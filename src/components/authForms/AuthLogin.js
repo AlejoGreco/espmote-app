@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { loginUser, loginWithGoogle } from '../../store/slices/auth/thunks';
-import { Link as RouterLink } from 'react-router-dom';
 import WpTextField from '../WpTextField';
 
 // material-ui
@@ -18,7 +17,6 @@ import {
     Container,
     Typography,
     useMediaQuery,
-    Link,
     Alert,
     AlertTitle
 } from '@mui/material';
@@ -31,7 +29,7 @@ import Google from '../../assets/images/icons/social-google.svg';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
-const AuthLogin = ({ ...others }) => {
+const AuthLogin = ({ handleChangeForm, ...others }) => {
     const theme = useTheme()
     const dispatch = useDispatch()
     const error = useSelector(state => state.userAuth.error)
@@ -150,12 +148,13 @@ const AuthLogin = ({ ...others }) => {
                             }
                             label="Remember me"
                         />
-                        <Link component={RouterLink} 
-                            color={theme.palette.secondary.main} 
-                            to='/resetpass' variant="body2"
+                        <Typography 
+                            onClick={() => handleChangeForm('resetPass')}
+                            color={theme.palette.secondary.main}
+                            variant="body2"
                         >
-                            Olvido su clave?
-                        </Link>
+                             Olvido su clave?
+                        </Typography>
                     </Stack>
                     {
                         error && 

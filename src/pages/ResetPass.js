@@ -4,11 +4,10 @@ import AuthWrapper1 from '../components/authForms/AuthWrapper1';
 import AuthCardWrapper from '../components/authForms/AuthCardWrapper';
 
 import { useTheme } from '@mui/material/styles';
-import { Divider, Grid, Stack, Typography, Link, useMediaQuery } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 
 
-const ResetPass = () => {
+const ResetPass = ({handleChangeForm}) => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -50,12 +49,13 @@ const ResetPass = () => {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Grid item container direction="column" alignItems="center" xs={12}>
-                                            <Link component={RouterLink} 
+                                            <Typography 
+                                                onClick={() => handleChangeForm('login')}
                                                 color={theme.palette.secondary.main}
-                                                to='/login'  variant="body2"
+                                                variant="body2"
                                             >
                                                 Volver a Login
-                                            </Link>
+                                            </Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>
