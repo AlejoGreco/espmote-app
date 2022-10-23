@@ -4,8 +4,10 @@ import Login from './Login'
 import Register from './Register'
 import ResetPass from './ResetPass'
 import { Container } from '@mui/system'
+import GlobalAuthWrapper from '../components/authForms/GlobalAuthWrapper'
 
 const Welcome = () => {
+
     const [form, setForm] = useState('login')
 
     const handleChangeForm = form => {
@@ -60,9 +62,11 @@ const Welcome = () => {
                 xs={12} sm={12} md={4} lg={6} xl={6}
                 justifyContent='center'
             >
-                {
-                    renderForm(form)
-                }
+                <GlobalAuthWrapper>
+                    {
+                        renderForm(form)
+                    }
+                </GlobalAuthWrapper>
             </Grid>
         </Grid>
     )
