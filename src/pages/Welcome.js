@@ -30,7 +30,7 @@ const Welcome = () => {
     return (
         <Grid container>
             <Grid item 
-                xs={12} sm={12} md={8} lg={6} xl={6}
+                xs={12} sm={12} md={6} lg={6} xl={8}
                 justifyContent='center'
                 alignContent='center'
             >
@@ -59,7 +59,7 @@ const Welcome = () => {
                 </Box>
             </Grid>
             <Grid item 
-                xs={12} sm={12} md={4} lg={6} xl={6}
+                xs={12} sm={12} md={6} lg={6} xl={4}
                 justifyContent='center'
             >
                 <GlobalAuthWrapper>

@@ -1,8 +1,10 @@
 import React from 'react'
 import AuthRstPass from '../components/authForms/AuthRstPass'
+import AuthCardWrapper from '../components/authForms/AuthCardWrapper';
 
 import { useTheme } from '@mui/material/styles';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
+import { motion } from 'framer-motion';
 
 
 const ResetPass = ({handleChangeForm}) => {
@@ -10,48 +12,57 @@ const ResetPass = ({handleChangeForm}) => {
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
 
 
-  return (
-    <Grid container spacing={2} alignItems="center" justifyContent="center">
-        <Grid item xs={12}>
-            <Grid
-                container
-                direction={matchDownSM ? 'column-reverse' : 'row'}
-                alignItems="center"
-                justifyContent="center"
-            >
-                <Grid item>
-                    <Stack alignItems="center" justifyContent="center" spacing={1}>
-                        <Typography
-                            color={theme.palette.secondary.main}
-                            gutterBottom
-                            variant={matchDownSM ? 'h3' : 'h2'}
+    return (
+        <motion.div
+            key="pass"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <AuthCardWrapper>
+                <Grid container spacing={2} alignItems="center" justifyContent="center">
+                    <Grid item xs={12}>
+                        <Grid
+                            container
+                            direction={matchDownSM ? 'column-reverse' : 'row'}
+                            alignItems="center"
+                            justifyContent="center"
                         >
-                            Cambio de clave
-                        </Typography>
+                            <Grid item>
+                                <Stack alignItems="center" justifyContent="center" spacing={1}>
+                                    <Typography
+                                        color={theme.palette.secondary.main}
+                                        gutterBottom
+                                        variant={matchDownSM ? 'h3' : 'h2'}
+                                    >
+                                        Cambio de clave
+                                    </Typography>
 
-                    </Stack>
+                                </Stack>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <AuthRstPass/>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Divider />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Grid item container direction="column" alignItems="center" xs={12}>
+                            <Typography 
+                                onClick={() => handleChangeForm('login')}
+                                color={theme.palette.secondary.main}
+                                variant="body2"
+                            >
+                                Volver a Login
+                            </Typography>
+                        </Grid>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Grid>
-        <Grid item xs={12}>
-            <AuthRstPass/>
-        </Grid>
-        <Grid item xs={12}>
-            <Divider />
-        </Grid>
-        <Grid item xs={12}>
-            <Grid item container direction="column" alignItems="center" xs={12}>
-                <Typography 
-                    onClick={() => handleChangeForm('login')}
-                    color={theme.palette.secondary.main}
-                    variant="body2"
-                >
-                    Volver a Login
-                </Typography>
-            </Grid>
-        </Grid>
-    </Grid>
-  )
+            </AuthCardWrapper>
+        </motion.div>
+    )
 }
 
 export default ResetPass

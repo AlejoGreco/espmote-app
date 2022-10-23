@@ -5,7 +5,6 @@ import { Grid } from '@mui/material';
 
 // project imports
 import AuthWrapper1 from './AuthWrapper1';
-import AuthCardWrapper from './AuthCardWrapper';
 import { AnimatePresence } from 'framer-motion';
 
 
@@ -19,11 +18,9 @@ const GlobalAuthWrapper = ({children}) => {
                 <Grid item xs={12}>
                     <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
                         <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
-                            <AuthCardWrapper>
-                                <AnimatePresence>
-                                    {children}
-                                </AnimatePresence>
-                            </AuthCardWrapper>
+                            <AnimatePresence>
+                                {children}  
+                            </AnimatePresence>
                         </Grid>
                     </Grid>
                 </Grid>
