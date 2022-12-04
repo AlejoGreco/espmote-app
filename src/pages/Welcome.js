@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Box, Grid, Typography } from '@mui/material'
-import Login from './Login'
-import Register from './Register'
-import ResetPass from './ResetPass'
+import Login from '../components/authForms/Login'
+import Register from '../components/authForms/Register'
+import ResetPass from '../components/authForms/ResetPass'
 import { Container } from '@mui/system'
 import GlobalAuthWrapper from '../components/authForms/GlobalAuthWrapper'
 

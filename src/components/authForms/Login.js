@@ -1,24 +1,22 @@
 import React from 'react'
+import AuthLogin from './AuthLogin'
+import AuthCardWrapper from './AuthCardWrapper'
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
-
-// project imports
-import AuthRegister from '../components/authForms/AuthRegister';
-import AuthCardWrapper from '../components/authForms/AuthCardWrapper'
 import { motion } from 'framer-motion';
 
 
 // ================================|| AUTH3 - LOGIN ||================================ //
 
-const Register = ({handleChangeForm}) => {
+const Login = ({handleChangeForm}) => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
 
     return (
         <motion.div
-            key="register"
+            key="login"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ ease: "easeOut", duration: 1.5 }}
@@ -40,7 +38,7 @@ const Register = ({handleChangeForm}) => {
                                         gutterBottom
                                         variant={matchDownSM ? 'h3' : 'h2'}
                                     >
-                                        Registro de usuario
+                                        Bienvenido
                                     </Typography>
                                     <Typography
                                         variant="caption"
@@ -54,7 +52,7 @@ const Register = ({handleChangeForm}) => {
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                        <AuthRegister />
+                        <AuthLogin handleChangeForm={handleChangeForm}/>
                     </Grid>
                     <Grid item xs={12}>
                         <Divider />
@@ -62,7 +60,7 @@ const Register = ({handleChangeForm}) => {
                     <Grid item xs={12}>
                         <Grid item container direction="column" alignItems="center" xs={12}>
                             <Typography 
-                                onClick={() => handleChangeForm('login')}
+                                onClick={() => handleChangeForm('register')}
                                 color={theme.palette.secondary.main}
                                 variant="body2"
                                 sx={{
@@ -72,14 +70,14 @@ const Register = ({handleChangeForm}) => {
                                     }
                                 }}
                             >
-                                Ya tienes una cuenta? Ingresa aqui!
+                                No tienes una cuenta? Registrate!
                             </Typography>
                         </Grid>
                     </Grid>
-                </Grid>
-            </AuthCardWrapper>
-        </motion.div>
+                </Grid>  
+            </AuthCardWrapper> 
+        </motion.div>      
     )
 }
 
-export default Register
+export default Login

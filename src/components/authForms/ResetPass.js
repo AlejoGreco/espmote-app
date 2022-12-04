@@ -1,6 +1,6 @@
 import React from 'react'
-import AuthRstPass from '../components/authForms/AuthRstPass'
-import AuthCardWrapper from '../components/authForms/AuthCardWrapper';
+import AuthRstPass from './AuthRstPass'
+import AuthCardWrapper from './AuthCardWrapper';
 
 import { useTheme } from '@mui/material/styles';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
