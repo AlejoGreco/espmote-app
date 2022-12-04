@@ -18,19 +18,14 @@ const ListNodeContainer = () => {
     return (
         <Grid container justifyContent={{sm: 'center', md: 'flex-start'}} spacing={3}>
             {
-                nodesData.length > 0 
-                ?
-                    nodesData.map(node => (
-                        <Grid item key={node.id} xs={12} sm={8} md={6} lg={6} xl={4}>
-                            <NodeCard skeleton={false} node={node}/>
-                        </Grid>
-                    ))
-                :
-                    nodesId.map(node => (
+                nodesId.map(node => {
+                    const findNode = nodesData.find(n => n.id === node.nodeId)
+                    return (
                         <Grid item key={node.nodeId} xs={12} sm={8} md={6} lg={6} xl={4}>
-                            <NodeCard skeleton={true} />
+                            <NodeCard skeleton={findNode === undefined} node={findNode} />
                         </Grid>
-                    ))
+                    )
+                })
             }
         </Grid>
     )
