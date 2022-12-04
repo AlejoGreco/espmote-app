@@ -7,7 +7,7 @@ import { Avatar, Box, Grid, Typography } from '@mui/material'
 // project imports
 import MainCard from './MainCard'
 import NodeMenuCard from './NodeMenuCard'
-import SkeletonEarningCard from '../skeletons/EarningCard'
+import NodeSkeletonCard from '../skeletons/NodeSkeletonCard'
 import { cardTypeCustom } from './cardHelpers'
 
 // utils
@@ -54,11 +54,11 @@ const CardWrapper = styled(MainCard)(({ theme, bg }) => ({
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
-const NodeCard = ({ isLoading, node }) => {
+const NodeCard = ({ skeleton, node }) => {
     const theme = useTheme()
 
     const [anchorEl, setAnchorEl] = useState(null)
-    const custom = useMemo(() => cardTypeCustom(node.type), [node])
+    const custom = useMemo(() => cardTypeCustom(node?.type), [node])
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
@@ -70,8 +70,8 @@ const NodeCard = ({ isLoading, node }) => {
 
     return (
         <div>
-            {isLoading ? (
-                <SkeletonEarningCard />
+            {skeleton ? (
+                <NodeSkeletonCard colors={theme.palette.secondary}/>
             ) : (
                 <CardWrapper border={false} content={false} bg={custom.bg}>
                     <Box p={2.25}>

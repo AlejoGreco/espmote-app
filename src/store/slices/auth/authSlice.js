@@ -6,7 +6,7 @@ export const authSlice = createSlice({
         id : '', 
         email : '', 
         login : false, 
-        loading : true,
+        loading : false,
         error : null,
         feedback : null
     },
