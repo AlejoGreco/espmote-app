@@ -17,6 +17,7 @@ const ResetPass = ({handleChangeForm}) => {
             key="pass"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            transition={{ ease: "easeOut", duration: 1.5 }}
             exit={{ opacity: 0 }}
         >
             <AuthCardWrapper>
@@ -54,6 +55,12 @@ const ResetPass = ({handleChangeForm}) => {
                                 onClick={() => handleChangeForm('login')}
                                 color={theme.palette.secondary.main}
                                 variant="body2"
+                                sx={{
+                                    "&:hover": {
+                                        textDecoration: 'underline',
+                                        cursor: 'pointer'
+                                    }
+                                }}
                             >
                                 Volver a Login
                             </Typography>

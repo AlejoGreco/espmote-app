@@ -152,6 +152,12 @@ const AuthLogin = ({ handleChangeForm, ...others }) => {
                             onClick={() => handleChangeForm('resetPass')}
                             color={theme.palette.secondary.main}
                             variant="body2"
+                            sx={{
+                                "&:hover": {
+                                    textDecoration: 'underline',
+                                    cursor: 'pointer'
+                                }
+                            }}
                         >
                              Olvido su clave?
                         </Typography>

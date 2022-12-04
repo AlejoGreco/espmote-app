@@ -19,10 +19,10 @@ const Register = ({handleChangeForm}) => {
     return (
         <motion.div
             key="register"
-            initial={{ opacity: 0, rotateY: -180  }}
-            animate={{ opacity: 1, rotateY: 0 }}
-            transition={{ ease: "easeOut", duration: 2 }}
-            exit={{ x: 500, opacity: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ ease: "easeOut", duration: 1.5 }}
+            exit={{ opacity: 0 }}
         >
             <AuthCardWrapper>
                 <Grid container spacing={2} alignItems="center" justifyContent="center">
@@ -65,6 +65,12 @@ const Register = ({handleChangeForm}) => {
                                 onClick={() => handleChangeForm('login')}
                                 color={theme.palette.secondary.main}
                                 variant="body2"
+                                sx={{
+                                    "&:hover": {
+                                        textDecoration: 'underline',
+                                        cursor: 'pointer'
+                                    }
+                                }}
                             >
                                 Ya tienes una cuenta? Ingresa aqui!
                             </Typography>
