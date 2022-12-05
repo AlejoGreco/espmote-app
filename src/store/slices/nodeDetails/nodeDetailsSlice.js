@@ -4,7 +4,7 @@ import { getNodeHistory } from "./thunks"
 export const nodeDetailsSlice = createSlice({
     name: 'nodeDetails',
     initialState: {
-        loading : true,
+        loading : false,
         nodeHistoryData: {},
         nodeHistoryTime: {},
         error : null,
