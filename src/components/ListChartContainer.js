@@ -16,9 +16,17 @@ const ListChartContainer = ({ nodeId }) => {
     }
 
     if(nodeHistoryTime[nodeId] === undefined || !type)
-        return <h2>No hay datos disponibles para el nodo {name} - Id: {nodeId}</h2> 
-
-    return <Charts nodeType={type} allNodeData={nodeHistoryData[nodeId]} nodeLabels={nodeHistoryTime[nodeId]} />
+        return (
+            <Grid item xs={12}>
+                <h2>No hay datos disponibles para el nodo {name} - Id: {nodeId}</h2> 
+            </Grid>
+        )
+        
+    return (
+        <Grid item xs={12} sm={12} md={11} lg={10} xl={10}>
+            <Charts nodeType={type} allNodeData={nodeHistoryData[nodeId]} nodeLabels={nodeHistoryTime[nodeId]} />
+        </Grid>
+    )
 }
 
 export default ListChartContainer
