@@ -63,9 +63,20 @@ export const chartLinesColors = (theme, key) => {
     return colors[key]
 }
 
-export const getChartLabels = timeArray => timeArray.map(t => new Date(parseInt(t)).toLocaleString())
+export const getChartTime = timeArray => timeArray.map(t => new Date(parseInt(t)).toLocaleDateString())
 
-export const getChartDatasets = (dataArray, theme) => {
+const getChartDataSeries = (dataArray, timeArray) => {
+    const dataChart = dataArray.map((value, index) => ({x: timeArray[index], y: value }))
+    return {data: dataChart}
+}
+
+export const getChartSeries = (dataArray, timeArray) => {
+    const dataKeys = Object.keys(dataArray[0]).filter(k => k !== 'type')
+    const series = dataKeys.map(key => getChartDataSeries(dataArray.map(obj => obj[key]), timeArray))
+    return { series }
+}
+
+/*export const getChartDatasets = (dataArray, timeArray) => {
     const datasets = []
     const dataKeys = Object.keys(dataArray[0]).filter(k => k !== 'type')
     const uniqueKeys = [...new Set(dataKeys.map(k => k.slice(0, -1)))]
@@ -83,7 +94,7 @@ export const getChartDatasets = (dataArray, theme) => {
         })
     })
     return datasets
-}
+}*/
 
 
 export const getChartOptions = (type, keys) => {
