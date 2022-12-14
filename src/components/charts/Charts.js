@@ -1,5 +1,6 @@
 //import { useTheme } from '@emotion/react'
 import Chart from "react-apexcharts";
+import { Box } from "@mui/material";
 import { getChartSeries, getChartOptions } from '../../utils'
 
 
@@ -21,20 +22,24 @@ const Charts = ({nodeType, allNodeData, nodeLabels}) => {
                 />
             )
         case '4':
-            const co2Data = allNodeData.map(data => data.co20)
+            const co2Data = allNodeData.map(data => ({co20: data.co20}))
             const rest = allNodeData.map(data => ({hum0: data.hum0, temp0: data.temp0}))
             return (
                 <>
-                    <Chart 
-                        type='line'
-                        options={getChartOptions()}
-                        series={getChartSeries(co2Data, nodeLabels)}
-                    />
-                    <Chart 
-                        type='line'
-                        options={getChartOptions()}
-                        series={getChartSeries(rest, nodeLabels)}
-                    />
+                    <Box my={4}>
+                        <Chart 
+                            type='line'
+                            options={getChartOptions()}
+                            series={getChartSeries(co2Data, nodeLabels)}
+                        />
+                    </Box>
+                    <Box>
+                        <Chart 
+                            type='line'
+                            options={getChartOptions()}
+                            series={getChartSeries(rest, nodeLabels)}
+                        />
+                    </Box>
                 </>
             )
         default:
