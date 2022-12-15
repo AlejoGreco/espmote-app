@@ -1,3 +1,5 @@
+import { variablesUnits, variablesNames } from "../constants"
+
 const getChartTime = timeArray => timeArray.map(t => new Date(parseInt(t)).getTime())
 
 const getChartDataSerie = (dataArray, timeArray) => {
@@ -14,32 +16,47 @@ export const getChartSeries = (dataArray, timeArray) => {
     return series
 }
 
-export const getChartOptions = () => {
+export const getChartOptions = type => {
     const options = {
         xaxis: {
             type: 'datetime'
+        },
+        theme: {
+            palette: 'palette8'
+        },
+        stroke: {
+            curve: 'smooth',
+            width: 4
         }
+    }
+
+    if(type === 3){
+        options.yaxis = [
+            {
+                axisTicks: {
+                    show: true
+                },
+                axisBorder: {
+                    show: true,
+                },
+                title: {
+                    text: `${variablesNames.hum} ${variablesUnits.hum}`,
+                }
+            },
+            {
+                opposite: true,
+                axisTicks: {
+                    show: true
+                },
+                axisBorder: {
+                    show: true,
+                },
+                title: {
+                    text: `${variablesNames.temp} ${variablesUnits.temp}`,
+                }
+            }
+        ]
     }
 
     return options
 }
-
-/*export const getChartDatasets = (dataArray, timeArray) => {
-    const datasets = []
-    const dataKeys = Object.keys(dataArray[0]).filter(k => k !== 'type')
-    const uniqueKeys = [...new Set(dataKeys.map(k => k.slice(0, -1)))]
-
-    dataKeys.forEach((key, ind) => {
-        const sNum = key[key.length - 1]
-        const kaux = key.slice(0, -1)
-
-        datasets.push({
-            label: `${variablesNames[kaux]} ${parseInt(sNum) + 1} [${variablesUnits[kaux]}]`,
-            data: dataArray.map(data => data[key]),
-            borderColor: chartLinesColors(theme, kaux).borderColor[sNum],
-            backgroundColor: chartLinesColors(theme, kaux).backgroundColor[sNum],
-            yAxisID: uniqueKeys[0] === kaux ? 'y0' : 'y1'
-        })
-    })
-    return datasets
-}*/

@@ -17,7 +17,7 @@ const Charts = ({nodeType, allNodeData, nodeLabels}) => {
             return (
                 <Chart 
                     type='line'
-                    options={getChartOptions()}
+                    options={getChartOptions(nodeType)}
                     series={getChartSeries(allNodeData, nodeLabels)}
                 />
             )
@@ -29,14 +29,14 @@ const Charts = ({nodeType, allNodeData, nodeLabels}) => {
                     <Box my={4}>
                         <Chart 
                             type='line'
-                            options={getChartOptions()}
+                            options={getChartOptions(1)}
                             series={getChartSeries(co2Data, nodeLabels)}
                         />
                     </Box>
                     <Box>
                         <Chart 
                             type='line'
-                            options={getChartOptions()}
+                            options={getChartOptions(3)}
                             series={getChartSeries(rest, nodeLabels)}
                         />
                     </Box>
