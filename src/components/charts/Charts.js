@@ -1,7 +1,8 @@
 //import { useTheme } from '@emotion/react'
 import Chart from "react-apexcharts";
-import { Box } from "@mui/material";
+import MainCard from "../cards/MainCard";
 import { getChartSeries, getChartOptions } from '../../utils'
+import { Grid } from "@mui/material";
 
 
 const Charts = ({nodeType, allNodeData, nodeLabels}) => {
@@ -15,31 +16,39 @@ const Charts = ({nodeType, allNodeData, nodeLabels}) => {
         case '2':
         case '3':
             return (
-                <Chart 
-                    type='line'
-                    options={getChartOptions(nodeType)}
-                    series={getChartSeries(allNodeData, nodeLabels)}
-                />
+                <Grid item xs={12} sm={10} md={8}>
+                    <MainCard>
+                        <Chart 
+                            type='line'
+                            options={getChartOptions(nodeType)}
+                            series={getChartSeries(allNodeData, nodeLabels)}
+                        />
+                    </MainCard>
+                </Grid> 
             )
         case '4':
             const co2Data = allNodeData.map(data => ({co20: data.co20}))
             const rest = allNodeData.map(data => ({hum0: data.hum0, temp0: data.temp0}))
             return (
                 <>
-                    <Box my={4}>
-                        <Chart 
-                            type='line'
-                            options={getChartOptions(1)}
-                            series={getChartSeries(co2Data, nodeLabels)}
-                        />
-                    </Box>
-                    <Box>
-                        <Chart 
-                            type='line'
-                            options={getChartOptions(3)}
-                            series={getChartSeries(rest, nodeLabels)}
-                        />
-                    </Box>
+                    <Grid item xs={12} sm={10} md={8} xl={6}>
+                        <MainCard>
+                            <Chart 
+                                type='line'
+                                options={getChartOptions(1)}
+                                series={getChartSeries(co2Data, nodeLabels)}
+                            />
+                        </MainCard>
+                    </Grid>
+                    <Grid item xs={12} sm={10} md={8} xl={6}>
+                        <MainCard>
+                            <Chart 
+                                type='line'
+                                options={getChartOptions(3)}
+                                series={getChartSeries(rest, nodeLabels)}
+                            />
+                        </MainCard>
+                    </Grid>
                 </>
             )
         default:

@@ -21,11 +21,9 @@ const ListChartContainer = ({ nodeId }) => {
                 <h2>No hay datos disponibles para el nodo {name} - Id: {nodeId}</h2> 
             </Grid>
         )
-        
+
     return (
-        <Grid item xs={12} sm={12} md={11} lg={10} xl={10}>
-            <Charts nodeType={type} allNodeData={nodeHistoryData[nodeId]} nodeLabels={nodeHistoryTime[nodeId]} />
-        </Grid>
+        <Charts nodeType={type} allNodeData={nodeHistoryData[nodeId]} nodeLabels={nodeHistoryTime[nodeId]} />
     )
 }
 
