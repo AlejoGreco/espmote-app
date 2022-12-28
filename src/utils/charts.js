@@ -16,6 +16,23 @@ export const getChartSeries = (dataArray, timeArray) => {
     return series
 }
 
+const getCharAxisTitles = type => {
+    const numType = parseInt(type)
+
+    switch (numType){
+        case 1:
+            return [`${variablesNames.hum} ${variablesUnits.hum}`]
+        case 2:
+            return [`${variablesNames.temp} ${variablesUnits.temp}`]
+        case 3:
+            return [`${variablesNames.hum} ${variablesUnits.hum}`, `${variablesNames.temp} ${variablesUnits.temp}`]
+        case 4:
+            return [`${variablesNames.co2} ${variablesUnits.co2}`]
+        default:
+            return ['']
+    }
+}
+
 export const getChartOptions = type => {
     const options = {
         xaxis: {
@@ -30,33 +47,25 @@ export const getChartOptions = type => {
         }
     }
 
-    if(type === 3){
-        options.yaxis = [
-            {
-                axisTicks: {
-                    show: true
-                },
-                axisBorder: {
-                    show: true,
-                },
-                title: {
-                    text: `${variablesNames.hum} ${variablesUnits.hum}`,
-                }
+    const axis = getCharAxisTitles(type)
+
+    options.yaxis = axis.map((axi, index) => {
+        const aux = {
+            axisTicks: {
+                show: true
             },
-            {
-                opposite: true,
-                axisTicks: {
-                    show: true
-                },
-                axisBorder: {
-                    show: true,
-                },
-                title: {
-                    text: `${variablesNames.temp} ${variablesUnits.temp}`,
-                }
+            axisBorder: {
+                show: true
+            },
+            title: {
+                text: axi
             }
-        ]
-    }
+        }
+        if(index > 0){
+            aux.opposite = true
+        }
+        return aux
+    })
 
     return options
 }

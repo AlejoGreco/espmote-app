@@ -5,7 +5,7 @@ import { getChartSeries, getChartOptions } from '../../utils'
 import { Grid } from "@mui/material";
 
 
-const Charts = ({nodeType, allNodeData, nodeLabels}) => {
+const Charts = ({nodeType, allNodeData, nodeTimes}) => {
     // Tipos de node 1: humedad - 2: temperatura - 3: mixto(temp + hum) - 4: silo(temp + hum + co2) - 5: indor()
     //const theme = useTheme()
     //const keys = Object.keys(allNodeData[0]).filter(k => k !== 'type')
@@ -21,7 +21,7 @@ const Charts = ({nodeType, allNodeData, nodeLabels}) => {
                         <Chart 
                             type='line'
                             options={getChartOptions(nodeType)}
-                            series={getChartSeries(allNodeData, nodeLabels)}
+                            series={getChartSeries(allNodeData, nodeTimes)}
                         />
                     </MainCard>
                 </Grid> 
@@ -35,8 +35,8 @@ const Charts = ({nodeType, allNodeData, nodeLabels}) => {
                         <MainCard>
                             <Chart 
                                 type='line'
-                                options={getChartOptions(1)}
-                                series={getChartSeries(co2Data, nodeLabels)}
+                                options={getChartOptions(4)}
+                                series={getChartSeries(co2Data, nodeTimes)}
                             />
                         </MainCard>
                     </Grid>
@@ -45,7 +45,7 @@ const Charts = ({nodeType, allNodeData, nodeLabels}) => {
                             <Chart 
                                 type='line'
                                 options={getChartOptions(3)}
-                                series={getChartSeries(rest, nodeLabels)}
+                                series={getChartSeries(rest, nodeTimes)}
                             />
                         </MainCard>
                     </Grid>

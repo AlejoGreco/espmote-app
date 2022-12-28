@@ -5,7 +5,7 @@ import Charts from './charts/Charts'
 
 const ListChartContainer = ({ nodeId }) => {
     const { nodeHistoryTime, nodeHistoryData, loading } = useSelector(state => state.nodeDetails)
-    const { type, name } = useSelector(state => state.nodes.nodesData).filter(n => n.id === nodeId)[0]
+    const { type, name } = useSelector(state => state.nodes.nodesData).find(n => n.id === nodeId)
     
     if(loading){
         return (
@@ -23,7 +23,7 @@ const ListChartContainer = ({ nodeId }) => {
         )
 
     return (
-        <Charts nodeType={type} allNodeData={nodeHistoryData[nodeId]} nodeLabels={nodeHistoryTime[nodeId]} />
+        <Charts nodeType={type} allNodeData={nodeHistoryData[nodeId]} nodeTimes={nodeHistoryTime[nodeId]} />
     )
 }
 
