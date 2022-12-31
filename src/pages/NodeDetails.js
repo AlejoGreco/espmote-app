@@ -1,11 +1,11 @@
 import React from 'react'
 import { Grid } from '@mui/material'
 import PageFrame from '../components/PageFrame'
-import { useDetails } from '../hooks/useDetails'
+import { useParams } from 'react-router-dom'
 import ListChartContainer from '../components/ListChartContainer'
 
 const NodeDetails = () => {
-    const { id } = useDetails()
+    const { id } = useParams()
 
     return (
         <PageFrame>
