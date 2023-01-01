@@ -16,7 +16,7 @@ const Charts = ({nodeType, allNodeData, nodeTimes}) => {
         case '2':
         case '3':
             return (
-                <Grid item xs={12} sm={10} md={8}>
+                <Grid item xs={12} sm={12} md={10} lg={8}>
                     <MainCard>
                         <Chart 
                             type='line'
@@ -31,7 +31,7 @@ const Charts = ({nodeType, allNodeData, nodeTimes}) => {
             const rest = allNodeData.map(data => ({hum0: data.hum0, temp0: data.temp0}))
             return (
                 <>
-                    <Grid item xs={12} sm={10} md={8} xl={6}>
+                    <Grid item xs={12} sm={12} md={10} lg={8}>
                         <MainCard>
                             <Chart 
                                 type='line'
@@ -40,7 +40,7 @@ const Charts = ({nodeType, allNodeData, nodeTimes}) => {
                             />
                         </MainCard>
                     </Grid>
-                    <Grid item xs={12} sm={10} md={8} xl={6}>
+                    <Grid item xs={12} sm={12} md={10} lg={8}>
                         <MainCard>
                             <Chart 
                                 type='line'

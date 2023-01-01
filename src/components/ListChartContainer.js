@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { Grid, LinearProgress } from '@mui/material'
 import Charts from './charts/Charts'
 import { useDetails } from '../hooks/useDetails'
+import { Controls } from './charts/Controls'
 
 const ListChartContainer = ({ nodeId }) => {
     //const { nodeHistoryTime, nodeHistoryData, loading } = useSelector(state => state.nodeDetails)
@@ -25,7 +26,10 @@ const ListChartContainer = ({ nodeId }) => {
         )
 
     return (
-        <Charts nodeType={type} allNodeData={nodeHistory.data} nodeTimes={nodeHistory.time} />
+        <>
+            <Controls node={{name, id: nodeId}}/>
+            <Charts nodeType={type} allNodeData={nodeHistory.data} nodeTimes={nodeHistory.time} />
+        </>
     )
 }
 
