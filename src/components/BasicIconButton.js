@@ -6,11 +6,11 @@ import {
 } from '@mui/material'
 
 
-const BasicIconButton = ({Icon}) => {
+const BasicIconButton = ({Icon, handlerClick}) => {
     const theme = useTheme()
 
   return (
-    <ButtonBase sx={{ borderRadius: '12px' }}>
+    <ButtonBase sx={{ borderRadius: '12px' }} onClick={handlerClick}>
         <Avatar
             variant="rounded"
             sx={{
