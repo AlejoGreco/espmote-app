@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Grid, Typography, TextField, MenuItem } from '@mui/material'
 import MainCard from '../cards/MainCard'
 import BasicIconButton from '../BasicIconButton'
@@ -24,9 +24,14 @@ const status = [
 
 export const Controls = ({node}) => {
     const navigate = useNavigate()
+    const [filter, setFilter] = useState(status[0].value)
 
-    const handlerReturnButton = () => {
-        navigate('/home')
+    const handlerClick = callback => {
+        callback()
+        return resetFilter => {
+            if(resetFilter)
+                setFilter(status[0].value)
+        }
     }
 
     return (
@@ -49,11 +54,11 @@ export const Controls = ({node}) => {
                                 <TextField
                                     select
                                     color='secondary'
-                                    value={'today'}
-                                    onChange={e => {}}
+                                    value={filter}
+                                    onChange={e => setFilter(e.target.value)}
                                     sx={{
                                         '& .MuiSelect-select': {
-                                            py: '.5rem !important'
+                                            py: '.5rem !important',
                                         }
                                     }}
                                 >
@@ -65,13 +70,13 @@ export const Controls = ({node}) => {
                                 </TextField>
                             </Grid>
                             <Grid item>
-                                <BasicIconButton Icon={SearchIcon} handlerClick={() => {}}/>
+                                <BasicIconButton Icon={SearchIcon} handlerClick={() => handlerClick(() => {})(false)}/>
                             </Grid>
                             <Grid item>
-                                <BasicIconButton Icon={CachedIcon} handlerClick={() => {}}/>
+                                <BasicIconButton Icon={CachedIcon} handlerClick={() => handlerClick(() => {})(true)}/>
                             </Grid>
                             <Grid item>
-                                <BasicIconButton Icon={ArrowBackIcon} handlerClick={handlerReturnButton} />
+                                <BasicIconButton Icon={ArrowBackIcon} handlerClick={() => handlerClick(() => navigate('/home'))(false)} />
                             </Grid>
                         </Grid>                    
                     </Grid>
