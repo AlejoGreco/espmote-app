@@ -6,36 +6,16 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SearchIcon from '@mui/icons-material/Search'
 import CachedIcon from '@mui/icons-material/Cached';
 import { useNavigate } from 'react-router-dom';
+import { filterControlValues } from '../../constants';
 
-const status = [
-    {
-        value: 'current',
-        label: 'Current'
-    },
-    {
-        value: 'week',
-        label: 'This Week'
-    },
-    {
-        value: 'month',
-        label: 'This Month'
-    },
-    {
-        value: 'trimester',
-        label: 'Trimester'
-    }
-]
 
-export const Controls = ({node, handleCurrent}) => {
+
+export const Controls = ({node, handleCurrent, filterInitial = filterControlValues[0].value}) => {
     const navigate = useNavigate()
-    const [filter, setFilter] = useState(status[0].value)
+    const [filter, setFilter] = useState(filterInitial)
 
     const handlerClick = (callback, param) => {
         callback(param)
-        return resetFilter => {
-            if(resetFilter)
-                setFilter(status[0].value)
-        }
     }
 
     return (
@@ -66,7 +46,7 @@ export const Controls = ({node, handleCurrent}) => {
                                         }
                                     }}
                                 >
-                                    {status.map((option) => (
+                                    {filterControlValues.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
                                             {option.label}
                                         </MenuItem>
@@ -74,13 +54,13 @@ export const Controls = ({node, handleCurrent}) => {
                                 </TextField>
                             </Grid>
                             <Grid item>
-                                <BasicIconButton Icon={SearchIcon} handlerClick={() => handlerClick(handleCurrent, filter)(false)}/>
+                                <BasicIconButton Icon={SearchIcon} handlerClick={() => handlerClick(handleCurrent, filter)}/>
                             </Grid>
                             <Grid item>
-                                <BasicIconButton Icon={CachedIcon} handlerClick={() => handlerClick(handleCurrent, 'current')(true)}/>
+                                <BasicIconButton Icon={CachedIcon} handlerClick={() => handlerClick(handleCurrent, 'current')}/>
                             </Grid>
                             <Grid item>
-                                <BasicIconButton Icon={ArrowBackIcon} handlerClick={() => handlerClick(() => navigate('/home'))(false)} />
+                                <BasicIconButton Icon={ArrowBackIcon} handlerClick={() => handlerClick(() => navigate('/home'))} />
                             </Grid>
                         </Grid>                    
                     </Grid>

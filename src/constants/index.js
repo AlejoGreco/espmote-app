@@ -1,6 +1,5 @@
 import CloudUploadRoundedIcon from '@mui/icons-material/CloudUploadRounded'
 
-
 export const DRAWER_WIDTH = 260
 
 // Constants objects
@@ -23,3 +22,22 @@ export const variablesUnits = {
     level: 'mm',
     co2: 'ppu'
 }
+
+export const filterControlValues = [
+    {
+        value: 'current',
+        label: 'Current'
+    },
+    {
+        value: 'week',
+        label: 'This Week'
+    },
+    {
+        value: 'month',
+        label: 'This Month'
+    },
+    {
+        value: 'trimester',
+        label: 'Trimester'
+    }
+]
