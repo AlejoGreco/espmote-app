@@ -4,8 +4,10 @@ import { database } from "../../../firebase"
 
 export const getNodeHistory = createAsyncThunk(
     'nodeDetails/getNodeHistory',
-    async nodeId => {
+    async params => {
+        const { nodeId, period } = params
         const snapshot = await get(child(ref(database), `nodos_hist/${nodeId}`))
-        return {nodeId, hist: snapshot.val(), exists: snapshot.exists()}
+        console.log({data: snapshot.val(), time: snapshot.key}, params)
+        return {nodeId, period, history: {data: Object.values(snapshot.val()), time: Object.keys(snapshot.val())}}
     }
 )

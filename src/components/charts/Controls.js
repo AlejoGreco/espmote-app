@@ -9,16 +9,20 @@ import { useNavigate } from 'react-router-dom';
 
 const status = [
     {
-        value: 'today',
-        label: 'Today'
+        value: 'current',
+        label: 'Current'
+    },
+    {
+        value: 'week',
+        label: 'This Week'
     },
     {
         value: 'month',
         label: 'This Month'
     },
     {
-        value: 'year',
-        label: 'This Year'
+        value: 'trimester',
+        label: 'Trimester'
     }
 ]
 

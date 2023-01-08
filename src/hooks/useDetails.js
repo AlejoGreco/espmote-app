@@ -4,7 +4,7 @@ import { database } from '../firebase'
 
 export const useDetails = (id, current) => {
     const [status, setStatus] = useState({loading: true, error: null})
-    const [nodeHistory, setNodeHistory] = useState({ data: [], time: [] })
+    const [nodeCurrentHistory, setNodeCurrentHistory] = useState({ data: [], time: [] })
 
     const histNodeRef = useMemo(() => ref(database, `nodos_hist/${id}`), [id]) 
 
@@ -14,7 +14,7 @@ export const useDetails = (id, current) => {
                 //console.log(data.val())
                 //console.log(data.key)
                 setStatus(prev => ({...prev, loading: false}))
-                setNodeHistory(prev => ({ data: [...prev.data, data.val()], time: [...prev.time, data.key] }))
+                setNodeCurrentHistory(prev => ({ data: [...prev.data, data.val()], time: [...prev.time, data.key] }))
             }, e => {
                 setStatus({
                     error: {
@@ -34,7 +34,7 @@ export const useDetails = (id, current) => {
             off(histNodeRef)
             console.log('Liberando listener')
         })
-    }, [setNodeHistory, histNodeRef, setStatus, current])
+    }, [setNodeCurrentHistory, histNodeRef, setStatus, current])
 
-    return { nodeHistory, loading: status.loading, error: status.error }
+    return { nodeCurrentHistory, loadingCurrent: status.loading, error: status.error }
 }

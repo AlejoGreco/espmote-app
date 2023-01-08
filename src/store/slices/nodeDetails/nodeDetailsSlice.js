@@ -4,9 +4,8 @@ import { getNodeHistory } from "./thunks"
 export const nodeDetailsSlice = createSlice({
     name: 'nodeDetails',
     initialState: {
-        loading : false,
-        nodeHistoryData: {},
-        nodeHistoryTime: {},
+        loading : true,
+        nodeHistory: {},
         error : null,
     },
     reducers: {},
@@ -17,10 +16,15 @@ export const nodeDetailsSlice = createSlice({
         })
 
         builder.addCase(getNodeHistory.fulfilled, (state, action) => {
-            if(action.payload.exists){
-                state.nodeHistoryData = {...state.nodeHistoryData, [action.payload.nodeId]: Object.values(action.payload.hist)}
-                state.nodeHistoryTime = {...state.nodeHistoryTime, [action.payload.nodeId]: Object.keys(action.payload.hist)}
+            console.log(action)
+            state.nodeHistory = {
+                ...state.nodeHistory, 
+                [action.payload.nodeId]: {
+                    ...state.nodeHistory[action.payload.nodeId],
+                    [action.payload.period]: action.payload.history
+                }
             }
+            
             state.error = null
             state.loading = false
         })
