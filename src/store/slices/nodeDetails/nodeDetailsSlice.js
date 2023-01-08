@@ -8,7 +8,16 @@ export const nodeDetailsSlice = createSlice({
         nodeHistory: {},
         error : null,
     },
-    reducers: {},
+    reducers: {
+        setHistoryLoading: state => {
+            state.loading = true
+            state.error = null
+        },
+        setHistoryLoaded: (state, action) => {
+            state.loading = false
+            state.error = action.payload
+        }
+    },
     extraReducers: builder => {
         builder.addCase(getNodeHistory.pending, state => {
             state.loading = true
@@ -36,3 +45,5 @@ export const nodeDetailsSlice = createSlice({
         })
     }
 })
+
+export const { setHistoryLoading, setHistoryLoaded } = nodeDetailsSlice.actions

@@ -1,10 +1,8 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getNodeHistory } from '../store/slices/nodeDetails'
+import { getNodeHistory, setHistoryLoaded } from '../store/slices/nodeDetails'
 
 export const useHistory = (id, period) => {
-
-    //const histNodeRef = useMemo(() => ref(database, `nodos_hist/${id}`), [id])
     const dispatch = useDispatch()
     const { loading, nodeHistory } = useSelector(state => state.nodeDetails)
     const realNodeHistory = nodeHistory[id] ? nodeHistory[id] : false
@@ -16,7 +14,11 @@ export const useHistory = (id, period) => {
             console.log(`Realizando peticion de historico node: ${id} | period: ${period}`)
             dispatch(getNodeHistory({nodeId: id, period}))
         }
-    }, [dispatch, period])
+        else if(realPeriodHistory && period !== 'current'){
+            dispatch(setHistoryLoaded(null))
+            console.log('entre')
+        }
+    }, [dispatch, period, id, realPeriodHistory])
 
     return { loadingHistory: loading, nodeHistory: realPeriodHistory }
 }

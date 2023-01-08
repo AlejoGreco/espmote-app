@@ -1,18 +1,29 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useCallback, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Grid, LinearProgress } from '@mui/material'
 import Charts from './charts/Charts'
+import { setHistoryLoading } from '../store/slices/nodeDetails'
 import { useDetails } from '../hooks/useDetails'
 import { useHistory } from '../hooks/useHistory'
 import { Controls } from './charts/Controls'
 
 const ListChartContainer = ({ nodeId }) => {
-    //const { nodeHistoryTime, nodeHistoryData, loading } = useSelector(state => state.nodeDetails)
+    const dispatch = useDispatch()
     const [current, setCurrent] = useState('current')
     const { type, name } = useSelector(state => state.nodes.nodesData).find(n => n.id === nodeId)
 
-    const { loadingCurrent, nodeCurrentHistory } = useDetails(nodeId, current === 'current')
+    const { loadingCurrent, nodeCurrentHistory, setLoadingDetails } = useDetails(nodeId, current === 'current')
     const { loadingHistory, nodeHistory } = useHistory(nodeId, current)
+
+    const handleCurrent = useCallback(value => {
+        if(value !== current){
+            if(value === 'current')
+                setLoadingDetails({loading: true, error: null})
+            else
+                dispatch(setHistoryLoading())
+            setCurrent(value)
+        }
+    }, [dispatch, setCurrent, setLoadingDetails, current])
 
     console.log(`PETICION A : ${current}`)
     if((loadingCurrent && current === 'current') || (loadingHistory && current !== 'current')){
@@ -39,12 +50,12 @@ const ListChartContainer = ({ nodeId }) => {
 
     return (
         <>
-            <Controls node={{name, id: nodeId}} handleCurrent={value => setCurrent(value)}/>
+            <Controls node={{name, id: nodeId}} handleCurrent={handleCurrent}/>
             {
                 current === 'current' ?
                     <Charts nodeType={type} allNodeData={nodeCurrentHistory.data} nodeTimes={nodeCurrentHistory.time} />
                 :
-                    <Charts nodeType={type} allNodeData={nodeHistory.data} nodeTimes={nodeHistory?.time} />
+                    <Charts nodeType={type} allNodeData={nodeHistory.data} nodeTimes={nodeHistory.time} />
             }
         </>
     )
