@@ -22,12 +22,12 @@ const status = [
     }
 ]
 
-export const Controls = ({node}) => {
+export const Controls = ({node, handleCurrent}) => {
     const navigate = useNavigate()
     const [filter, setFilter] = useState(status[0].value)
 
-    const handlerClick = callback => {
-        callback()
+    const handlerClick = (callback, param) => {
+        callback(param)
         return resetFilter => {
             if(resetFilter)
                 setFilter(status[0].value)
@@ -70,10 +70,10 @@ export const Controls = ({node}) => {
                                 </TextField>
                             </Grid>
                             <Grid item>
-                                <BasicIconButton Icon={SearchIcon} handlerClick={() => handlerClick(() => {})(false)}/>
+                                <BasicIconButton Icon={SearchIcon} handlerClick={() => handlerClick(handleCurrent, filter)(false)}/>
                             </Grid>
                             <Grid item>
-                                <BasicIconButton Icon={CachedIcon} handlerClick={() => handlerClick(() => {})(true)}/>
+                                <BasicIconButton Icon={CachedIcon} handlerClick={() => handlerClick(handleCurrent, 'current')(true)}/>
                             </Grid>
                             <Grid item>
                                 <BasicIconButton Icon={ArrowBackIcon} handlerClick={() => handlerClick(() => navigate('/home'))(false)} />

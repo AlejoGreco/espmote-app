@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Grid, LinearProgress } from '@mui/material'
 import Charts from './charts/Charts'
@@ -7,9 +7,12 @@ import { Controls } from './charts/Controls'
 
 const ListChartContainer = ({ nodeId }) => {
     //const { nodeHistoryTime, nodeHistoryData, loading } = useSelector(state => state.nodeDetails)
-    const {loading, nodeHistory} = useDetails(nodeId)
+    const [current, setCurrent] = useState('current')
     const { type, name } = useSelector(state => state.nodes.nodesData).find(n => n.id === nodeId)
-    
+
+    const { loading, nodeHistory } = useDetails(nodeId, current === 'current')
+
+    console.log(`PETICION A : ${current}`)
     if(loading){
         return (
             <Grid item xs={12}>
@@ -27,8 +30,13 @@ const ListChartContainer = ({ nodeId }) => {
 
     return (
         <>
-            <Controls node={{name, id: nodeId}}/>
-            <Charts nodeType={type} allNodeData={nodeHistory.data} nodeTimes={nodeHistory.time} />
+            <Controls node={{name, id: nodeId}} handleCurrent={value => setCurrent(value)}/>
+            {
+                current === 'current' ?
+                    <Charts nodeType={type} allNodeData={nodeHistory.data} nodeTimes={nodeHistory.time} />
+                :
+                    <Charts nodeType={type} allNodeData={nodeHistory.data} nodeTimes={nodeHistory.time} />
+            }
         </>
     )
 }
