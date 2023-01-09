@@ -1,4 +1,4 @@
-import { off, ref, onChildAdded } from 'firebase/database'
+import { off, ref, query, onChildAdded, limitToLast } from 'firebase/database'
 import { useEffect, useState, useMemo} from 'react'
 import { database } from '../firebase'
 import { useDispatch } from 'react-redux'
@@ -9,7 +9,7 @@ export const useDetails = (id, current) => {
     const [loadingDetails, setLoadingDetails] = useState(true)
     const [nodeCurrentHistory, setNodeCurrentHistory] = useState({ data: [], time: [] })
 
-    const histNodeRef = useMemo(() => ref(database, `nodos_hist/${id}`), [id]) 
+    const histNodeRef = useMemo(() => query(ref(database, `nodos_hist/${id}`), limitToLast(100)), [id]) 
 
     useEffect(() => {
         if(current){
