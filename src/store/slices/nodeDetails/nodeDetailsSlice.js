@@ -15,7 +15,10 @@ export const nodeDetailsSlice = createSlice({
         },
         setHistoryLoaded: (state, action) => {
             state.loading = false
+        },
+        setHistoryError: (state, action) => {
             state.error = action.payload
+            state.loading = false
         }
     },
     extraReducers: builder => {
@@ -46,4 +49,4 @@ export const nodeDetailsSlice = createSlice({
     }
 })
 
-export const { setHistoryLoading, setHistoryLoaded } = nodeDetailsSlice.actions
+export const { setHistoryLoading, setHistoryLoaded, setHistoryError } = nodeDetailsSlice.actions

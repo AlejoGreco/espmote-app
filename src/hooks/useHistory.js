@@ -10,13 +10,11 @@ export const useHistory = (id, period) => {
 
     useEffect(() => {
         if(!realPeriodHistory && period !== 'current'){
-            //realizo peticion
             console.log(`Realizando peticion de historico node: ${id} | period: ${period}`)
             dispatch(getNodeHistory({nodeId: id, period}))
         }
         else if(realPeriodHistory && period !== 'current'){
-            dispatch(setHistoryLoaded(null))
-            console.log('entre')
+            dispatch(setHistoryLoaded())
         }
     }, [dispatch, period, id, realPeriodHistory])
 

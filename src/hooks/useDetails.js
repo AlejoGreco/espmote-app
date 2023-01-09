@@ -1,8 +1,11 @@
 import { off, ref, onChildAdded } from 'firebase/database'
 import { useEffect, useState, useMemo} from 'react'
 import { database } from '../firebase'
+import { useDispatch } from 'react-redux'
+import { setHistoryError } from '../store/slices/nodeDetails'
 
 export const useDetails = (id, current) => {
+    const dispatch = useDispatch()
     const [loadingDetails, setLoadingDetails] = useState(true)
     const [nodeCurrentHistory, setNodeCurrentHistory] = useState({ data: [], time: [] })
 
@@ -10,17 +13,12 @@ export const useDetails = (id, current) => {
 
     useEffect(() => {
         if(current){
+            //dispatch(setHistoryError({code: 501, message: 'Test error', target: 'snack'}))
             onChildAdded(histNodeRef, data => {
                 setLoadingDetails(false)
                 setNodeCurrentHistory(prev => ({ data: [...prev.data, data.val()], time: [...prev.time, data.key] }))
             }, e => {
-                /*({
-                    error: {
-                        code: e.message,
-                        target: 'snack'
-                    }, 
-                    loading: false
-                })*/
+                dispatch(setHistoryError({code : e.code, message : e.message, target: 'snack'}))
             })
             console.log('listener on!')
         }
@@ -32,7 +30,7 @@ export const useDetails = (id, current) => {
             off(histNodeRef)
             console.log('Liberando listener')
         })
-    }, [setNodeCurrentHistory, histNodeRef, current])
+    }, [setNodeCurrentHistory, dispatch, histNodeRef, current])
 
     return { nodeCurrentHistory, loadingCurrent: loadingDetails, setLoadingDetails }
 }
