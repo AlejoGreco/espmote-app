@@ -10,7 +10,6 @@ export const useHistory = (id, period) => {
 
     useEffect(() => {
         if(!realPeriodHistory && period !== 'current'){
-            console.log(`Realizando peticion de historico node: ${id} | period: ${period}`)
             dispatch(getNodeHistory({nodeId: id, period}))
         }
         else if(realPeriodHistory && period !== 'current'){

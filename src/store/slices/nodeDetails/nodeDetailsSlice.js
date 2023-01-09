@@ -28,7 +28,6 @@ export const nodeDetailsSlice = createSlice({
         })
 
         builder.addCase(getNodeHistory.fulfilled, (state, action) => {
-            console.log(action)
             state.nodeHistory = {
                 ...state.nodeHistory, 
                 [action.payload.nodeId]: {

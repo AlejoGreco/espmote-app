@@ -1,12 +1,14 @@
 import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Grid, LinearProgress } from '@mui/material'
+import moment from 'moment'
 import Charts from './charts/Charts'
 import { setHistoryLoading } from '../store/slices/nodeDetails'
 import { useDetails } from '../hooks/useDetails'
 import { useHistory } from '../hooks/useHistory'
 import { Controls } from './charts/Controls'
 import { filterControlValues } from '../constants'
+import { getTimeForQuery } from '../utils'
 
 const ListChartContainer = ({ nodeId }) => {
     const dispatch = useDispatch()
@@ -26,7 +28,6 @@ const ListChartContainer = ({ nodeId }) => {
         }
     }, [dispatch, setCurrent, setLoadingDetails, current])
 
-    console.log(`PETICION A : ${current}`)
     if((loadingCurrent && current === filterControlValues[0].value) || (loadingHistory && current !== filterControlValues[0].value)){
         return (
             <Grid item xs={12}>
@@ -38,14 +39,15 @@ const ListChartContainer = ({ nodeId }) => {
     if(current === filterControlValues[0].value && (nodeCurrentHistory.data.length <= 1 || !type))
         return (
             <Grid item xs={12}>
-                <h2>No hay datos disponibles para el nodo {name} - Id: {nodeId}</h2> 
+                <h2>No hay datos disponibles - Nodo: {name} | Id: {nodeId}</h2> 
             </Grid>
         )
 
     if(current !== filterControlValues[0].value && (nodeHistory.data.length <= 1 || !type))
         return (
             <Grid item xs={12}>
-                <h2>No hay datos historicos disponibles para el nodo {name} - Id: {nodeId} - Periodo {current}</h2> 
+                <h2>No hay datos historicos disponibles. Nodo: {name} | Id: {nodeId}</h2> 
+                <h3>Periodo: {current} | Timestamp: {getTimeForQuery(current)} - {moment().valueOf()}</h3>
             </Grid>
         )
 
