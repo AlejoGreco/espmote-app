@@ -38,17 +38,23 @@ const ListChartContainer = ({ nodeId }) => {
 
     if(current === filterControlValues[0].value && (nodeCurrentHistory.data.length <= 1 || !type))
         return (
-            <Grid item xs={12}>
-                <h2>No hay datos disponibles - Nodo: {name} | Id: {nodeId}</h2> 
-            </Grid>
+            <>
+                <Controls node={{name, id: nodeId}} handleCurrent={handleCurrent} filterInitial={current}/>
+                <Grid item xs={12} sm={12} md={10} lg={8}>
+                    <h2>No hay datos disponibles - Nodo: {name} | Id: {nodeId}</h2> 
+                </Grid>
+            </>
         )
 
     if(current !== filterControlValues[0].value && (nodeHistory.data.length <= 1 || !type))
         return (
-            <Grid item xs={12}>
-                <h2>No hay datos historicos disponibles. Nodo: {name} | Id: {nodeId}</h2> 
-                <h3>Periodo: {current} | Timestamp: {getTimeForQuery(current)} - {moment().valueOf()}</h3>
-            </Grid>
+            <>
+                <Controls node={{name, id: nodeId}} handleCurrent={handleCurrent} filterInitial={current}/>
+                <Grid item xs={12} sm={12} md={10} lg={8}>
+                    <h2>No hay datos historicos disponibles. Nodo: {name} | Id: {nodeId}</h2> 
+                    <h3>Periodo: {current} | From: {moment(parseInt(getTimeForQuery(current))).format('L')} - To: {moment().format('L')}</h3>
+                </Grid>
+            </>
         )
 
     return (
