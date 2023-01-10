@@ -10,10 +10,11 @@ import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCPCaRxHjQ9AYaSX2XL2XHBfkCEH_LncIw",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "espmote.firebaseapp.com",
-  databaseURL: "https://espmote-default-rtdb.firebaseio.com",
+  databaseURL: process.env.REACT_APP_FIREBASE_DB_URL,
   projectId: "espmote",
   storageBucket: "espmote.appspot.com",
   messagingSenderId: "309598747416",
